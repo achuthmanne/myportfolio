@@ -41,14 +41,18 @@ const codeLines = [
   `};`
 ];
 
-export default function StorySection() {
+interface StorySectionProps {
+  isCompiled: boolean;
+  onCompile: () => void;
+}
+
+export default function StorySection({ isCompiled, onCompile }: StorySectionProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   
   const [startTyping, setStartTyping] = useState(false);
   const [displayedLines, setDisplayedLines] = useState<number>(0);
   const [isTypingDone, setIsTypingDone] = useState(false);
-  const [isCompiled, setIsCompiled] = useState(false);
 
   // 1. GSAP ScrollTrigger to precisely detect when this section enters the view
   useEffect(() => {
@@ -166,7 +170,7 @@ export default function StorySection() {
               className={`pointer-events-auto ${!isTypingDone ? 'hidden' : 'block'}`}
             >
               <button 
-                onClick={() => setIsCompiled(true)}
+                onClick={onCompile}
                 className="relative group px-10 py-4 rounded-full bg-bg-secondary border border-border hover:border-accent-highlight text-text-primary uppercase tracking-[0.3em] font-medium text-sm overflow-hidden transition-all duration-500"
               >
                 <span className="relative z-10 flex items-center gap-3">

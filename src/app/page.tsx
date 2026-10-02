@@ -5,35 +5,19 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { Stars } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
 import { Code2 } from "lucide-react";
 import StorySection from "@/components/StorySection";
+import MorphingParticles from "@/components/MorphingParticles";
 
 gsap.registerPlugin(ScrollTrigger);
-
-function ParticleBackground() {
-  const groupRef = useRef<THREE.Group>(null);
-  
-  useFrame((state, delta) => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y += delta * 0.05;
-      groupRef.current.rotation.x += delta * 0.02;
-    }
-  });
-
-  return (
-    <group ref={groupRef}>
-      <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
-    </group>
-  );
-}
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollWrapperRef = useRef<HTMLDivElement>(null);
   const horizontalPanelRef = useRef<HTMLDivElement>(null);
   const [isReady, setIsReady] = useState(false);
+  const [isCompiled, setIsCompiled] = useState(false);
 
   const pipelineSteps = [
     { id: "figma", src: "/images/pipeline/figma.png", title: "01. ARCHITECTURE", desc: "Wireframing & UI/UX Design." },
@@ -105,7 +89,7 @@ export default function Home() {
       {/* Dynamic 3D Background */}
       <div className="fixed inset-0 z-0 opacity-40 pointer-events-none">
         <Canvas camera={{ position: [0, 0, 1] }} onCreated={() => setIsReady(true)}>
-          <ParticleBackground />
+          <MorphingParticles />
         </Canvas>
       </div>
 
@@ -219,7 +203,13 @@ export default function Home() {
       </div>
 
       {/* STORY SECTION (VS Code Typing Animation) */}
-      <StorySection />
+      <StorySection isCompiled={isCompiled} onCompile={() => setIsCompiled(true)} />
+
+      {/* TOOLS SECTION (Morphing Particles Scroll Trigger Area) */}
+      {/* Scroll is completely locked until isCompiled is true, because this section doesn't exist in the DOM until then! */}
+      {isCompiled && (
+        <section id="tools-section" className="relative h-[100vh] w-full flex flex-col items-center justify-start pointer-events-none z-10" />
+      )}
 
     </main>
   );
