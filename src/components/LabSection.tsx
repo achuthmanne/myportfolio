@@ -230,9 +230,7 @@ export default function LabSection() {
                     className={`relative px-5 py-2 rounded-full text-xs md:text-sm font-bold tracking-widest transition-all duration-300 whitespace-nowrap ${
                       activeCategory === cat.id 
                         ? 'bg-white text-black' 
-                        : isViewed
-                          ? 'bg-transparent text-white/30 hover:bg-white/5 hover:text-white/80'
-                          : 'bg-transparent text-white/70 hover:bg-white/10 hover:text-white'
+                        : 'bg-transparent text-gray-400 hover:bg-white/5 hover:text-white'
                     }`}
                   >
                     {cat.label}

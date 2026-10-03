@@ -36,17 +36,25 @@ export default function MorphingParticles({ isCompiled = false }: { isCompiled?:
     new THREE.Color("#ffffff").multiplyScalar(2.0), // Golden White
   ], []);
 
+  const bgPalette = useMemo(() => [
+    new THREE.Color("#ffffff"), 
+    new THREE.Color("#ffffff"), 
+    new THREE.Color("#ffffff"), 
+    new THREE.Color("#ffffff"), 
+    new THREE.Color("#ef4444"), // Theme Red
+  ], []);
+
   const bgColors = useMemo(() => {
     const col = new Float32Array(bgCount * 3);
     for (let i = 0; i < bgCount; i++) {
-      const color = premiumPalette[Math.floor(Math.random() * premiumPalette.length)];
+      const color = bgPalette[Math.floor(Math.random() * bgPalette.length)];
       const brightness = Math.random() > 0.8 ? 0.8 : 0.3;
       col[i * 3] = color.r * brightness;
       col[i * 3 + 1] = color.g * brightness;
       col[i * 3 + 2] = color.b * brightness;
     }
     return col;
-  }, [bgCount, premiumPalette]);
+  }, [bgCount, bgPalette]);
 
   const currentBgPositions = useMemo(() => new Float32Array(bgRandomPositions), [bgRandomPositions]);
 
@@ -59,7 +67,7 @@ export default function MorphingParticles({ isCompiled = false }: { isCompiled?:
       const phi = Math.acos(2 * Math.random() - 1);
       pos[i * 3] = r * Math.sin(phi) * Math.cos(theta);
       pos[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
-      pos[i * 3 + 2] = r * Math.cos(phi);
+      pos[i * 3 + 2] = r * Math.cos(phi) - 100; // Pushed far back so they look like tiny background dust initially!
     }
     return pos;
   }, [shapeCount]);
@@ -97,14 +105,14 @@ export default function MorphingParticles({ isCompiled = false }: { isCompiled?:
   const shapeStartColors = useMemo(() => {
     const col = new Float32Array(shapeCount * 3);
     for (let i = 0; i < shapeCount; i++) {
-      const color = premiumPalette[Math.floor(Math.random() * premiumPalette.length)];
-      const brightness = Math.random() > 0.8 ? 1.5 : 0.6;
+      const color = bgPalette[Math.floor(Math.random() * bgPalette.length)];
+      const brightness = Math.random() > 0.8 ? 1.0 : 0.4; // Soft white/red start
       col[i * 3] = color.r * brightness;
       col[i * 3 + 1] = color.g * brightness;
       col[i * 3 + 2] = color.b * brightness;
     }
     return col;
-  }, [shapeCount, premiumPalette]);
+  }, [shapeCount, bgPalette]);
 
   const shapeEndColors = useMemo(() => {
     const col = new Float32Array(shapeCount * 3);
@@ -505,7 +513,7 @@ export default function MorphingParticles({ isCompiled = false }: { isCompiled?:
           <bufferAttribute attach="attributes-color" args={[bgColors, 3]} />
         </bufferGeometry>
         <pointsMaterial
-          size={0.08} 
+          size={0.03} 
           vertexColors
           transparent
           opacity={0.6}
