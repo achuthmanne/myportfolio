@@ -2,12 +2,44 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { useState, useEffect } from "react";
 import { RefreshCw } from "lucide-react";
 
 export default function Navbar() {
   const [isLogoHovered, setIsLogoHovered] = useState(false);
+  const [showNav, setShowNav] = useState(true);
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    if (latest < 100) {
+      setShowNav(true);
+      return;
+    }
+
+    // Hide if we hit the Lab Section
+    const labSection = document.getElementById("lab-section");
+    if (labSection) {
+      const labRect = labSection.getBoundingClientRect();
+      // Hide the navbar as soon as the final explosion starts (when lab section barely enters the screen)
+      if (labRect.top <= window.innerHeight * 0.9) {
+        setShowNav(false);
+        return;
+      }
+    }
+
+    // Keep nav visible during tools-section cinematic scroll
+    const toolsSection = document.getElementById("tools-section");
+    if (toolsSection) {
+      const rect = toolsSection.getBoundingClientRect();
+      if (rect.top <= window.innerHeight) {
+        setShowNav(true);
+        return;
+      }
+    }
+
+    setShowNav(false);
+  });
 
   const navLinks = [
     { name: "STORY", href: "#story" },
@@ -19,8 +51,8 @@ export default function Navbar() {
   return (
     <motion.nav 
       initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: "easeOut", delay: 0.5 }}
+      animate={{ y: showNav ? 0 : -100, opacity: showNav ? 1 : 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
       className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-transparent"
     >
       {/* 3D Flipping Logo - Hard Refresh on click */}

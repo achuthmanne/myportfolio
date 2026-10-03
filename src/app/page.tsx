@@ -9,6 +9,7 @@ import { Canvas } from "@react-three/fiber";
 import { Code2 } from "lucide-react";
 import StorySection from "@/components/StorySection";
 import MorphingParticles from "@/components/MorphingParticles";
+import LabSection from "@/components/LabSection";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -89,7 +90,7 @@ export default function Home() {
       {/* Dynamic 3D Background */}
       <div className="fixed inset-0 z-0 opacity-40 pointer-events-none">
         <Canvas camera={{ position: [0, 0, 1] }} onCreated={() => setIsReady(true)}>
-          <MorphingParticles />
+          <MorphingParticles isCompiled={isCompiled} />
         </Canvas>
       </div>
 
@@ -208,7 +209,12 @@ export default function Home() {
       {/* TOOLS SECTION (Morphing Particles Scroll Trigger Area) */}
       {/* Scroll is completely locked until isCompiled is true, because this section doesn't exist in the DOM until then! */}
       {isCompiled && (
-        <section id="tools-section" className="relative h-[100vh] w-full flex flex-col items-center justify-start pointer-events-none z-10" />
+        <section id="tools-section" className="relative h-[1800vh] w-full flex flex-col items-center justify-start pointer-events-none z-10" />
+      )}
+
+      {/* LAB SECTION (Technical Playground) */}
+      {isCompiled && (
+        <LabSection />
       )}
 
     </main>
