@@ -28,16 +28,25 @@ export default function MorphingParticles({ isCompiled = false }: { isCompiled?:
     return pos;
   }, [bgCount]);
 
+  const premiumPalette = useMemo(() => [
+    new THREE.Color("#00d8ff").multiplyScalar(1.5), // Electric Cyan
+    new THREE.Color("#3b82f6").multiplyScalar(1.5), // Electric Blue
+    new THREE.Color("#8b5cf6").multiplyScalar(1.5), // Subtle Violet
+    new THREE.Color("#f97316").multiplyScalar(1.5), // Warm Orange
+    new THREE.Color("#ffffff").multiplyScalar(2.0), // Golden White
+  ], []);
+
   const bgColors = useMemo(() => {
     const col = new Float32Array(bgCount * 3);
     for (let i = 0; i < bgCount; i++) {
-      const brightness = Math.random() > 0.8 ? 0.8 : 0.4;
-      col[i * 3] = brightness;
-      col[i * 3 + 1] = brightness;
-      col[i * 3 + 2] = brightness;
+      const color = premiumPalette[Math.floor(Math.random() * premiumPalette.length)];
+      const brightness = Math.random() > 0.8 ? 0.8 : 0.3;
+      col[i * 3] = color.r * brightness;
+      col[i * 3 + 1] = color.g * brightness;
+      col[i * 3 + 2] = color.b * brightness;
     }
     return col;
-  }, [bgCount]);
+  }, [bgCount, premiumPalette]);
 
   const currentBgPositions = useMemo(() => new Float32Array(bgRandomPositions), [bgRandomPositions]);
 
@@ -88,17 +97,18 @@ export default function MorphingParticles({ isCompiled = false }: { isCompiled?:
   const shapeStartColors = useMemo(() => {
     const col = new Float32Array(shapeCount * 3);
     for (let i = 0; i < shapeCount; i++) {
-      const brightness = Math.random() > 0.8 ? 1.0 : 0.6;
-      col[i * 3] = brightness;
-      col[i * 3 + 1] = brightness;
-      col[i * 3 + 2] = brightness;
+      const color = premiumPalette[Math.floor(Math.random() * premiumPalette.length)];
+      const brightness = Math.random() > 0.8 ? 1.5 : 0.6;
+      col[i * 3] = color.r * brightness;
+      col[i * 3 + 1] = color.g * brightness;
+      col[i * 3 + 2] = color.b * brightness;
     }
     return col;
-  }, [shapeCount]);
+  }, [shapeCount, premiumPalette]);
 
   const shapeEndColors = useMemo(() => {
     const col = new Float32Array(shapeCount * 3);
-    const themeRed = new THREE.Color("#ef4444").multiplyScalar(3.0); 
+    const themeRed = new THREE.Color("#ef4444").multiplyScalar(1.5); 
     const pointsPerSegment = Math.floor(shapeCount / 5);
     
     for (let i = 0; i < shapeCount; i++) {
@@ -109,14 +119,15 @@ export default function MorphingParticles({ isCompiled = false }: { isCompiled?:
         col[i * 3 + 2] = themeRed.b;
       } else {
         const isGlowingNode = Math.random() > 0.8;
-        const brightness = isGlowingNode ? 3.0 : (Math.random() > 0.8 ? 1.0 : 0.6);
-        col[i * 3] = brightness;
-        col[i * 3 + 1] = brightness;
-        col[i * 3 + 2] = brightness;
+        const color = premiumPalette[Math.floor(Math.random() * premiumPalette.length)];
+        const brightness = isGlowingNode ? 2.0 : (Math.random() > 0.8 ? 1.0 : 0.6);
+        col[i * 3] = color.r * brightness;
+        col[i * 3 + 1] = color.g * brightness;
+        col[i * 3 + 2] = color.b * brightness;
       }
     }
     return col;
-  }, [shapeCount]);
+  }, [shapeCount, premiumPalette]);
 
   // --- GIT BRANCH POSITIONS ---
   const gitPositions = useMemo(() => {
@@ -166,17 +177,10 @@ export default function MorphingParticles({ isCompiled = false }: { isCompiled?:
 
   const gitEndColors = useMemo(() => {
     const col = new Float32Array(shapeCount * 3);
-    const colorLeft = new THREE.Color("#06b6d4").multiplyScalar(3.0); // Cyan (Main Trunk)
-    const colorRight = new THREE.Color("#ef4444").multiplyScalar(3.0); // Theme Red (Branch)
+    const colorLeft = new THREE.Color("#06b6d4").multiplyScalar(1.5); // Cyan (Main Trunk)
+    const colorRight = new THREE.Color("#ef4444").multiplyScalar(1.5); // Theme Red (Branch)
     
     for (let i = 0; i < shapeCount; i++) {
-       // Indices mapping:
-       // 0-149: Node 1 (Left)
-       // 150-299: Node 2 (Left)
-       // 300-449: Node 3 (Right) -> RED
-       // 450-699: Trunk (Left)
-       // 700-1199: Branch Curve (Right) -> RED
-       
        const isRightSide = (i >= 300 && i < 450) || (i >= 700);
        const finalCol = isRightSide ? colorRight : colorLeft;
        
@@ -211,8 +215,8 @@ export default function MorphingParticles({ isCompiled = false }: { isCompiled?:
 
   const infinityEndColors = useMemo(() => {
     const col = new Float32Array(shapeCount * 3);
-    const themeRed = new THREE.Color("#ef4444").multiplyScalar(3.0); 
-    const themeViolet = new THREE.Color("#8b5cf6").multiplyScalar(3.0); 
+    const themeRed = new THREE.Color("#ef4444").multiplyScalar(1.5); 
+    const themeViolet = new THREE.Color("#8b5cf6").multiplyScalar(1.5); 
     
     for (let i = 0; i < shapeCount; i++) {
        const x = infinityPositions[i*3];
@@ -288,11 +292,13 @@ export default function MorphingParticles({ isCompiled = false }: { isCompiled?:
 
       const bgGeom = bgPointsRef.current.geometry;
       const bgPos = bgGeom.attributes.position.array as Float32Array;
+
       for (let i = 0; i < bgCount; i++) {
         const idx = i * 3;
         const bgFloatX = Math.sin(time * 0.2 + i) * 1.5;
         const bgFloatY = Math.cos(time * 0.3 + i * 0.5) * 1.5;
         const bgFloatZ = Math.sin(time * 0.25 + i * 0.2) * 1.5;
+        
         bgPos[idx] = bgRandomPositions[idx] + bgFloatX;
         bgPos[idx + 1] = bgRandomPositions[idx + 1] + bgFloatY;
         bgPos[idx + 2] = bgRandomPositions[idx + 2] + bgFloatZ;
@@ -476,7 +482,7 @@ export default function MorphingParticles({ isCompiled = false }: { isCompiled?:
         finalX += floatX;
         finalY += floatY;
         finalZ += floatZ;
-        
+
         shapePos[idx] = finalX;
         shapePos[idx + 1] = finalY;
         shapePos[idx + 2] = finalZ;

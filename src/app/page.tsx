@@ -10,6 +10,7 @@ import { Code2 } from "lucide-react";
 import StorySection from "@/components/StorySection";
 import MorphingParticles from "@/components/MorphingParticles";
 import LabSection from "@/components/LabSection";
+import { EffectComposer, Bloom } from "@react-three/postprocessing";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -88,9 +89,12 @@ export default function Home() {
       className="relative bg-bg-primary text-text-primary selection:bg-accent-rich selection:text-white"
     >
       {/* Dynamic 3D Background */}
-      <div className="fixed inset-0 z-0 opacity-40 pointer-events-none">
+      <div className="fixed inset-0 z-0 opacity-80 pointer-events-none">
         <Canvas camera={{ position: [0, 0, 1] }} onCreated={() => setIsReady(true)}>
           <MorphingParticles isCompiled={isCompiled} />
+          <EffectComposer disableNormalPass>
+            <Bloom luminanceThreshold={0.7} mipmapBlur intensity={1.0} />
+          </EffectComposer>
         </Canvas>
       </div>
 
