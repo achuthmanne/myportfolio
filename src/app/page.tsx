@@ -10,6 +10,7 @@ import { Code2 } from "lucide-react";
 import StorySection from "@/components/StorySection";
 import MorphingParticles from "@/components/MorphingParticles";
 import LabSection from "@/components/LabSection";
+import WorkSection from "@/components/WorkSection";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -218,7 +219,11 @@ export default function Home() {
 
       {/* LAB SECTION (Technical Playground) */}
       {isCompiled && (
-        <LabSection />
+        <>
+          <LabSection />
+          {/* THE WORK SECTION */}
+          <WorkSection />
+        </>
       )}
 
     </main>
