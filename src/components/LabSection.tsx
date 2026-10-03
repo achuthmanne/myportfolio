@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useMemo } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
@@ -137,9 +137,49 @@ const categories = [
 export default function LabSection() {
   const [activeCategory, setActiveCategory] = useState(categories[0].id);
   const [bursts, setBursts] = useState<any[]>([]);
+  
+  // Track which categories the user has clicked
+  const [viewedCategories, setViewedCategories] = useState<Set<string>>(new Set([categories[0].id]));
+  const containerRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const handleScrollAttempt = (e: WheelEvent | TouchEvent) => {
+      if (!containerRef.current || viewedCategories.size === categories.length) return;
+
+      const rect = containerRef.current.getBoundingClientRect();
+      // If the bottom of the LabSection is at or above the bottom of the screen
+      // meaning the user is trying to scroll past it...
+      if (rect.bottom <= window.innerHeight + 5) {
+        
+        let isScrollingDown = false;
+        if (e instanceof WheelEvent) {
+          isScrollingDown = e.deltaY > 0;
+        } else if (e instanceof TouchEvent) {
+          isScrollingDown = true; 
+        }
+
+        if (isScrollingDown) {
+          e.preventDefault();
+        }
+      }
+    };
+
+    window.addEventListener("wheel", handleScrollAttempt, { passive: false });
+    
+    return () => {
+      window.removeEventListener("wheel", handleScrollAttempt);
+    };
+  }, [viewedCategories]);
 
   const handleCategorySwitch = (newId: string) => {
     if (newId === activeCategory) return;
+    
+    // Add to viewed categories
+    setViewedCategories(prev => {
+      const next = new Set(prev);
+      next.add(newId);
+      return next;
+    });
     
     // Get the old category skills to explode them
     const oldCat = categories.find(c => c.id === activeCategory);
@@ -163,7 +203,7 @@ export default function LabSection() {
   const currentCategory = categories.find(c => c.id === activeCategory);
 
   return (
-    <section id="lab-section" className="relative w-full min-h-screen bg-transparent text-white overflow-hidden z-20">
+    <section ref={containerRef} id="lab-section" className="relative w-full min-h-screen bg-transparent text-white overflow-hidden z-20">
       
       {/* Sleek, Minimalist Section Heading & Navigation */}
       <div className="absolute top-16 left-0 w-full flex flex-col items-center z-30">
@@ -180,19 +220,25 @@ export default function LabSection() {
         <div className="w-full max-w-4xl px-4">
           <div className="flex items-center justify-start md:justify-center gap-2 overflow-x-auto no-scrollbar pb-4">
             <div className="flex items-center gap-2 p-1.5 bg-[#111] border border-white/10 rounded-full shadow-2xl">
-              {categories.map((cat) => (
-                <button
-                  key={cat.id}
-                  onClick={() => handleCategorySwitch(cat.id)}
-                  className={`px-5 py-2 rounded-full text-xs md:text-sm font-bold tracking-widest transition-all duration-300 whitespace-nowrap ${
-                    activeCategory === cat.id 
-                      ? "bg-white text-black" 
-                      : "text-gray-400 hover:text-white hover:bg-white/5"
-                  }`}
-                >
-                  {cat.label}
-                </button>
-              ))}
+              {categories.map((cat) => {
+                const isViewed = viewedCategories.has(cat.id);
+                
+                return (
+                  <button
+                    key={cat.id}
+                    onClick={() => handleCategorySwitch(cat.id)}
+                    className={`relative px-5 py-2 rounded-full text-xs md:text-sm font-bold tracking-widest transition-all duration-300 whitespace-nowrap ${
+                      activeCategory === cat.id 
+                        ? 'bg-white text-black' 
+                        : isViewed
+                          ? 'bg-transparent text-white/30 hover:bg-white/5 hover:text-white/80'
+                          : 'bg-transparent text-white/70 hover:bg-white/10 hover:text-white'
+                    }`}
+                  >
+                    {cat.label}
+                  </button>
+                );
+              })}
             </div>
           </div>
         </div>
