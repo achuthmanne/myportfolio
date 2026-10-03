@@ -96,9 +96,10 @@ const categories = [
     id: "mobile",
     label: "MOBILE",
     skills: [
-      { id: "rn", name: "React Native", img: "/skills/rn.jpg", color: "#00d8ff", x: "12%", y: "35%", rotateX: 10, rotateY: -15, rotateZ: -5 },
-      { id: "expo", name: "Expo", img: "/skills/expo.jpg", color: "#ffffff", x: "50%", y: "65%", rotateX: -10, rotateY: 10, rotateZ: 5 },
-      { id: "ts", name: "TypeScript", img: "/skills/ts.jpg", color: "#3178c6", x: "78%", y: "20%", rotateX: 15, rotateY: -10, rotateZ: -10 },
+      { id: "rn", name: "React Native", img: "/skills/rn.jpg", color: "#00d8ff", x: "15%", y: "25%", rotateX: 10, rotateY: -15, rotateZ: -5 },
+      { id: "expo", name: "Expo", img: "/skills/expo.jpg", color: "#ffffff", x: "40%", y: "65%", rotateX: -10, rotateY: 10, rotateZ: 5 },
+      { id: "ts", name: "TypeScript", img: "/skills/ts.jpg", color: "#3178c6", x: "65%", y: "25%", rotateX: 15, rotateY: -10, rotateZ: -10 },
+      { id: "firebase", name: "Firebase", img: "/skills/firebase.jpg", color: "#ffca28", x: "85%", y: "65%", rotateX: -15, rotateY: -20, rotateZ: 10 },
     ]
   },
   {
@@ -110,16 +111,17 @@ const categories = [
       { id: "groq", name: "Groq", img: "/skills/groq.jpg", color: "#ef4444", x: "42%", y: "25%", rotateX: 20, rotateY: 10, rotateZ: -5 },
       { id: "claude", name: "Claude", img: "/skills/claude.jpg", color: "#d97757", x: "58%", y: "70%", rotateX: -15, rotateY: 20, rotateZ: 5 },
       { id: "postgres", name: "PostgreSQL", img: "/skills/postgres.jpg", color: "#3b82f6", x: "75%", y: "20%", rotateX: 5, rotateY: 25, rotateZ: 0 },
-      { id: "firebase", name: "Firebase", img: "/skills/firebase.jpg", color: "#ffca28", x: "90%", y: "60%", rotateX: -15, rotateY: -20, rotateZ: 10 },
+      { id: "mongodb", name: "MongoDB", img: "/skills/mongodb.jpg", color: "#10b981", x: "90%", y: "60%", rotateX: -15, rotateY: -20, rotateZ: 10 },
     ]
   },
   {
     id: "cloud",
     label: "CLOUD / DEVOPS",
     skills: [
-      { id: "aws", name: "AWS", img: "/skills/aws.jpg", color: "#f97316", x: "70%", y: "15%", rotateX: 10, rotateY: -20, rotateZ: -5 },
-      { id: "vercel", name: "Vercel", img: "/skills/vercel.jpg", color: "#ffffff", x: "25%", y: "30%", rotateX: -20, rotateY: 10, rotateZ: 15 },
-      { id: "render", name: "Render", img: "/skills/render.jpg", color: "#a8b1ff", x: "50%", y: "75%", rotateX: 15, rotateY: -10, rotateZ: 10 },
+      { id: "vercel", name: "Vercel", img: "/skills/vercel.jpg", color: "#ffffff", x: "15%", y: "25%", rotateX: -20, rotateY: 10, rotateZ: 15 },
+      { id: "render", name: "Render", img: "/skills/render.jpg", color: "#a8b1ff", x: "40%", y: "65%", rotateX: 15, rotateY: -10, rotateZ: 10 },
+      { id: "github", name: "GitHub", img: "/skills/github.jpg", color: "#a1a1aa", x: "65%", y: "25%", rotateX: -15, rotateY: 20, rotateZ: -5 },
+      { id: "aws", name: "AWS", img: "/skills/aws.jpg", color: "#f97316", x: "85%", y: "65%", rotateX: 10, rotateY: -20, rotateZ: 5 },
     ]
   },
   {
