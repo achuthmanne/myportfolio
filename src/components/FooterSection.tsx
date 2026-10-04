@@ -4,9 +4,10 @@ import React from 'react';
 import { motion, useInView } from 'framer-motion';
 import Image from 'next/image';
 
+import BentLogo from './BentLogo';
+
 export default function FooterSection() {
   const containerRef = React.useRef(null);
-  // amount: 0.8 forces the animation to WAIT until the section is physically locked into the center of the screen!
   const isInView = useInView(containerRef, { once: true, amount: 0.8 });
 
   return (
@@ -30,22 +31,19 @@ export default function FooterSection() {
           />
 
           {/* THE SMOOTH LIQUID WAVE REVEALER */}
-          {/* This is a solid background block that covers the image, with a smooth wave at the bottom. As it moves up, it reveals the image below. */}
           <motion.div
             className="absolute inset-0 bg-black z-10 pointer-events-none origin-top"
-            initial={{ y: "0%" }} // Covers the whole image initially
-            animate={isInView ? { y: "-150%" } : {}} // Slides perfectly up and completely out of the container!
+            initial={{ y: "0%" }} 
+            animate={isInView ? { y: "-150%" } : {}} 
             transition={{ duration: 4, delay: 0.2, ease: "linear" }}
           >
-            {/* The seamlessly looping smooth water wave */}
             <motion.svg 
               viewBox="0 0 1000 100" 
               className="absolute bottom-[-99px] left-0 w-[200%] h-[100px] fill-black"
               preserveAspectRatio="none"
-              animate={isInView ? { x: ["0%", "-50%"] } : {}} // Continuous smooth slosh
+              animate={isInView ? { x: ["0%", "-50%"] } : {}} 
               transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
             >
-              {/* Flawless Cubic Bezier continuous sine wave */}
               <path d="M 0 0 L 1000 0 L 1000 50 Q 875 100 750 50 T 500 50 T 250 50 T 0 50 Z" />
             </motion.svg>
           </motion.div>
@@ -60,15 +58,11 @@ export default function FooterSection() {
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 1, delay: 2.5 }}
       >
-        {/* The Custom Cyberpunk Name Logo */}
-        <div className="relative w-[350px] md:w-[600px] lg:w-[800px] -my-8 md:-my-16 z-20 drop-shadow-[0_0_15px_rgba(255,255,255,0.1)] pointer-events-none">
-          <img 
-            src="/images/manne-achuth-logo.png" 
-            alt="Manne Achuth" 
-            className="w-full h-auto object-contain scale-[1.2] md:scale-[1.4]"
-          />
+        {/* THE TRUE 3D BENT LOGO (WebGL) */}
+        <div className="relative -my-8 md:-my-12 z-20 drop-shadow-[0_0_15px_rgba(201,42,58,0.2)]">
+          <BentLogo />
         </div>
-        <p className="text-gray-400 font-mono text-sm md:text-base tracking-[0.4em] uppercase">
+        <p className="text-gray-400 font-mono text-sm md:text-base tracking-[0.4em] uppercase mt-2">
           Full Stack Developer
         </p>
       </motion.div>
