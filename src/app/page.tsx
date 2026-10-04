@@ -26,7 +26,6 @@ export default function Home() {
   const [isCompiled, setIsCompiled] = useState(false);
   const [showWorkSection, setShowWorkSection] = useState(false);
   const [showConnectSection, setShowConnectSection] = useState(false);
-  const [showSocialSection, setShowSocialSection] = useState(false);
   const [showFooterSection, setShowFooterSection] = useState(false);
 
   const pipelineSteps = [
@@ -234,14 +233,14 @@ export default function Home() {
         <WorkSection onFolderComplete={() => setShowConnectSection(true)} />
       )}
 
-      {/* THE CONNECT SECTION (Final Door) */}
-      {showConnectSection && <ConnectSection onComplete={() => setShowSocialSection(true)} />}
+      {/* THE CONNECT SECTION (Optional Interaction) */}
+      {showConnectSection && <ConnectSection />}
 
-      {/* THE SOCIAL VAULTS (Ultimate End) */}
-      {showSocialSection && <SocialSection />}
+      {/* THE SOCIAL VAULTS (Now immediately accessible) */}
+      {showConnectSection && <SocialSection />}
 
-      {/* THE GRAND FINALE (Portrait Assembly) */}
-      {showSocialSection && <FooterSection />}
+      {/* THE GRAND FINALE (Now immediately accessible) */}
+      {showConnectSection && <FooterSection />}
 
     </main>
   );

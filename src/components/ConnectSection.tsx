@@ -13,7 +13,7 @@ export default function ConnectSection({ onComplete }: { onComplete?: () => void
   };
 
   return (
-    <section id="connect-section" className="relative w-full min-h-screen bg-transparent text-white overflow-hidden z-20 py-32 flex flex-col items-center justify-center">
+    <section id="connect-section" className="relative w-full min-h-[70vh] bg-transparent text-white overflow-hidden z-20 pt-56 pb-48 flex flex-col items-center justify-center">
       
       {/* 1. The Headings (Exact same style as prev sections) */}
       <div className="w-full flex flex-col items-center z-30 mb-16 relative">

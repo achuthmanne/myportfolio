@@ -7,10 +7,10 @@ interface WorkSectionProps {
 
 export default function WorkSection({ onFolderComplete }: WorkSectionProps) {
   return (
-    <section id="work-section" className="relative w-full min-h-screen bg-transparent text-white overflow-hidden z-20 py-24">
+    <section id="work-section" className="relative w-full min-h-screen flex flex-col items-center justify-center bg-transparent text-white overflow-hidden z-20 py-12">
       
       {/* Sleek, Minimalist Section Heading */}
-      <div className="w-full flex flex-col items-center z-30 mb-16 relative">
+      <div className="w-full flex flex-col items-center z-30 mb-8 md:mb-16 relative">
         <div className="text-center pointer-events-none">
           <h2 className="text-4xl md:text-5xl font-black tracking-tight text-white mb-3">
             THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-400">WORK</span>

@@ -117,6 +117,7 @@ export default function MorphingParticles({ isCompiled = false }: { isCompiled?:
   const shapeEndColors = useMemo(() => {
     const col = new Float32Array(shapeCount * 3);
     const themeRed = new THREE.Color("#ef4444").multiplyScalar(1.5); 
+    const pureWhite = new THREE.Color("#ffffff");
     const pointsPerSegment = Math.floor(shapeCount / 5);
     
     for (let i = 0; i < shapeCount; i++) {
@@ -126,16 +127,16 @@ export default function MorphingParticles({ isCompiled = false }: { isCompiled?:
         col[i * 3 + 1] = themeRed.g;
         col[i * 3 + 2] = themeRed.b;
       } else {
+        // Only Pure White for < > symbols!
         const isGlowingNode = Math.random() > 0.8;
-        const color = premiumPalette[Math.floor(Math.random() * premiumPalette.length)];
-        const brightness = isGlowingNode ? 2.0 : (Math.random() > 0.8 ? 1.0 : 0.6);
-        col[i * 3] = color.r * brightness;
-        col[i * 3 + 1] = color.g * brightness;
-        col[i * 3 + 2] = color.b * brightness;
+        const brightness = isGlowingNode ? 2.0 : (Math.random() > 0.5 ? 1.0 : 0.5);
+        col[i * 3] = pureWhite.r * brightness;
+        col[i * 3 + 1] = pureWhite.g * brightness;
+        col[i * 3 + 2] = pureWhite.b * brightness;
       }
     }
     return col;
-  }, [shapeCount, premiumPalette]);
+  }, [shapeCount]);
 
   // --- GIT BRANCH POSITIONS ---
   const gitPositions = useMemo(() => {
@@ -245,6 +246,16 @@ export default function MorphingParticles({ isCompiled = false }: { isCompiled?:
 
   const currentShapePositions = useMemo(() => new Float32Array(shapeRandomPositions), [shapeRandomPositions]);
   const currentShapeColors = useMemo(() => new Float32Array(shapeStartColors), [shapeStartColors]);
+
+  // Mixed particle sizes (Tiny dust mixed with some larger glowing nodes)
+  const shapeSizes = useMemo(() => {
+    const sizes = new Float32Array(shapeCount);
+    for (let i = 0; i < shapeCount; i++) {
+      // 70% tiny dust (but slightly thicker), 30% massive glowing nodes!
+      sizes[i] = Math.random() > 0.7 ? (Math.random() * 0.6 + 0.4) : (Math.random() * 0.15 + 0.1);
+    }
+    return sizes;
+  }, [shapeCount]);
 
   const particleOffsets = useMemo(() => {
     const offsets = new Float32Array(shapeCount);
@@ -522,21 +533,39 @@ export default function MorphingParticles({ isCompiled = false }: { isCompiled?:
         />
       </points>
 
-      {/* Shape Particles - Thick & Bold */}
+      {/* Shape Particles - Dynamic Mixed Sizes via Shader */}
       <points ref={shapePointsRef}>
         <bufferGeometry>
           <bufferAttribute attach="attributes-position" args={[currentShapePositions, 3]} />
           <bufferAttribute attach="attributes-color" args={[currentShapeColors, 3]} />
+          <bufferAttribute attach="attributes-size" args={[shapeSizes, 1]} />
         </bufferGeometry>
-        <pointsMaterial
-          size={0.35} 
-          map={particleTexture}
-          vertexColors
-          transparent
-          opacity={0.9}
-          sizeAttenuation
-          blending={THREE.AdditiveBlending}
+        <shaderMaterial
+          transparent={true}
           depthWrite={false}
+          blending={THREE.AdditiveBlending}
+          vertexColors={true}
+          uniforms={{
+            pointTexture: { value: particleTexture }
+          }}
+          vertexShader={`
+            attribute float size;
+            varying vec3 vColor;
+            void main() {
+              vColor = color;
+              vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+              gl_PointSize = size * (300.0 / -mvPosition.z);
+              gl_Position = projectionMatrix * mvPosition;
+            }
+          `}
+          fragmentShader={`
+            uniform sampler2D pointTexture;
+            varying vec3 vColor;
+            void main() {
+              // Boost color brightness by 1.5x so it doesn't look dull!
+              gl_FragColor = vec4(vColor * 1.5, 1.0) * texture2D(pointTexture, gl_PointCoord);
+            }
+          `}
         />
       </points>
     </group>

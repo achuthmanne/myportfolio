@@ -5,7 +5,9 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 
-function ContinuousRing() {
+import { MotionValue } from 'framer-motion';
+
+function ContinuousRing({ scrollProgress }: { scrollProgress: MotionValue<number> }) {
   const [tex1, tex2] = useTexture([
     '/images/manne-achuth-logo.png',
     '/images/build.png'
@@ -17,12 +19,25 @@ function ContinuousRing() {
   tex2.minFilter = THREE.LinearMipmapLinearFilter;
   
   const groupRef = useRef<THREE.Group>(null);
+  const lastScrollProgress = useRef(0);
 
-  // Spin continuously in one direction (left to right)
+  // Seamless Spin + Scroll Momentum
   useFrame((state, delta) => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y -= delta * 0.25; // Perfect goldilocks speed
+    if (!groupRef.current || !scrollProgress) return;
+
+    // Phase 1: Always auto-spin infinitely at base speed
+    groupRef.current.rotation.y -= delta * 0.25; 
+
+    // Phase 2: Add mouse scroll momentum on top! (When scrolling, it spins way faster)
+    const currentScroll = scrollProgress.get();
+    const scrollDelta = currentScroll - lastScrollProgress.current;
+    
+    // Only apply scroll momentum if we are still scrolling into the section
+    if (currentScroll < 0.99) {
+      groupRef.current.rotation.y -= scrollDelta * Math.PI * 1.5;
     }
+
+    lastScrollProgress.current = currentScroll;
   });
 
   return (
@@ -52,11 +67,11 @@ function ContinuousRing() {
   );
 }
 
-export default function BentLogo() {
+export default function BentLogo({ scrollProgress }: { scrollProgress: MotionValue<number> }) {
   return (
     <div className="w-[350px] h-[100px] md:w-[600px] md:h-[150px] lg:w-[900px] lg:h-[200px] pointer-events-none">
       <Canvas camera={{ position: [0, 0, 6.5], fov: 35 }}>
-        <ContinuousRing />
+        <ContinuousRing scrollProgress={scrollProgress} />
       </Canvas>
     </div>
   );

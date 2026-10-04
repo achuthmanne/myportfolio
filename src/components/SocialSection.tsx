@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 export default function SocialSection() {
   return (
-    <section id="social-section" className="relative w-full min-h-screen flex flex-col items-center justify-center bg-transparent z-20 py-12">
+    <section id="social-section" className="relative w-full min-h-[50vh] flex flex-col items-center justify-center bg-transparent z-20 pt-32 pb-48">
       
       {/* 1. The Headings (Consistent with the rest of the site) */}
       <div className="w-full flex flex-col items-center z-30 mb-20 relative">
