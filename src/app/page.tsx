@@ -13,6 +13,7 @@ import LabSection from "@/components/LabSection";
 import WorkSection from "@/components/WorkSection";
 import ConnectSection from "@/components/ConnectSection";
 import SocialSection from "@/components/SocialSection";
+import FooterSection from "@/components/FooterSection";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -26,6 +27,7 @@ export default function Home() {
   const [showWorkSection, setShowWorkSection] = useState(false);
   const [showConnectSection, setShowConnectSection] = useState(false);
   const [showSocialSection, setShowSocialSection] = useState(false);
+  const [showFooterSection, setShowFooterSection] = useState(false);
 
   const pipelineSteps = [
     { id: "figma", src: "/images/pipeline/figma.png", title: "01. ARCHITECTURE", desc: "Wireframing & UI/UX Design." },
@@ -237,6 +239,9 @@ export default function Home() {
 
       {/* THE SOCIAL VAULTS (Ultimate End) */}
       {showSocialSection && <SocialSection />}
+
+      {/* THE GRAND FINALE (Portrait Assembly) */}
+      {showSocialSection && <FooterSection />}
 
     </main>
   );
