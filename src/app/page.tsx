@@ -11,6 +11,8 @@ import StorySection from "@/components/StorySection";
 import MorphingParticles from "@/components/MorphingParticles";
 import LabSection from "@/components/LabSection";
 import WorkSection from "@/components/WorkSection";
+import ConnectSection from "@/components/ConnectSection";
+import SocialSection from "@/components/SocialSection";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -21,6 +23,9 @@ export default function Home() {
   const horizontalPanelRef = useRef<HTMLDivElement>(null);
   const [isReady, setIsReady] = useState(false);
   const [isCompiled, setIsCompiled] = useState(false);
+  const [showWorkSection, setShowWorkSection] = useState(false);
+  const [showConnectSection, setShowConnectSection] = useState(false);
+  const [showSocialSection, setShowSocialSection] = useState(false);
 
   const pipelineSteps = [
     { id: "figma", src: "/images/pipeline/figma.png", title: "01. ARCHITECTURE", desc: "Wireframing & UI/UX Design." },
@@ -219,12 +224,19 @@ export default function Home() {
 
       {/* LAB SECTION (Technical Playground) */}
       {isCompiled && (
-        <>
-          <LabSection />
-          {/* THE WORK SECTION */}
-          <WorkSection />
-        </>
+        <LabSection onComplete={() => setShowWorkSection(true)} />
       )}
+      
+      {/* THE WORK SECTION */}
+      {showWorkSection && (
+        <WorkSection onFolderComplete={() => setShowConnectSection(true)} />
+      )}
+
+      {/* THE CONNECT SECTION (Final Door) */}
+      {showConnectSection && <ConnectSection onComplete={() => setShowSocialSection(true)} />}
+
+      {/* THE SOCIAL VAULTS (Ultimate End) */}
+      {showSocialSection && <SocialSection />}
 
     </main>
   );

@@ -1,7 +1,11 @@
 import React from 'react';
 import ProjectFolder from './ProjectBox'; // Keep the filename the same for now, but use the new component name
 
-export default function WorkSection() {
+interface WorkSectionProps {
+  onFolderComplete?: () => void;
+}
+
+export default function WorkSection({ onFolderComplete }: WorkSectionProps) {
   return (
     <section id="work-section" className="relative w-full min-h-screen bg-transparent text-white overflow-hidden z-20 py-24">
       
@@ -19,7 +23,7 @@ export default function WorkSection() {
 
       {/* Projects Container (3D Folder) */}
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-10 relative z-10">
-        <ProjectFolder />
+        <ProjectFolder onSequenceComplete={onFolderComplete} />
       </div>
 
     </section>

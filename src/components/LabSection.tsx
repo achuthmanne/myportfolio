@@ -134,7 +134,11 @@ const categories = [
   }
 ];
 
-export default function LabSection() {
+interface LabSectionProps {
+  onComplete?: () => void;
+}
+
+export default function LabSection({ onComplete }: LabSectionProps) {
   const [activeCategory, setActiveCategory] = useState(categories[0].id);
   const [bursts, setBursts] = useState<any[]>([]);
   
@@ -142,34 +146,12 @@ export default function LabSection() {
   const [viewedCategories, setViewedCategories] = useState<Set<string>>(new Set([categories[0].id]));
   const containerRef = useRef<HTMLElement>(null);
 
+  // Trigger completion when all categories have been viewed
   useEffect(() => {
-    const handleScrollAttempt = (e: WheelEvent | TouchEvent) => {
-      if (!containerRef.current || viewedCategories.size === categories.length) return;
-
-      const rect = containerRef.current.getBoundingClientRect();
-      // If the bottom of the LabSection is at or above the bottom of the screen
-      // meaning the user is trying to scroll past it...
-      if (rect.bottom <= window.innerHeight + 5) {
-        
-        let isScrollingDown = false;
-        if (e instanceof WheelEvent) {
-          isScrollingDown = e.deltaY > 0;
-        } else if (e instanceof TouchEvent) {
-          isScrollingDown = true; 
-        }
-
-        if (isScrollingDown) {
-          e.preventDefault();
-        }
-      }
-    };
-
-    window.addEventListener("wheel", handleScrollAttempt, { passive: false });
-    
-    return () => {
-      window.removeEventListener("wheel", handleScrollAttempt);
-    };
-  }, [viewedCategories]);
+    if (viewedCategories.size === categories.length) {
+      if (onComplete) onComplete();
+    }
+  }, [viewedCategories, onComplete]);
 
   const handleCategorySwitch = (newId: string) => {
     if (newId === activeCategory) return;

@@ -1,12 +1,25 @@
-"use client";
-
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 
-export default function ProjectFolder() {
+interface ProjectFolderProps {
+  onSequenceComplete?: () => void;
+}
+
+export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   // Triggers slightly earlier so the user has time to watch it
   const isInView = useInView(containerRef, { once: false, margin: "-25%" });
+
+  // 1. Manage the completion timer based on isInView
+  useEffect(() => {
+    if (isInView) {
+      // The folder takes ~4 seconds total to finish opening and fanning out all cards
+      const timer = setTimeout(() => {
+        if (onSequenceComplete) onSequenceComplete();
+      }, 4000); 
+      return () => clearTimeout(timer);
+    }
+  }, [isInView, onSequenceComplete]);
 
   return (
     <div 
@@ -56,10 +69,11 @@ export default function ProjectFolder() {
           >
              
              {[
-               { id: 1, src: '/images/kisankhata-card.jpg', alt: 'Kisan Khata', rotate: -15, x: -75, zIndex: 1 },
-               { id: 2, src: '/images/railsamay-card.jpg', alt: 'Rail Samay', rotate: -5, x: -25, zIndex: 2 },
-               { id: 3, src: '/images/capabilio-card.jpg', alt: 'Capabilio AI', rotate: 5, x: 25, zIndex: 3 },
-               { id: 4, src: '/images/arc-card.jpg', alt: 'ARC Aerospace', rotate: 15, x: 75, zIndex: 4 },
+               { id: 1, src: '/images/kisankhata-card.jpg', alt: 'Kisan Khata', rotate: -20, x: -80, zIndex: 1 },
+               { id: 2, src: '/images/railsamay-card.jpg', alt: 'Rail Samay', rotate: -10, x: -40, zIndex: 2 },
+               { id: 3, src: '/images/capabilio-card.jpg', alt: 'Capabilio AI', rotate: 0, x: 0, zIndex: 3 },
+               { id: 4, src: '/images/arc-card.jpg', alt: 'ARC Aerospace', rotate: 10, x: 40, zIndex: 4 },
+               { id: 5, src: '/images/aimitra-card.jpg', alt: 'AI Mitra', rotate: 20, x: 80, zIndex: 5 },
              ].map((card, index) => (
                 <motion.div 
                    key={card.id}
