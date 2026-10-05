@@ -22,11 +22,9 @@ function Particles({ isInView }: { isInView: boolean }) {
   // Custom shader material for the 3D code matrix look
   const shaderMaterial = useMemo(() => new THREE.ShaderMaterial({
     uniforms: {
-      uTime: { value: 0 },
       uProgress: { value: 0 }
     },
     vertexShader: `
-      uniform float uTime;
       uniform float uProgress;
       
       attribute vec3 originalPos;
@@ -38,15 +36,13 @@ function Particles({ isInView }: { isInView: boolean }) {
       void main() {
         vColor = color;
         
+        // Assembles neatly from chaotic positions to a perfectly flat, clean grid
         vec3 pos = mix(randomPos, originalPos, uProgress);
-        
-        pos.y += sin(uTime * 2.0 + pos.x * 10.0) * 0.02 * uProgress;
-        pos.z += cos(uTime * 1.5 + pos.y * 10.0) * 0.03 * uProgress;
 
         vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
         
-        // Smaller points to look like tiny distinct particles!
-        gl_PointSize = (5.0 / -mvPosition.z); 
+        // Fixed, crisp point size for that clean "tiny dots" look
+        gl_PointSize = (4.0 / -mvPosition.z); 
         gl_Position = projectionMatrix * mvPosition;
       }
     `,
@@ -55,17 +51,14 @@ function Particles({ isInView }: { isInView: boolean }) {
       void main() {
         vec2 xy = gl_PointCoord.xy - vec2(0.5);
         float ll = length(xy);
-        if(ll > 0.5) discard; 
+        if(ll > 0.5) discard; // Keep them as perfect tiny circles
         
-        // Make the colors EXTREMELY bright and clear so the white shirt pops!
-        vec3 brightColor = min(vColor * 1.5, vec3(1.0));
-        
-        gl_FragColor = vec4(brightColor, 1.0 - (ll * 2.0));
+        // Pure true color, no glowing/blurring
+        gl_FragColor = vec4(vColor, 1.0);
       }
     `,
     transparent: true,
-    depthWrite: false,
-    blending: THREE.AdditiveBlending
+    depthWrite: true,
   }), []);
 
   const [geometry, setGeometry] = useState<THREE.BufferGeometry | null>(null);
@@ -78,8 +71,8 @@ function Particles({ isInView }: { isInView: boolean }) {
       const ctx = canvas.getContext('2d');
       if (!ctx) return;
       
-      // Extremely high resolution for clear face shape
-      const width = 280;
+      // High resolution base
+      const width = 300;
       const aspect = img.height / img.width;
       const height = aspect * width;
       
@@ -89,13 +82,18 @@ function Particles({ isInView }: { isInView: boolean }) {
       
       const imgData = ctx.getImageData(0, 0, width, height).data;
       
-      // PASS 1: Find the exact bounding box of the non-white pixels
+      // PASS 1: Find the exact bounding box
       let minX = width, maxX = 0, minY = height, maxY = 0;
       for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
           const i = (y * width + x) * 4;
-          const r = imgData[i], g = imgData[i + 1], b = imgData[i + 2], a = imgData[i + 3];
-          if (a < 128 || (r > 240 && g > 240 && b > 240)) continue;
+          const a = imgData[i + 3];
+          if (a < 128) continue;
+          
+          // Pure white background removal
+          const r = imgData[i], g = imgData[i+1], b = imgData[i+2];
+          if (r > 240 && g > 240 && b > 240) continue;
+
           if (x < minX) minX = x;
           if (x > maxX) maxX = x;
           if (y < minY) minY = y;
@@ -105,42 +103,43 @@ function Particles({ isInView }: { isInView: boolean }) {
       
       const cropW = maxX - minX;
       const cropH = maxY - minY;
-      const cropAspect = cropH / cropW; // True aspect ratio of just the body!
+      const cropAspect = cropH / cropW;
       
       const positions = [];
       const originalPos = [];
       const randomPos = [];
       const colors = [];
       
-      // PASS 2: Generate particles relative to the Bounding Box!
-      for (let y = minY; y <= maxY; y++) {
-        for (let x = minX; x <= maxX; x++) {
+      // PASS 2: Generate perfectly spaced tiny dots!
+      // We skip every other pixel (+= 2) to create physical gaps between the dots, making the "dot formation" extremely clear!
+      for (let y = minY; y <= maxY; y += 2) {
+        for (let x = minX; x <= maxX; x += 2) {
           const i = (y * width + x) * 4;
+          const a = imgData[i + 3];
+          if (a < 128) continue;
+          
           const r = imgData[i];
           const g = imgData[i + 1];
           const b = imgData[i + 2];
-          const a = imgData[i + 3];
+          if (r > 240 && g > 240 && b > 240) continue;
           
-          if (a < 128 || (r > 240 && g > 240 && b > 240)) continue;
+          const px = ((x - minX) / cropW) * 2 - 1;
+          const py = -((y - minY) / cropH) * 2 + 1;
           
-          // Map exact body bounds: Y goes from 1 (head) to -1 (feet). X goes proportional to aspect.
-          const px = ((x - minX) / cropW) * 2 - 1; // -1 to 1
-          const py = -((y - minY) / cropH) * 2 + 1; // 1 to -1
-          
-          // Correct aspect ratio distortion (scale X based on true body proportions)
           const finalPx = px * (1 / cropAspect);
           const finalPy = py;
           
-          const brightness = (r + g + b) / 3;
-          const pz = (brightness / 255) * 0.8; 
+          // PERFECTLY FLAT. No Z-distortion. It's just a clean 2D image made of dots.
+          const pz = 0; 
           
           positions.push(finalPx, finalPy, pz);
           originalPos.push(finalPx, finalPy, pz);
           
+          // They fly in from all directions
           randomPos.push(
-            (Math.random() - 0.5) * 15,
-            (Math.random() * 15) + 5,
-            (Math.random() - 0.5) * 15
+            (Math.random() - 0.5) * 10,
+            (Math.random() - 0.5) * 10,
+            (Math.random() - 0.5) * 10
           );
           
           colors.push(r / 255, g / 255, b / 255);
@@ -159,19 +158,8 @@ function Particles({ isInView }: { isInView: boolean }) {
 
   useFrame((state) => {
     if (shaderMaterial && pointsRef.current) {
-      const time = state.clock.elapsedTime;
       const progress = progressSpring.get();
-      
-      shaderMaterial.uniforms.uTime.value = time;
       shaderMaterial.uniforms.uProgress.value = progress;
-      
-      // The model spins wildly when assembling (progress < 1), but settles exactly at 0 rotation when finished.
-      // We removed the mouse tracking parallax entirely.
-      const targetRotationX = 0;
-      const targetRotationY = ((1.0 - progress) * Math.PI);
-      
-      pointsRef.current.rotation.x += (targetRotationX - pointsRef.current.rotation.x) * 0.1;
-      pointsRef.current.rotation.y += (targetRotationY - pointsRef.current.rotation.y) * 0.1;
     }
   });
 
