@@ -23,13 +23,11 @@ function Particles({ isInView }: { isInView: boolean }) {
   const shaderMaterial = useMemo(() => new THREE.ShaderMaterial({
     uniforms: {
       uTime: { value: 0 },
-      uProgress: { value: 0 },
-      uMouse: { value: new THREE.Vector2(0, 0) }
+      uProgress: { value: 0 }
     },
     vertexShader: `
       uniform float uTime;
       uniform float uProgress;
-      uniform vec2 uMouse;
       
       attribute vec3 originalPos;
       attribute vec3 randomPos;
@@ -44,12 +42,6 @@ function Particles({ isInView }: { isInView: boolean }) {
         
         pos.y += sin(uTime * 2.0 + pos.x * 10.0) * 0.02 * uProgress;
         pos.z += cos(uTime * 1.5 + pos.y * 10.0) * 0.03 * uProgress;
-        
-        float dist = distance(uMouse, pos.xy);
-        if(dist < 0.8) {
-          pos.z += (0.8 - dist) * 1.5 * uProgress;
-          pos.x += (pos.x - uMouse.x) * 0.2 * (0.8 - dist) * uProgress;
-        }
 
         vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
         
@@ -173,17 +165,13 @@ function Particles({ isInView }: { isInView: boolean }) {
       shaderMaterial.uniforms.uTime.value = time;
       shaderMaterial.uniforms.uProgress.value = progress;
       
-      const mouseX = (state.pointer.x * state.viewport.width) / 2;
-      const mouseY = (state.pointer.y * state.viewport.height) / 2;
-      
-      shaderMaterial.uniforms.uMouse.value.x += (mouseX - shaderMaterial.uniforms.uMouse.value.x) * 0.1;
-      shaderMaterial.uniforms.uMouse.value.y += (mouseY - shaderMaterial.uniforms.uMouse.value.y) * 0.1;
-      
-      const targetRotationX = -(state.pointer.y * 0.15);
-      const targetRotationY = (state.pointer.x * 0.25);
+      // The model spins wildly when assembling (progress < 1), but settles exactly at 0 rotation when finished.
+      // We removed the mouse tracking parallax entirely.
+      const targetRotationX = 0;
+      const targetRotationY = ((1.0 - progress) * Math.PI);
       
       pointsRef.current.rotation.x += (targetRotationX - pointsRef.current.rotation.x) * 0.1;
-      pointsRef.current.rotation.y += (targetRotationY + ((1.0 - progress) * Math.PI) - pointsRef.current.rotation.y) * 0.1;
+      pointsRef.current.rotation.y += (targetRotationY - pointsRef.current.rotation.y) * 0.1;
     }
   });
 
