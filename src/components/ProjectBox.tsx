@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { createPortal } from 'react-dom';
 
 interface ProjectFolderProps {
   onSequenceComplete?: () => void;
@@ -17,6 +18,11 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: false, margin: "-25%" });
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (isInView) {
@@ -27,12 +33,14 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
     }
   }, [isInView, onSequenceComplete]);
 
-  // Lock scrolling when a project is open
+  // Lock scrolling perfectly when a project is open
   useEffect(() => {
     if (selectedProject) {
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
     }
   }, [selectedProject]);
 
@@ -110,81 +118,92 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
       </div>
 
       {/* THE MAGIC MORPHING INTERFACE */}
-      <AnimatePresence>
-        {selectedProject && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10 pointer-events-auto">
+      {mounted && typeof document !== 'undefined' && createPortal(
+        <AnimatePresence>
+          {selectedProject && (
+            <div className="fixed inset-0 z-[999999] flex items-center justify-center pointer-events-auto">
             
-            {/* Backdrop Blur that fades in independently */}
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setSelectedProject(null)}
-              className="absolute inset-0 bg-black/80 backdrop-blur-xl"
-            />
-            
-            {/* The Morphing Card that becomes the UI! */}
+            {/* The Morphing Card that becomes the FULL SCREEN UI! */}
             <motion.div 
               layoutId={`project-card-${selectedProject.id}`}
-              className="relative w-full max-w-6xl h-[90vh] md:h-[80vh] rounded-[2rem] overflow-hidden bg-[#050505] shadow-2xl flex flex-col md:flex-row border"
-              style={{ 
-                borderColor: `${selectedProject.color}40`,
-                boxShadow: `0 20px 100px -20px ${selectedProject.color}40`
-              }}
+              className="relative w-full h-full bg-[#050505] flex flex-col md:flex-row overflow-hidden"
             >
-               {/* Left Side: The Image stays there but expands */}
-               <div className="w-full md:w-[45%] h-[40%] md:h-full relative border-b md:border-b-0 md:border-r border-white/5">
-                  <img src={selectedProject.src} alt={selectedProject.alt} className="w-full h-full object-cover" />
-                  {/* Glowing gradient matching the theme color */}
-                  <div className="absolute inset-0 mix-blend-screen" style={{ background: `linear-gradient(to top, #050505, transparent, ${selectedProject.color}20)` }} />
+               {/* LEFT SIDE: ONLY the Card Image (Full height, natural width) */}
+               <div className="h-[30vh] md:h-full relative border-b md:border-b-0 md:border-r border-white/10 bg-black z-10 flex-shrink-0">
+                  <img 
+                    src={selectedProject.src} 
+                    alt={selectedProject.alt} 
+                    className="w-full md:w-auto h-full object-cover md:object-contain max-w-full md:max-w-[400px] lg:max-w-[500px]" 
+                  />
                </div>
                
-               {/* Right Side: The details fade in AFTER the morph completes */}
-               <motion.div 
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.3, duration: 0.5 }}
-                  className="w-full md:w-[55%] p-8 md:p-14 flex flex-col justify-between overflow-y-auto"
-               >
-                  <div>
-                     <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter" style={{ textShadow: `0 0 30px ${selectedProject.color}60` }}>
-                        {selectedProject.alt}
-                     </h2>
-                     
-                     <p className="mt-6 text-gray-400 text-sm md:text-lg leading-relaxed font-light">
-                        {selectedProject.desc}
-                     </p>
-                     
-                     <div className="flex flex-wrap gap-3 mt-8">
-                        {['React', 'Next.js', 'Tailwind', 'Three.js'].map(tech => (
-                          <span key={tech} className="px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold tracking-widest uppercase bg-white/5 border border-white/10" style={{ color: selectedProject.color }}>
-                            {tech}
-                          </span>
-                        ))}
-                     </div>
-                  </div>
+               {/* RIGHT SIDE: ALL CONTENT + IFRAME */}
+               <div className="flex-1 h-full flex flex-col relative bg-[#0a0a0a]">
                   
-                  <div className="flex flex-col md:flex-row gap-4 mt-12">
-                     <a href="#" className="flex-1 py-4 rounded-xl text-center text-sm md:text-base font-bold tracking-wide transition-all hover:scale-105 bg-white text-black hover:opacity-80">
-                        View Live Vercel
-                     </a>
-                     <a href="#" className="flex-1 py-4 rounded-xl text-center text-sm md:text-base font-bold tracking-wide transition-all hover:scale-105 border bg-black text-white" style={{ borderColor: `${selectedProject.color}60` }}>
-                        GitHub Code
-                     </a>
-                  </div>
-               </motion.div>
+                  {/* Top Header: Title, Details, Buttons */}
+                  <motion.div 
+                     initial={{ opacity: 0 }}
+                     animate={{ opacity: 1 }}
+                     transition={{ delay: 0.4, duration: 0.5 }}
+                     className="w-full p-6 md:p-8 flex flex-col lg:flex-row gap-6 items-start lg:items-end justify-between border-b border-white/10 bg-black/50"
+                  >
+                     <div className="flex-1">
+                        <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight" style={{ color: selectedProject.color }}>
+                           {selectedProject.alt}
+                        </h2>
+                        
+                        <p className="mt-3 md:mt-4 text-gray-400 text-xs md:text-sm leading-relaxed font-light max-w-3xl">
+                           {selectedProject.desc}
+                        </p>
+                        
+                        <div className="flex flex-wrap gap-2 mt-4">
+                           {['React', 'Next.js', 'Tailwind', 'Three.js'].map(tech => (
+                             <span key={tech} className="px-3 py-1 rounded-sm text-[9px] md:text-[10px] font-bold tracking-widest uppercase bg-white/5 border border-white/10" style={{ color: selectedProject.color }}>
+                               {tech}
+                             </span>
+                           ))}
+                        </div>
+                     </div>
+                     
+                     <div className="flex flex-col gap-3 min-w-[200px] w-full lg:w-auto mt-4 lg:mt-0">
+                        <a href="#" className="w-full py-3 rounded-lg text-center text-sm font-bold tracking-wide transition-all bg-white text-black hover:opacity-80">
+                           Open Full Screen
+                        </a>
+                        <a href="#" className="w-full py-3 rounded-lg text-center text-sm font-bold tracking-wide transition-all border border-white/20 bg-transparent text-white hover:bg-white/5">
+                           GitHub Repository
+                        </a>
+                     </div>
+                  </motion.div>
+                  
+                  {/* Bottom Section: The Live Project Preview / Iframe */}
+                  <motion.div 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.6 }}
+                    className="flex-1 w-full relative flex items-center justify-center bg-[#050505]"
+                  >
+                     <div className="flex flex-col items-center justify-center opacity-30">
+                        <svg className="w-12 h-12 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                        </svg>
+                        <p className="font-mono text-sm tracking-widest uppercase text-center px-4">Live Project Iframe Loads Here</p>
+                     </div>
+                  </motion.div>
+               </div>
                
                {/* Close Button */}
                <button 
                  onClick={() => setSelectedProject(null)}
-                 className="absolute top-4 right-4 md:top-8 md:right-8 w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white border border-white/20 hover:scale-110 transition-transform z-50 hover:bg-white/10"
+                 className="absolute top-4 right-4 md:top-6 md:right-6 w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/80 backdrop-blur-md flex items-center justify-center text-white border border-white/20 hover:scale-110 transition-transform z-50 hover:bg-white/10"
                >
                  ✕
-               </button>
+              </button>
             </motion.div>
           </div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </>
   );
 }

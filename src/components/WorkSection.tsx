@@ -7,7 +7,7 @@ interface WorkSectionProps {
 
 export default function WorkSection({ onFolderComplete }: WorkSectionProps) {
   return (
-    <section id="work-section" className="relative w-full min-h-screen flex flex-col items-center justify-center bg-transparent text-white overflow-hidden z-20 py-12">
+    <section id="work-section" className="w-full min-h-screen flex flex-col items-center justify-center bg-transparent text-white py-12">
       
       {/* Sleek, Minimalist Section Heading */}
       <div className="w-full flex flex-col items-center z-30 mb-8 md:mb-16 relative">
