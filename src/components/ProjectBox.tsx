@@ -164,8 +164,8 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
                   />
                </div>
                
-               {/* RIGHT SIDE: ALL CONTENT + IFRAME */}
-               <div className="flex-1 h-full flex flex-col relative bg-[#0a0a0a]">
+               {/* RIGHT SIDE: ALL CONTENT + IFRAME (SCROLLABLE, NO SCROLLBAR) */}
+               <div className="flex-1 h-full overflow-y-auto relative bg-[#0a0a0a] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]" data-lenis-prevent="true">
                   
                   {/* Top Header: Title, Details, Buttons */}
                   <motion.div 
@@ -211,7 +211,7 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.6 }}
-                    className="flex-1 w-full relative flex items-center justify-center bg-[#050505]"
+                    className="w-full h-[85vh] relative flex items-center justify-center bg-[#050505]"
                   >
                      {selectedProject.liveLink ? (
                         <iframe 
