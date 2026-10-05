@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { createPortal } from 'react-dom';
+import { useLenis } from 'lenis/react';
 
 interface ProjectFolderProps {
   onSequenceComplete?: () => void;
@@ -19,6 +20,7 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
   const isInView = useInView(containerRef, { once: false, margin: "-25%" });
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
   const [mounted, setMounted] = useState(false);
+  const lenis = useLenis();
 
   useEffect(() => {
     setMounted(true);
@@ -38,11 +40,13 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
     if (selectedProject) {
       document.body.style.overflow = 'hidden';
       document.documentElement.style.overflow = 'hidden';
+      lenis?.stop();
     } else {
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
+      lenis?.start();
     }
-  }, [selectedProject]);
+  }, [selectedProject, lenis]);
 
   return (
     <>
@@ -121,7 +125,18 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
       {mounted && typeof document !== 'undefined' && createPortal(
         <AnimatePresence>
           {selectedProject && (
-            <div className="fixed inset-0 z-[999999] flex items-center justify-center pointer-events-auto">
+            <div 
+               className="fixed inset-0 z-[999999] flex items-center justify-center pointer-events-auto"
+               data-lenis-prevent="true"
+            >
+            
+            {/* Massive explicit blocker to kill all background pointer events */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-[#050505]"
+            />
             
             {/* The Morphing Card that becomes the FULL SCREEN UI! */}
             <motion.div 
