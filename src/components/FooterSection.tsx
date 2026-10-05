@@ -81,15 +81,8 @@ export default function FooterSection() {
       {/* THE STICKY LOCK - This freezes to the screen for the final 100vh of scrolling */}
       <div className="sticky top-0 w-full h-screen flex flex-col items-center justify-center overflow-hidden pt-32 pb-24">
         
-        {/* 1. Standard Static Image (Rollback per user request) */}
-        <div className="relative w-[300px] h-[450px] md:w-[400px] md:h-[550px] z-10 flex items-center justify-center">
-          <Image 
-            src="/images/hologram-body.png" 
-            alt="Standing Portrait" 
-            fill 
-            className="object-contain"
-          />
-        </div>
+        {/* 1. 2D Dot Mosaic Formation */}
+        <HologramBody isInView={isInView} />
 
         {/* 2. The Hologram Base Platform (Typography Block) */}
         {/* Positioned exactly where his feet will be, so it looks like he is standing ON the rotating ring! */}

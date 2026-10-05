@@ -42,7 +42,7 @@ function Particles({ isInView }: { isInView: boolean }) {
         vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
         
         // Fixed, crisp point size for that clean "tiny dots" look
-        gl_PointSize = (4.0 / -mvPosition.z); 
+        gl_PointSize = (2.5 / -mvPosition.z); 
         gl_Position = projectionMatrix * mvPosition;
       }
     `,
@@ -65,14 +65,14 @@ function Particles({ isInView }: { isInView: boolean }) {
 
   useEffect(() => {
     const img = new window.Image();
-    img.src = '/images/hologram-body.png';
+    img.src = '/images/hologram-body-transparent.png';
     img.onload = () => {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
       if (!ctx) return;
       
-      // High resolution base
-      const width = 300;
+      // Extremely high resolution base for a dense, highly detailed dot mosaic
+      const width = 500;
       const aspect = img.height / img.width;
       const height = aspect * width;
       
@@ -89,10 +89,6 @@ function Particles({ isInView }: { isInView: boolean }) {
           const i = (y * width + x) * 4;
           const a = imgData[i + 3];
           if (a < 128) continue;
-          
-          // Pure white background removal
-          const r = imgData[i], g = imgData[i+1], b = imgData[i+2];
-          if (r > 240 && g > 240 && b > 240) continue;
 
           if (x < minX) minX = x;
           if (x > maxX) maxX = x;
@@ -121,7 +117,6 @@ function Particles({ isInView }: { isInView: boolean }) {
           const r = imgData[i];
           const g = imgData[i + 1];
           const b = imgData[i + 2];
-          if (r > 240 && g > 240 && b > 240) continue;
           
           const px = ((x - minX) / cropW) * 2 - 1;
           const py = -((y - minY) / cropH) * 2 + 1;
@@ -135,11 +130,11 @@ function Particles({ isInView }: { isInView: boolean }) {
           positions.push(finalPx, finalPy, pz);
           originalPos.push(finalPx, finalPy, pz);
           
-          // They fly in from all directions
+          // They fly out from the INSIDE (center point)!
           randomPos.push(
-            (Math.random() - 0.5) * 10,
-            (Math.random() - 0.5) * 10,
-            (Math.random() - 0.5) * 10
+            (Math.random() - 0.5) * 0.2, // Very tight cluster in the center
+            (Math.random() - 0.5) * 0.2,
+            (Math.random() - 0.5) * 0.2
           );
           
           colors.push(r / 255, g / 255, b / 255);
@@ -165,8 +160,7 @@ function Particles({ isInView }: { isInView: boolean }) {
 
   if (!geometry) return null;
 
-  // Scale decreased slightly as requested so it's not overwhelmingly large!
-  // Lifted the model up slightly so the feet rest cleanly on top of the text without sinking in!
+  // Scale decreased back to the balanced size without zooming in!
   return (
     <points ref={pointsRef} geometry={geometry} material={shaderMaterial} scale={[1.45, 1.45, 1.45]} position={[0, 0.05, 0]} />
   );
