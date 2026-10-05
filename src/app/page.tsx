@@ -99,7 +99,7 @@ export default function Home() {
       <div className="fixed inset-0 z-0 opacity-80 pointer-events-none">
         <Canvas camera={{ position: [0, 0, 1] }} onCreated={() => setIsReady(true)}>
           <MorphingParticles isCompiled={isCompiled} />
-          <EffectComposer disableNormalPass>
+          <EffectComposer>
             <Bloom luminanceThreshold={0.7} mipmapBlur intensity={1.0} />
           </EffectComposer>
         </Canvas>
