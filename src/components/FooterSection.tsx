@@ -5,6 +5,7 @@ import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
 
 import BentLogo from './BentLogo';
+import HologramBody from './HologramBody';
 
 export default function FooterSection() {
   const containerRef = React.useRef(null);
@@ -80,36 +81,10 @@ export default function FooterSection() {
       {/* THE STICKY LOCK - This freezes to the screen for the final 100vh of scrolling */}
       <div className="sticky top-0 w-full h-screen flex flex-col items-center justify-center overflow-hidden pt-32 pb-24">
         
-        {/* 1. The Portrait Container */}
-        <div className="relative w-64 h-64 md:w-80 md:h-80 mb-12 flex items-center justify-center">
-          <div className="relative w-full h-full overflow-hidden">
-            <Image 
-              src="/images/profile-retro-smile.jpg" 
-              alt="Manne Achuth" 
-              fill 
-              className="object-cover mix-blend-lighten"
-              style={{
-                maskImage: "linear-gradient(to bottom, black 80%, transparent 100%)",
-                WebkitMaskImage: "linear-gradient(to bottom, black 80%, transparent 100%)"
-              }}
-            />
-            {/* THE SMOOTH LIQUID WAVE REVEALER */}
-            <motion.div
-              className="absolute inset-0 bg-black z-10 pointer-events-none origin-top"
-              initial={{ y: "0%" }} 
-              animate={isInView ? { y: "-150%" } : {}} 
-              transition={{ duration: 4, delay: 0.2, ease: "linear" }}
-            >
-              <motion.svg 
-                viewBox="0 0 1000 100" 
-                className="absolute bottom-[-99px] left-0 w-[200%] h-[100px] fill-black"
-                preserveAspectRatio="none"
-                animate={isInView ? { x: ["0%", "-50%"] } : {}} 
-                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-              >
-                <path d="M 0 0 L 1000 0 L 1000 50 Q 875 100 750 50 T 500 50 T 250 50 T 0 50 Z" />
-              </motion.svg>
-            </motion.div>
+        {/* 1. The 3D Hologram Body Container */}
+        <div className="relative w-[300px] h-[450px] md:w-[400px] md:h-[550px] mb-8 flex items-center justify-center">
+          <div className="relative w-full h-full">
+            <HologramBody isInView={isInView} />
           </div>
         </div>
 
