@@ -8,11 +8,21 @@ interface ProjectFolderProps {
 }
 
 const projects = [
-  { id: 1, src: '/images/kisankhata-card.jpg', alt: 'Kisan Khata', rotate: -20, x: -80, zIndex: 1, color: '#4ade80', desc: 'A revolutionary fintech platform empowering farmers with seamless digital ledgers and financial tracking.' },
-  { id: 2, src: '/images/railsamay-card.jpg', alt: 'Rail Samay', rotate: -10, x: -40, zIndex: 2, color: '#facc15', desc: 'High-performance real-time railway tracking and schedule prediction system built for millions of commuters.' },
-  { id: 3, src: '/images/capabilio-card.jpg', alt: 'Capabilio AI', rotate: 0, x: 0, zIndex: 3, color: '#3b82f6', desc: 'Enterprise AI-driven talent acquisition and capability mapping software redefining HR tech.' },
-  { id: 4, src: '/images/arc-card.jpg', alt: 'ARC Aerospace', rotate: 10, x: 40, zIndex: 4, color: '#ef4444', desc: 'Advanced aviation tracking, analytics, and aerospace management dashboard.' },
-  { id: 5, src: '/images/aimitra-card.jpg', alt: 'AI Mitra', rotate: 20, x: 80, zIndex: 5, color: '#a855f7', desc: 'Next-gen conversational AI companion and personalized assistant for modern students.' },
+  { 
+    id: 1, 
+    src: '/images/kisankhata-card.jpg', 
+    alt: 'Kisan Khata', 
+    rotate: -20, 
+    x: -80, 
+    zIndex: 1, 
+    color: '#4ade80', 
+    desc: 'Kisan Khata is an offline-first agricultural management app that helps farmers track daily expenses and worker attendance even with limited internet connectivity. It also delivers relevant government schemes in Telugu through an AI-powered system.',
+    tech: ['React Native', 'Expo', 'TypeScript', 'Firebase', 'Gemini API']
+  },
+  { id: 2, src: '/images/railsamay-card.jpg', alt: 'Rail Samay', rotate: -10, x: -40, zIndex: 2, color: '#facc15', desc: 'High-performance real-time railway tracking and schedule prediction system built for millions of commuters.', tech: ['React', 'Next.js', 'Tailwind'] },
+  { id: 3, src: '/images/capabilio-card.jpg', alt: 'Capabilio AI', rotate: 0, x: 0, zIndex: 3, color: '#3b82f6', desc: 'Enterprise AI-driven talent acquisition and capability mapping software redefining HR tech.', tech: ['React', 'Next.js', 'Tailwind'] },
+  { id: 4, src: '/images/arc-card.jpg', alt: 'ARC Aerospace', rotate: 10, x: 40, zIndex: 4, color: '#ef4444', desc: 'Advanced aviation tracking, analytics, and aerospace management dashboard.', tech: ['React', 'Next.js', 'Tailwind'] },
+  { id: 5, src: '/images/aimitra-card.jpg', alt: 'AI Mitra', rotate: 20, x: 80, zIndex: 5, color: '#a855f7', desc: 'Next-gen conversational AI companion and personalized assistant for modern students.', tech: ['React', 'Next.js', 'Tailwind'] },
 ];
 
 export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps) {
@@ -172,7 +182,7 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
                         </p>
                         
                         <div className="flex flex-wrap gap-2 mt-4">
-                           {['React', 'Next.js', 'Tailwind', 'Three.js'].map(tech => (
+                           {selectedProject.tech?.map((tech: string) => (
                              <span key={tech} className="px-3 py-1 rounded-sm text-[9px] md:text-[10px] font-bold tracking-widest uppercase bg-white/5 border border-white/10" style={{ color: selectedProject.color }}>
                                {tech}
                              </span>
