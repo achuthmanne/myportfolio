@@ -39,14 +39,30 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
     setMounted(true);
   }, []);
 
+  const [hasPlayedSequence, setHasPlayedSequence] = useState(false);
+
   useEffect(() => {
-    if (isInView) {
+    if (isInView && !hasPlayedSequence) {
+      setHasPlayedSequence(true);
+      
+      // Lock the scroll immediately so they are forced to watch the folder open!
+      lenis?.stop();
+      document.body.style.overflow = 'hidden';
+
       const timer = setTimeout(() => {
+        // Unlock scroll after the 4-second animation finishes
+        lenis?.start();
+        document.body.style.overflow = '';
         if (onSequenceComplete) onSequenceComplete();
       }, 4000); 
-      return () => clearTimeout(timer);
+      
+      return () => {
+        clearTimeout(timer);
+        lenis?.start();
+        document.body.style.overflow = '';
+      };
     }
-  }, [isInView, onSequenceComplete]);
+  }, [isInView, hasPlayedSequence, lenis, onSequenceComplete]);
 
   // Lock scrolling perfectly when a project is open
   useEffect(() => {
