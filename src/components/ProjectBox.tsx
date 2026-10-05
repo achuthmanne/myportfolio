@@ -32,6 +32,7 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
   const isInView = useInView(containerRef, { once: false, margin: "-25%" });
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
   const [mounted, setMounted] = useState(false);
+  const [isIframeActive, setIsIframeActive] = useState(false);
   const lenis = useLenis();
 
   useEffect(() => {
@@ -155,8 +156,11 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
               layoutId={`project-card-${selectedProject.id}`}
               className="relative w-full h-full bg-[#050505] flex flex-col md:flex-row overflow-hidden"
             >
-               {/* LEFT SIDE: ONLY the Card Image (Full height, natural width) */}
-               <div className="h-[30vh] md:h-full relative border-b md:border-b-0 md:border-r border-white/10 bg-black z-10 flex-shrink-0">
+               {/* LEFT SIDE: ONLY the Card Image */}
+               <div 
+                 onMouseEnter={() => setIsIframeActive(false)}
+                 className="h-[30vh] md:h-full relative border-b md:border-b-0 md:border-r border-white/10 bg-black z-10 flex-shrink-0"
+               >
                   <img 
                     src={selectedProject.src} 
                     alt={selectedProject.alt} 
@@ -164,15 +168,21 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
                   />
                </div>
                
-               {/* RIGHT SIDE: ALL CONTENT + IFRAME (SCROLLABLE, NO SCROLLBAR) */}
-               <div className="flex-1 h-full overflow-y-auto relative bg-[#0a0a0a] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]" data-lenis-prevent="true">
+               {/* RIGHT SIDE: DYNAMIC SPLIT */}
+               <div className="flex-1 h-full flex flex-col relative bg-[#0a0a0a]" data-lenis-prevent="true">
                   
                   {/* Top Header: Title, Details, Buttons */}
                   <motion.div 
-                     initial={{ opacity: 0 }}
-                     animate={{ opacity: 1 }}
-                     transition={{ delay: 0.4, duration: 0.5 }}
-                     className="w-full p-6 md:p-8 flex flex-col lg:flex-row gap-6 items-start lg:items-end justify-between border-b border-white/10 bg-black/50"
+                     onMouseEnter={() => setIsIframeActive(false)}
+                     initial={{ height: 'auto', opacity: 0 }}
+                     animate={{ 
+                       height: isIframeActive ? 0 : 'auto', 
+                       opacity: isIframeActive ? 0 : 1,
+                       paddingTop: isIframeActive ? 0 : '2rem',
+                       paddingBottom: isIframeActive ? 0 : '2rem',
+                     }}
+                     transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                     className="w-full px-6 md:px-8 flex flex-col lg:flex-row gap-6 items-start lg:items-end justify-between border-b border-white/10 bg-black/50 overflow-hidden"
                   >
                      <div className="flex-1">
                         <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight" style={{ color: selectedProject.color }}>
@@ -211,12 +221,21 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.6 }}
-                    className="w-full h-[85vh] relative flex items-center justify-center bg-[#050505]"
+                    className="flex-1 w-full relative flex items-center justify-center bg-[#050505]"
                   >
+                     {/* Interaction Overlay: Captures the first scroll or click to hide the header */}
+                     {!isIframeActive && (
+                       <div 
+                         className="absolute inset-0 z-20 cursor-pointer"
+                         onWheel={() => setIsIframeActive(true)}
+                         onClick={() => setIsIframeActive(true)}
+                       />
+                     )}
+                     
                      {selectedProject.liveLink ? (
                         <iframe 
                            src={selectedProject.liveLink} 
-                           className="w-full h-full border-none"
+                           className="w-full h-full border-none z-10 relative"
                            title={`${selectedProject.alt} Live Preview`}
                         />
                      ) : (
@@ -232,7 +251,11 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
                
                {/* Close Button */}
                <button 
-                 onClick={() => setSelectedProject(null)}
+                 onMouseEnter={() => setIsIframeActive(false)}
+                 onClick={() => {
+                   setSelectedProject(null);
+                   setIsIframeActive(false);
+                 }}
                  className="absolute top-4 right-4 md:top-6 md:right-6 w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/80 backdrop-blur-md flex items-center justify-center text-white border border-white/20 hover:scale-110 transition-transform z-50 hover:bg-white/10"
                >
                  ✕
