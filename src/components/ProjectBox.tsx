@@ -17,7 +17,9 @@ const projects = [
     zIndex: 1, 
     color: '#4ade80', 
     desc: 'Kisan Khata is an offline-first agricultural management app that helps farmers track daily expenses and worker attendance even with limited internet connectivity. It also delivers relevant government schemes in Telugu through an AI-powered system.',
-    tech: ['React Native', 'Expo', 'TypeScript', 'Firebase', 'Gemini API']
+    tech: ['React Native', 'Expo', 'TypeScript', 'Firebase', 'Gemini API'],
+    liveLink: 'https://www.kisankhata.co.in/',
+    githubLink: 'https://github.com/achuthmanne/kisan-khata-app'
   },
   { id: 2, src: '/images/railsamay-card.jpg', alt: 'Rail Samay', rotate: -10, x: -40, zIndex: 2, color: '#facc15', desc: 'High-performance real-time railway tracking and schedule prediction system built for millions of commuters.', tech: ['React', 'Next.js', 'Tailwind'] },
   { id: 3, src: '/images/capabilio-card.jpg', alt: 'Capabilio AI', rotate: 0, x: 0, zIndex: 3, color: '#3b82f6', desc: 'Enterprise AI-driven talent acquisition and capability mapping software redefining HR tech.', tech: ['React', 'Next.js', 'Tailwind'] },
@@ -191,12 +193,16 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
                      </div>
                      
                      <div className="flex flex-col gap-3 min-w-[200px] w-full lg:w-auto mt-4 lg:mt-0">
-                        <a href="#" className="w-full py-3 rounded-lg text-center text-sm font-bold tracking-wide transition-all bg-white text-black hover:opacity-80">
-                           Open Full Screen
-                        </a>
-                        <a href="#" className="w-full py-3 rounded-lg text-center text-sm font-bold tracking-wide transition-all border border-white/20 bg-transparent text-white hover:bg-white/5">
-                           GitHub Repository
-                        </a>
+                        {selectedProject.liveLink && (
+                          <a href={selectedProject.liveLink} target="_blank" rel="noopener noreferrer" className="w-full py-3 rounded-lg text-center text-sm font-bold tracking-wide transition-all bg-white text-black hover:opacity-80">
+                             Open Full Screen
+                          </a>
+                        )}
+                        {selectedProject.githubLink && (
+                          <a href={selectedProject.githubLink} target="_blank" rel="noopener noreferrer" className="w-full py-3 rounded-lg text-center text-sm font-bold tracking-wide transition-all border border-white/20 bg-transparent text-white hover:bg-white/5">
+                             GitHub Repository
+                          </a>
+                        )}
                      </div>
                   </motion.div>
                   
@@ -207,12 +213,20 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
                     transition={{ delay: 0.6 }}
                     className="flex-1 w-full relative flex items-center justify-center bg-[#050505]"
                   >
-                     <div className="flex flex-col items-center justify-center opacity-30">
-                        <svg className="w-12 h-12 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-                        </svg>
-                        <p className="font-mono text-sm tracking-widest uppercase text-center px-4">Live Project Iframe Loads Here</p>
-                     </div>
+                     {selectedProject.liveLink ? (
+                        <iframe 
+                           src={selectedProject.liveLink} 
+                           className="w-full h-full border-none"
+                           title={`${selectedProject.alt} Live Preview`}
+                        />
+                     ) : (
+                        <div className="flex flex-col items-center justify-center opacity-30">
+                           <svg className="w-12 h-12 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                           </svg>
+                           <p className="font-mono text-sm tracking-widest uppercase text-center px-4">Live Project Iframe Loads Here</p>
+                        </div>
+                     )}
                   </motion.div>
                </div>
                
