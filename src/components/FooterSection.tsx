@@ -81,24 +81,24 @@ export default function FooterSection() {
       {/* THE STICKY LOCK - This freezes to the screen for the final 100vh of scrolling */}
       <div className="sticky top-0 w-full h-screen flex flex-col items-center justify-center overflow-hidden pt-32 pb-24">
         
-        {/* 1. The 3D Hologram Body Container */}
-        <div className="relative w-[300px] h-[450px] md:w-[400px] md:h-[550px] mb-8 flex items-center justify-center">
-          <div className="relative w-full h-full">
-            <HologramBody isInView={isInView} />
-          </div>
+        {/* 1. The FULL SCREEN 3D Hologram Body */}
+        {/* We give the Canvas the entire screen so the model can be massive and never get cut off! */}
+        <div className="absolute inset-0 w-full h-full z-10 flex items-center justify-center">
+          <HologramBody isInView={isInView} />
         </div>
 
-        {/* 2. Typography Block */}
-        <div className="flex flex-col items-center text-center z-20 mt-4">
+        {/* 2. The Hologram Base Platform (Typography Block) */}
+        {/* Positioned exactly where his feet will be, so it looks like he is standing ON the rotating ring! */}
+        <div className="absolute bottom-[12%] flex flex-col items-center justify-end text-center z-20 pointer-events-none">
           <motion.div 
-            className="relative -my-8 md:-my-12 z-20 drop-shadow-[0_0_15px_rgba(201,42,58,0.2)]"
+            className="relative"
             style={{ y: ringY, opacity: ringOpacity }}
           >
             <BentLogo scrollProgress={scrollYProgress} />
           </motion.div>
           
           <motion.p 
-            className="text-gray-400 font-mono text-sm md:text-base tracking-[0.4em] uppercase mt-2"
+            className="text-gray-400 font-mono text-sm md:text-base tracking-[0.4em] uppercase -mt-6 md:-mt-10 lg:-mt-16"
             initial={{ opacity: 0, y: 10 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1, delay: 2.5 }}
