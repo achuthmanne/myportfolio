@@ -104,13 +104,11 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
                      style={{ zIndex: card.zIndex }}
                   >
                      <motion.div 
-                       layoutId={`project-card-${card.id}`}
+                       layoutId={cardsSettled ? `project-card-${card.id}` : undefined}
                        onClick={() => setSelectedProject(card)}
                        whileHover={{ y: -48 }}
                        transition={{ 
-                         layout: cardsSettled 
-                           ? { duration: 0.6, type: "spring", bounce: 0.2 } 
-                           : { duration: 0, type: "tween" } 
+                         layout: { duration: 0.6, type: "spring", bounce: 0.2 } 
                        }}
                        className="relative w-full h-full cursor-pointer drop-shadow-2xl hover:drop-shadow-[0_20px_40px_rgba(255,255,255,0.15)] rounded-[1.5rem] overflow-hidden border border-white/10"
                      >
