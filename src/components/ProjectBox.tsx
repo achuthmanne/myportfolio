@@ -43,7 +43,9 @@ const projects = [
     zIndex: 3, 
     colors: ['#f97316', '#ffffff'], 
     desc: 'Capabilio AI is an intelligent career acceleration platform that evaluates engineering students through dynamic, AI-generated coding challenges and real-time computational workspaces. It personalizes learning paths to build verified, job-ready portfolios.', 
-    tech: ['React.js', 'Node.js', 'Express', 'Supabase', 'Claude 3.5 Sonnet', 'Piston API'] 
+    tech: ['React.js', 'Node.js', 'Express', 'Supabase', 'Claude 3.5 Sonnet', 'Piston API'],
+    liveLink: 'https://capabilioai-web.vercel.app/',
+    githubLink: 'https://github.com/achuthmanne/capabilioai-web'
   },
   { 
     id: 4, 
