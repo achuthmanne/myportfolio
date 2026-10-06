@@ -30,7 +30,9 @@ const projects = [
     zIndex: 2, 
     colors: ['#f97316', '#3b82f6'], 
     desc: 'Rail Samay is an AI-powered dynamic ETA and Automatic Train Supervision (ATS) system for Indian Railways. By processing real-time telemetry, it replaces static schedules with highly accurate predictions, automatically resolves platform conflicts, and instantly synchronizes live updates between control rooms and passenger apps.', 
-    tech: ['React.js', 'Tailwind CSS', 'Node.js', 'Express', 'WebSockets', 'Python (AI)'] 
+    tech: ['React.js', 'Tailwind CSS', 'Node.js', 'Express', 'WebSockets', 'Python (AI)'],
+    liveLink: 'https://railsamay-sih.vercel.app/',
+    githubLink: 'https://github.com/achuthmanne/railsamay-SIH'
   },
   { 
     id: 3, 
