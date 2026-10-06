@@ -32,9 +32,39 @@ const projects = [
     desc: 'Rail Samay is an AI-powered dynamic ETA and Automatic Train Supervision (ATS) system for Indian Railways. By processing real-time telemetry, it replaces static schedules with highly accurate predictions, automatically resolves platform conflicts, and instantly synchronizes live updates between control rooms and passenger apps.', 
     tech: ['React.js', 'Tailwind CSS', 'Node.js', 'Express', 'WebSockets', 'Python (AI)'] 
   },
-  { id: 3, src: '/images/capabilio-card.jpg', alt: 'Capabilio AI', rotate: 0, x: 0, zIndex: 3, colors: ['#f97316', '#ffffff'], desc: 'Enterprise AI-driven talent acquisition and capability mapping software redefining HR tech.', tech: ['React', 'Next.js', 'Tailwind'] },
-  { id: 4, src: '/images/arc-card.jpg', alt: 'ARC Aerospace', rotate: 10, x: 40, zIndex: 4, colors: ['#ffffff', '#333333'], desc: 'Advanced aviation tracking, analytics, and aerospace management dashboard.', tech: ['React', 'Next.js', 'Tailwind'] },
-  { id: 5, src: '/images/aimitra-card.jpg', alt: 'AI Mitra', rotate: 20, x: 80, zIndex: 5, colors: ['#06b6d4', '#7dd3fc'], desc: 'Next-gen conversational AI companion and personalized assistant for modern students.', tech: ['React', 'Next.js', 'Tailwind'] },
+  { 
+    id: 3, 
+    src: '/images/capabilio-card.jpg', 
+    alt: 'Capabilio AI', 
+    rotate: 0, 
+    x: 0, 
+    zIndex: 3, 
+    colors: ['#f97316', '#ffffff'], 
+    desc: 'Capabilio AI is an intelligent career acceleration platform that evaluates engineering students through dynamic, AI-generated coding challenges and real-time computational workspaces. It personalizes learning paths to build verified, job-ready portfolios.', 
+    tech: ['React.js', 'Node.js', 'Express', 'Supabase', 'Claude 3.5 Sonnet', 'Piston API'] 
+  },
+  { 
+    id: 4, 
+    src: '/images/arc-card.jpg', 
+    alt: 'ARC Aerospace', 
+    rotate: 10, 
+    x: 40, 
+    zIndex: 4, 
+    colors: ['#ffffff', '#333333'], 
+    desc: 'The official digital platform for ARC Aerospace, an engineering student club focused on rocketry and satellite technology. It showcases their practical projects, technical workshops, and team milestones through a cinematic, highly interactive user interface designed to boost student outreach.', 
+    tech: ['TypeScript', 'Next.js', 'React', 'Tailwind CSS', 'Framer Motion'] 
+  },
+  { 
+    id: 5, 
+    src: '/images/aimitra-card.jpg', 
+    alt: 'AI Mitra', 
+    rotate: 20, 
+    x: 80, 
+    zIndex: 5, 
+    colors: ['#06b6d4', '#7dd3fc'], 
+    desc: 'AI Mitra is an AI-powered voice assistant designed to make everyday tasks easier through natural voice interaction. It focuses on simple, accessible, and intelligent communication between users and AI.', 
+    tech: ['React Native', 'TypeScript', 'Google Gemini API', 'Firebase'] 
+  },
 ];
 
 export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps) {
