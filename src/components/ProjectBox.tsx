@@ -32,6 +32,7 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
   const isInView = useInView(containerRef, { once: false, margin: "-25%" });
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
   const [mounted, setMounted] = useState(false);
+  const [cardsSettled, setCardsSettled] = useState(false);
   const lenis = useLenis();
 
   useEffect(() => {
@@ -41,6 +42,7 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
   useEffect(() => {
     if (isInView) {
       const timer = setTimeout(() => {
+        setCardsSettled(true);
         if (onSequenceComplete) onSequenceComplete();
       }, 4000); 
       return () => clearTimeout(timer);
@@ -105,7 +107,7 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
                        layoutId={`project-card-${card.id}`}
                        onClick={() => setSelectedProject(card)}
                        whileHover={{ y: -48 }}
-                       transition={{ layout: { duration: 0 } }} // This stops the weird stretching glitch when it first pops out!
+                       transition={{ layout: { duration: cardsSettled ? 0.6 : 0, type: "spring", bounce: 0.2 } }}
                        className="relative w-full h-full cursor-pointer drop-shadow-2xl hover:drop-shadow-[0_20px_40px_rgba(255,255,255,0.15)] rounded-[1.5rem] overflow-hidden border border-white/10"
                      >
                         <img src={card.src} alt={card.alt} className="w-full h-full object-cover scale-[1.15]" />
@@ -155,6 +157,7 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
             {/* The Morphing Card that becomes the FULL SCREEN UI! */}
             <motion.div 
               layoutId={`project-card-${selectedProject.id}`}
+              transition={{ layout: { duration: 0.6, type: "spring", bounce: 0.2 } }}
               className="relative w-full h-full bg-[#050505] flex flex-col md:flex-row overflow-hidden"
             >
                {/* LEFT SIDE: ONLY the Card Image (Full height, natural width) */}
