@@ -218,9 +218,8 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
                {/* RIGHT SIDE: The Content. */}
                <motion.div 
                  initial={{ opacity: 0 }}
-                 animate={{ opacity: 1 }}
-                 exit={{ opacity: 0 }}
-                 transition={{ delay: 0.3, duration: 0.3 }}
+                 animate={{ opacity: 1, transition: { delay: 0.3, duration: 0.3 } }}
+                 exit={{ opacity: 0, transition: { duration: 0 } }}
                  className="absolute right-0 top-0 w-full md:w-[calc(100vw-400px)] h-full flex flex-col bg-[#0a0a0a] z-10"
                >
                   
@@ -283,12 +282,15 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
                </motion.div>
                
                {/* Close Button */}
-               <button 
+               <motion.button 
                  onClick={() => setSelectedProject(null)}
+                 exit={{ opacity: 0, transition: { duration: 0 } }}
                  className="absolute top-4 right-4 md:top-6 md:right-6 w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/80 backdrop-blur-md flex items-center justify-center text-white border border-white/20 hover:scale-110 transition-transform z-50 hover:bg-white/10"
                >
-                 ✕
-              </button>
+                 <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+                 </svg>
+               </motion.button>
             </motion.div>
           </div>
           )}
