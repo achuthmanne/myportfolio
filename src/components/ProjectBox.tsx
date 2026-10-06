@@ -31,18 +31,26 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: false, margin: "-25%" });
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
-  const [cardRect, setCardRect] = useState<{top: number, left: number, width: number, height: number} | null>(null);
+  const [cardRect, setCardRect] = useState<{
+    hoveredTop: number;
+    hoveredLeft: number;
+    restingTop: number;
+    restingLeft: number;
+  } | null>(null);
   const [mounted, setMounted] = useState(false);
   const [cardsSettled, setCardsSettled] = useState(false);
   const lenis = useLenis();
 
   const handleCardClick = (e: React.MouseEvent<HTMLDivElement>, card: typeof projects[0]) => {
     const rect = e.currentTarget.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
     setCardRect({
-      top: rect.top,
-      left: rect.left,
-      width: rect.width,
-      height: rect.height
+      hoveredTop: centerY - 140, // 280 height / 2
+      hoveredLeft: centerX - 80, // 160 width / 2
+      restingTop: (centerY + 48) - 140, // add 48px to offset the whileHover y: -48
+      restingLeft: centerX - 80,
     });
     setSelectedProject(card);
   };
@@ -169,10 +177,11 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
             <motion.div 
               initial={cardRect ? {
                 position: 'absolute',
-                top: cardRect.top,
-                left: cardRect.left,
-                width: cardRect.width,
-                height: cardRect.height,
+                top: cardRect.hoveredTop,
+                left: cardRect.hoveredLeft,
+                width: 160,
+                height: 280,
+                rotateZ: selectedProject.rotate,
                 borderRadius: '24px',
               } : {}}
               animate={{
@@ -180,13 +189,15 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
                 left: 0,
                 width: '100vw',
                 height: '100vh',
+                rotateZ: 0,
                 borderRadius: '0px',
               }}
               exit={cardRect ? {
-                top: cardRect.top,
-                left: cardRect.left,
-                width: cardRect.width,
-                height: cardRect.height,
+                top: cardRect.restingTop,
+                left: cardRect.restingLeft,
+                width: 160,
+                height: 280,
+                rotateZ: selectedProject.rotate,
                 borderRadius: '24px',
               } : {}}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
