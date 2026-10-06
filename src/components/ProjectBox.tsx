@@ -56,7 +56,9 @@ const projects = [
     zIndex: 4, 
     colors: ['#ffffff', '#333333'], 
     desc: 'The official digital platform for ARC Aerospace, an engineering student club focused on rocketry and satellite technology. It showcases their practical projects, technical workshops, and team milestones through a cinematic, highly interactive user interface designed to boost student outreach.', 
-    tech: ['TypeScript', 'Next.js', 'React', 'Tailwind CSS', 'Framer Motion'] 
+    tech: ['TypeScript', 'Next.js', 'React', 'Tailwind CSS', 'Framer Motion'],
+    liveLink: 'https://arc-areospace.vercel.app/',
+    githubLink: 'https://github.com/achuthmanne/arc-areospace'
   },
   { 
     id: 5, 
