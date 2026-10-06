@@ -119,7 +119,7 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
                        onClick={(e) => handleCardClick(e, card)}
                        whileHover={{ y: -48 }}
                        style={{ opacity: selectedProject?.id === card.id ? 0 : 1 }}
-                       className="relative w-full h-full cursor-pointer drop-shadow-2xl hover:drop-shadow-[0_20px_40px_rgba(255,255,255,0.15)] rounded-[1.5rem] overflow-hidden border border-white/10"
+                       className="relative w-full h-full cursor-pointer drop-shadow-2xl hover:drop-shadow-[0_20px_40px_rgba(255,255,255,0.15)] rounded-[1.5rem] overflow-hidden border border-white/10 bg-black"
                      >
                         <img src={card.src} alt={card.alt} className="w-full h-full object-cover scale-[1.15]" />
                      </motion.div>
@@ -141,7 +141,7 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
                      <div className="w-8 h-1 bg-white rounded-full" />
                      <div className="w-12 h-1 bg-white rounded-full" />
                   </div>
-                  <div className="text-[8px] tracking-[0.4em] font-mono uppercase text-white">PROJECT ARCHIVE // 2025?"26</div>
+                  <div className="text-[8px] tracking-[0.4em] font-mono uppercase text-white">PROJECT ARCHIVE // 2025-26</div>
                </div>
             </motion.div>
           </motion.div>
@@ -192,25 +192,30 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               className="bg-[#050505] flex flex-col md:flex-row overflow-hidden shadow-2xl relative"
             >
-               {/* LEFT SIDE: The exact Image Clone. Animate width to match the split screen without breaking flex! */}
+               {/* LEFT SIDE: The exact Image Clone. */}
                <motion.div 
-                 initial={{ width: "100%", height: "100%" }}
+                 initial={{ width: "100%", height: "100%", padding: "0px" }}
                  animate={{ 
                    width: typeof window !== 'undefined' && window.innerWidth < 768 ? "100%" : "400px", 
-                   height: typeof window !== 'undefined' && window.innerWidth < 768 ? "30vh" : "100%" 
+                   height: typeof window !== 'undefined' && window.innerWidth < 768 ? "30vh" : "100%",
+                   padding: "0px" // Removed padding so it zooms in completely!
                  }}
-                 exit={{ width: "100%", height: "100%" }}
+                 exit={{ width: "100%", height: "100%", padding: "0px" }}
                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                 className="relative border-b md:border-b-0 md:border-r border-white/10 bg-black z-20 flex-shrink-0"
+                 className="relative border-b md:border-b-0 md:border-r border-white/10 bg-black z-20 flex-shrink-0 flex items-center justify-center overflow-hidden"
                >
-                  <img 
+                  <motion.img 
                     src={selectedProject.src} 
                     alt={selectedProject.alt} 
-                    className="w-full h-full object-cover" 
+                    initial={{ objectFit: "cover", borderRadius: "24px", scale: 1.15 }}
+                    animate={{ objectFit: "contain", borderRadius: "0px", scale: 1 }} // No border radius on the image itself inside the panel
+                    exit={{ objectFit: "cover", borderRadius: "24px", scale: 1.15 }}
+                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                    className="w-full h-full" 
                   />
                </motion.div>
                
-               {/* RIGHT SIDE: The Content. It lives in absolute space during transition so it doesn't squish the image! */}
+               {/* RIGHT SIDE: The Content. */}
                <motion.div 
                  initial={{ opacity: 0 }}
                  animate={{ opacity: 1 }}
