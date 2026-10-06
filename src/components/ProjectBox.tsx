@@ -21,7 +21,17 @@ const projects = [
     liveLink: 'https://www.kisankhata.co.in/',
     githubLink: 'https://github.com/achuthmanne/kisan-khata-app'
   },
-  { id: 2, src: '/images/railsamay-card.jpg', alt: 'Rail Samay', rotate: -10, x: -40, zIndex: 2, colors: ['#f97316', '#3b82f6'], desc: 'High-performance real-time railway tracking and schedule prediction system built for millions of commuters.', tech: ['React', 'Next.js', 'Tailwind'] },
+  { 
+    id: 2, 
+    src: '/images/railsamay-card.jpg', 
+    alt: 'Rail Samay', 
+    rotate: -10, 
+    x: -40, 
+    zIndex: 2, 
+    colors: ['#f97316', '#3b82f6'], 
+    desc: 'Rail Samay is an AI-powered dynamic ETA and Automatic Train Supervision (ATS) system for Indian Railways. By processing real-time telemetry, it replaces static schedules with highly accurate predictions, automatically resolves platform conflicts, and instantly synchronizes live updates between control rooms and passenger apps.', 
+    tech: ['React.js', 'Tailwind CSS', 'Node.js', 'Express', 'WebSockets', 'Python (AI)'] 
+  },
   { id: 3, src: '/images/capabilio-card.jpg', alt: 'Capabilio AI', rotate: 0, x: 0, zIndex: 3, colors: ['#f97316', '#ffffff'], desc: 'Enterprise AI-driven talent acquisition and capability mapping software redefining HR tech.', tech: ['React', 'Next.js', 'Tailwind'] },
   { id: 4, src: '/images/arc-card.jpg', alt: 'ARC Aerospace', rotate: 10, x: 40, zIndex: 4, colors: ['#ffffff', '#333333'], desc: 'Advanced aviation tracking, analytics, and aerospace management dashboard.', tech: ['React', 'Next.js', 'Tailwind'] },
   { id: 5, src: '/images/aimitra-card.jpg', alt: 'AI Mitra', rotate: 20, x: 80, zIndex: 5, colors: ['#06b6d4', '#7dd3fc'], desc: 'Next-gen conversational AI companion and personalized assistant for modern students.', tech: ['React', 'Next.js', 'Tailwind'] },
