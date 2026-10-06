@@ -196,9 +196,9 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
                 top: cardRect.restingTop,
                 left: cardRect.restingLeft,
                 width: 160,
-                height: 280,
+                height: 140, // Clip the bottom half to simulate sliding behind the front flap!
                 rotateZ: selectedProject.rotate,
-                borderRadius: '24px',
+                borderRadius: '24px 24px 0 0', // Flat bottom for the insertion cut
               } : {}}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               className="bg-[#050505] flex flex-col md:flex-row overflow-hidden shadow-2xl relative"
@@ -211,7 +211,7 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
                    height: typeof window !== 'undefined' && window.innerWidth < 768 ? "30vh" : "100%",
                    padding: "0px" // Removed padding so it zooms in completely!
                  }}
-                 exit={{ width: "100%", height: "100%", padding: "0px" }}
+                 exit={{ width: "100%", height: "280px", padding: "0px" }} // Force full 280px height so the wrapper clips it!
                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                  className="relative border-b md:border-b-0 md:border-r border-white/10 bg-black z-20 flex-shrink-0 flex items-center justify-center overflow-hidden"
                >
