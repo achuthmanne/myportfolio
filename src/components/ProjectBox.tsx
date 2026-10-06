@@ -1,5 +1,5 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { motion, useInView, AnimatePresence, usePresence } from 'framer-motion';
+import React, { useRef, useState, useEffect, useMemo } from 'react';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { createPortal } from 'react-dom';
 import { useLenis } from 'lenis/react';
 
@@ -27,61 +27,11 @@ const projects = [
   { id: 5, src: '/images/aimitra-card.jpg', alt: 'AI Mitra', rotate: 20, x: 80, zIndex: 5, color: '#a855f7', desc: 'Next-gen conversational AI companion and personalized assistant for modern students.', tech: ['React', 'Next.js', 'Tailwind'] },
 ];
 
-const MagicSparkles = ({ color, targetTop, targetLeft }: { color: string, targetTop: number, targetLeft: number }) => {
-  const [isPresent] = usePresence();
-  const [sparkles, setSparkles] = useState<{ id: number, startX: number, startY: number, delay: number, size: number }[]>([]);
-
-  useEffect(() => {
-    // Generate exactly 40 magic particles ONLY when the exit animation starts
-    if (!isPresent) {
-      const newSparkles = Array.from({ length: 40 }).map((_, i) => ({
-        id: i,
-        startX: (typeof window !== 'undefined' ? window.innerWidth : 1000) * (Math.random() * 1.2 - 0.1), // Spawn from everywhere
-        startY: (typeof window !== 'undefined' ? window.innerHeight : 1000) * (Math.random() * 1.2 - 0.1),
-        delay: Math.random() * 0.3, // Swarm in quickly
-        size: Math.random() * 4 + 2
-      }));
-      setSparkles(newSparkles);
-    }
-  }, [isPresent]);
-
-  // Don't render anything while open!
-  if (isPresent || sparkles.length === 0) return null;
-
-  return (
-    <>
-      {sparkles.map((sparkle) => (
-        <motion.div
-          key={sparkle.id}
-          initial={{ x: sparkle.startX, y: sparkle.startY, scale: 0, opacity: 0 }}
-          animate={{ 
-            x: targetLeft, 
-            y: targetTop, 
-            scale: [0, 1.5, 0], // Flash big then disappear as they hit the target
-            opacity: [0, 1, 0] 
-          }}
-          transition={{
-            duration: 0.5,
-            delay: sparkle.delay,
-            ease: "easeInOut"
-          }}
-          className="fixed z-[9999999] rounded-full pointer-events-none"
-          style={{
-            width: sparkle.size + 'px',
-            height: sparkle.size + 'px',
-            backgroundColor: color,
-            boxShadow: `0 0 10px ${color}, 0 0 20px ${color}`
-          }}
-        />
-      ))}
-    </>
-  );
-};
-
 export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: false, margin: "-25%" });
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
+  const [shatteringProject, setShatteringProject] = useState<typeof projects[0] | null>(null);
   const [cardRect, setCardRect] = useState<{
     hoveredTop: number;
     hoveredLeft: number;
@@ -177,7 +127,6 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
                      <motion.div 
                        onClick={(e) => handleCardClick(e, card)}
                        whileHover={{ y: -48 }}
-                       style={{ opacity: selectedProject?.id === card.id ? 0 : 1 }}
                        className="relative w-full h-full cursor-pointer drop-shadow-2xl hover:drop-shadow-[0_20px_40px_rgba(255,255,255,0.15)] rounded-[1.5rem] overflow-hidden border border-white/10 bg-black"
                      >
                         <img src={card.src} alt={card.alt} className="w-full h-full object-cover scale-[1.15]" />
@@ -243,15 +192,8 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
                 rotateZ: 0,
                 borderRadius: '0px',
               }}
-              exit={cardRect ? {
-                top: cardRect.restingTop,
-                left: cardRect.restingLeft,
-                width: 160,
-                height: 140, // Clip the bottom half to simulate sliding behind the front flap!
-                rotateZ: selectedProject.rotate,
-                borderRadius: '24px 24px 0 0', // Flat bottom for the insertion cut
-              } : {}}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], exit: { duration: 0 } }}
               className="bg-[#050505] flex flex-col md:flex-row overflow-hidden shadow-2xl relative"
             >
                {/* LEFT SIDE: The exact Image Clone. */}
@@ -345,7 +287,10 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
                
                {/* Close Button */}
                <motion.button 
-                 onClick={() => setSelectedProject(null)}
+                 onClick={() => {
+                   setShatteringProject(selectedProject);
+                   setSelectedProject(null);
+                 }}
                  exit={{ opacity: 0, transition: { duration: 0 } }}
                  className="absolute top-4 right-4 md:top-6 md:right-6 w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/80 backdrop-blur-md flex items-center justify-center text-white border border-white/20 hover:scale-110 transition-transform z-50 hover:bg-white/10"
                >
@@ -354,20 +299,81 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
                  </svg>
                </motion.button>
             </motion.div>
-
-            {/* MAGIC SPARKLES ON CLOSE */}
-            {cardRect && (
-              <MagicSparkles 
-                color={selectedProject.color} 
-                targetTop={cardRect.restingTop + 140} 
-                targetLeft={cardRect.restingLeft + 80} 
-              />
-            )}
           </div>
           )}
         </AnimatePresence>,
         document.body
       )}
+
+      {/* THE SHATTERING MAGIC ENGINE */}
+      {shatteringProject && mounted && typeof document !== 'undefined' && createPortal(
+        <ParticleSwarm 
+          project={shatteringProject} 
+          cardRect={cardRect} 
+          onComplete={() => setShatteringProject(null)} 
+        />,
+        document.body
+      )}
     </>
+  );
+}
+
+// Magical Particle Swarm Engine
+function ParticleSwarm({ project, cardRect, onComplete }: { project: typeof projects[0], cardRect: any, onComplete: () => void }) {
+  const particles = useMemo(() => {
+    return Array.from({ length: 80 }).map((_, i) => {
+      // Spawn randomly across the viewport (the shattering modal)
+      const startX = Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000);
+      const startY = Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1000);
+      
+      // Target the center of the waiting card in the folder!
+      const targetX = cardRect.restingLeft + 80; // 160/2
+      const targetY = cardRect.restingTop + 140; // 280/2
+      
+      return {
+        id: i,
+        startX,
+        startY,
+        targetX,
+        targetY,
+        size: Math.random() * 5 + 2, // 2px to 7px sparkles
+        delay: Math.random() * 0.15, // tight burst delay
+        duration: Math.random() * 0.5 + 0.5, // 0.5s to 1.0s travel time
+      };
+    });
+  }, [cardRect]);
+
+  useEffect(() => {
+    const timer = setTimeout(onComplete, 1200); // Wait for the longest particle
+    return () => clearTimeout(timer);
+  }, [onComplete]);
+
+  return (
+    <div className="fixed inset-0 z-[9999999] pointer-events-none overflow-hidden">
+      {particles.map((p) => (
+        <motion.div
+          key={p.id}
+          initial={{ x: p.startX, y: p.startY, opacity: 1, scale: 0 }}
+          animate={{ 
+            x: p.targetX, 
+            y: p.targetY, 
+            opacity: [0, 1, 1, 0], // pop in, fly, fade out exactly at the target
+            scale: [0, 1.5, 1, 0.5] // sparkle pop
+          }}
+          transition={{ 
+            duration: p.duration, 
+            delay: p.delay, 
+            ease: "circIn" // Accelerates like a vacuum sucking them in!
+          }}
+          className="absolute rounded-full"
+          style={{
+            width: p.size,
+            height: p.size,
+            backgroundColor: project.color,
+            boxShadow: `0 0 10px ${project.color}, 0 0 20px ${project.color}, 0 0 30px #ffffff`
+          }}
+        />
+      ))}
+    </div>
   );
 }
