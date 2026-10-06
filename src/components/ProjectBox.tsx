@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { motion, useInView, AnimatePresence, usePresence } from 'framer-motion';
 import { createPortal } from 'react-dom';
 import { useLenis } from 'lenis/react';
 
@@ -26,6 +26,57 @@ const projects = [
   { id: 4, src: '/images/arc-card.jpg', alt: 'ARC Aerospace', rotate: 10, x: 40, zIndex: 4, color: '#ef4444', desc: 'Advanced aviation tracking, analytics, and aerospace management dashboard.', tech: ['React', 'Next.js', 'Tailwind'] },
   { id: 5, src: '/images/aimitra-card.jpg', alt: 'AI Mitra', rotate: 20, x: 80, zIndex: 5, color: '#a855f7', desc: 'Next-gen conversational AI companion and personalized assistant for modern students.', tech: ['React', 'Next.js', 'Tailwind'] },
 ];
+
+const MagicSparkles = ({ color, targetTop, targetLeft }: { color: string, targetTop: number, targetLeft: number }) => {
+  const [isPresent] = usePresence();
+  const [sparkles, setSparkles] = useState<{ id: number, startX: number, startY: number, delay: number, size: number }[]>([]);
+
+  useEffect(() => {
+    // Generate exactly 40 magic particles ONLY when the exit animation starts
+    if (!isPresent) {
+      const newSparkles = Array.from({ length: 40 }).map((_, i) => ({
+        id: i,
+        startX: (typeof window !== 'undefined' ? window.innerWidth : 1000) * (Math.random() * 1.2 - 0.1), // Spawn from everywhere
+        startY: (typeof window !== 'undefined' ? window.innerHeight : 1000) * (Math.random() * 1.2 - 0.1),
+        delay: Math.random() * 0.3, // Swarm in quickly
+        size: Math.random() * 4 + 2
+      }));
+      setSparkles(newSparkles);
+    }
+  }, [isPresent]);
+
+  // Don't render anything while open!
+  if (isPresent || sparkles.length === 0) return null;
+
+  return (
+    <>
+      {sparkles.map((sparkle) => (
+        <motion.div
+          key={sparkle.id}
+          initial={{ x: sparkle.startX, y: sparkle.startY, scale: 0, opacity: 0 }}
+          animate={{ 
+            x: targetLeft, 
+            y: targetTop, 
+            scale: [0, 1.5, 0], // Flash big then disappear as they hit the target
+            opacity: [0, 1, 0] 
+          }}
+          transition={{
+            duration: 0.5,
+            delay: sparkle.delay,
+            ease: "easeInOut"
+          }}
+          className="fixed z-[9999999] rounded-full pointer-events-none"
+          style={{
+            width: sparkle.size + 'px',
+            height: sparkle.size + 'px',
+            backgroundColor: color,
+            boxShadow: `0 0 10px ${color}, 0 0 20px ${color}`
+          }}
+        />
+      ))}
+    </>
+  );
+};
 
 export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -303,6 +354,15 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
                  </svg>
                </motion.button>
             </motion.div>
+
+            {/* MAGIC SPARKLES ON CLOSE */}
+            {cardRect && (
+              <MagicSparkles 
+                color={selectedProject.color} 
+                targetTop={cardRect.restingTop + 140} 
+                targetLeft={cardRect.restingLeft + 80} 
+              />
+            )}
           </div>
           )}
         </AnimatePresence>,
