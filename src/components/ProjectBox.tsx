@@ -319,16 +319,22 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
 }
 
 // Magical Particle Swarm Engine
-function ParticleSwarm({ project, cardRect, onComplete }: { project: typeof projects[0], cardRect: any, onComplete: () => void }) {
-  const particles = useMemo(() => {
-    return Array.from({ length: 80 }).map((_, i) => {
-      // Spawn randomly across the viewport (the shattering modal)
+function ParticleSwarm({ project, cardRect, onComplete }: { 
+  project: typeof projects[0]; 
+  cardRect: { restingTop: number; restingLeft: number } | null;
+  onComplete: () => void;
+}) {
+  const [particles, setParticles] = useState<Array<{
+    id: number; startX: number; startY: number; targetX: number; targetY: number; size: number; delay: number; duration: number;
+  }>>([]);
+
+  useEffect(() => {
+    if (!cardRect) return;
+    const generated = Array.from({ length: 80 }).map((_, i) => {
       const startX = Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000);
       const startY = Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1000);
-      
-      // Target the center of the waiting card in the folder!
-      const targetX = cardRect.restingLeft + 80; // 160/2
-      const targetY = cardRect.restingTop + 140; // 280/2
+      const targetX = cardRect.restingLeft + 80;
+      const targetY = cardRect.restingTop + 140;
       
       return {
         id: i,
@@ -336,11 +342,12 @@ function ParticleSwarm({ project, cardRect, onComplete }: { project: typeof proj
         startY,
         targetX,
         targetY,
-        size: Math.random() * 5 + 2, // 2px to 7px sparkles
-        delay: Math.random() * 0.15, // tight burst delay
-        duration: Math.random() * 0.5 + 0.5, // 0.5s to 1.0s travel time
+        size: Math.random() * 5 + 2,
+        delay: Math.random() * 0.15,
+        duration: Math.random() * 0.5 + 0.5,
       };
     });
+    setParticles(generated);
   }, [cardRect]);
 
   useEffect(() => {
