@@ -105,6 +105,7 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
                        layoutId={`project-card-${card.id}`}
                        onClick={() => setSelectedProject(card)}
                        whileHover={{ y: -48 }}
+                       transition={{ layout: { duration: 0 } }} // This stops the weird stretching glitch when it first pops out!
                        className="relative w-full h-full cursor-pointer drop-shadow-2xl hover:drop-shadow-[0_20px_40px_rgba(255,255,255,0.15)] rounded-[1.5rem] overflow-hidden border border-white/10"
                      >
                         <img src={card.src} alt={card.alt} className="w-full h-full object-cover scale-[1.15]" />
