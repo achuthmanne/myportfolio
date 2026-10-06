@@ -31,9 +31,21 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: false, margin: "-25%" });
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
+  const [cardRect, setCardRect] = useState<{top: number, left: number, width: number, height: number} | null>(null);
   const [mounted, setMounted] = useState(false);
   const [cardsSettled, setCardsSettled] = useState(false);
   const lenis = useLenis();
+
+  const handleCardClick = (e: React.MouseEvent<HTMLDivElement>, card: typeof projects[0]) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setCardRect({
+      top: rect.top,
+      left: rect.left,
+      width: rect.width,
+      height: rect.height
+    });
+    setSelectedProject(card);
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -104,12 +116,9 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
                      style={{ zIndex: card.zIndex }}
                   >
                      <motion.div 
-                       layoutId={cardsSettled ? `project-card-${card.id}` : undefined}
-                       onClick={() => setSelectedProject(card)}
+                       onClick={(e) => handleCardClick(e, card)}
                        whileHover={{ y: -48 }}
-                       transition={{ 
-                         layout: { duration: 0.6, type: "spring", bounce: 0.2 } 
-                       }}
+                       style={{ opacity: selectedProject?.id === card.id ? 0 : 1 }}
                        className="relative w-full h-full cursor-pointer drop-shadow-2xl hover:drop-shadow-[0_20px_40px_rgba(255,255,255,0.15)] rounded-[1.5rem] overflow-hidden border border-white/10"
                      >
                         <img src={card.src} alt={card.alt} className="w-full h-full object-cover scale-[1.15]" />
@@ -156,31 +165,62 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
               className="absolute inset-0 bg-[#050505]"
             />
             
-            {/* The Morphing Card that becomes the FULL SCREEN UI! */}
+            {/* The Custom Manual Clone Engine! */}
             <motion.div 
-              layoutId={`project-card-${selectedProject.id}`}
-              transition={{ layout: { duration: 0.6, type: "spring", bounce: 0.2 } }}
-              className="relative w-full h-full bg-[#050505] flex flex-col md:flex-row overflow-hidden"
+              initial={cardRect ? {
+                position: 'absolute',
+                top: cardRect.top,
+                left: cardRect.left,
+                width: cardRect.width,
+                height: cardRect.height,
+                borderRadius: '24px',
+              } : {}}
+              animate={{
+                top: 0,
+                left: 0,
+                width: '100vw',
+                height: '100vh',
+                borderRadius: '0px',
+              }}
+              exit={cardRect ? {
+                top: cardRect.top,
+                left: cardRect.left,
+                width: cardRect.width,
+                height: cardRect.height,
+                borderRadius: '24px',
+              } : {}}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="bg-[#050505] flex flex-col md:flex-row overflow-hidden shadow-2xl relative"
             >
-               {/* LEFT SIDE: ONLY the Card Image (Full height, natural width) */}
-               <div className="h-[30vh] md:h-full relative border-b md:border-b-0 md:border-r border-white/10 bg-black z-10 flex-shrink-0">
+               {/* LEFT SIDE: The exact Image Clone. Animate width to match the split screen without breaking flex! */}
+               <motion.div 
+                 initial={{ width: "100%", height: "100%" }}
+                 animate={{ 
+                   width: typeof window !== 'undefined' && window.innerWidth < 768 ? "100%" : "400px", 
+                   height: typeof window !== 'undefined' && window.innerWidth < 768 ? "30vh" : "100%" 
+                 }}
+                 exit={{ width: "100%", height: "100%" }}
+                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                 className="relative border-b md:border-b-0 md:border-r border-white/10 bg-black z-20 flex-shrink-0"
+               >
                   <img 
                     src={selectedProject.src} 
                     alt={selectedProject.alt} 
-                    className="w-full md:w-auto h-full object-cover md:object-contain max-w-full md:max-w-[400px] lg:max-w-[500px]" 
+                    className="w-full h-full object-cover" 
                   />
-               </div>
+               </motion.div>
                
-               {/* RIGHT SIDE: ALL CONTENT + IFRAME */}
-               <div className="flex-1 h-full flex flex-col relative bg-[#0a0a0a]">
+               {/* RIGHT SIDE: The Content. It lives in absolute space during transition so it doesn't squish the image! */}
+               <motion.div 
+                 initial={{ opacity: 0 }}
+                 animate={{ opacity: 1 }}
+                 exit={{ opacity: 0 }}
+                 transition={{ delay: 0.3, duration: 0.3 }}
+                 className="absolute right-0 top-0 w-full md:w-[calc(100vw-400px)] h-full flex flex-col bg-[#0a0a0a] z-10"
+               >
                   
                   {/* Top Header: Title, Details, Buttons */}
-                  <motion.div 
-                     initial={{ opacity: 0 }}
-                     animate={{ opacity: 1 }}
-                     transition={{ delay: 0.4, duration: 0.5 }}
-                     className="w-full p-6 md:p-8 flex flex-col lg:flex-row gap-6 items-start lg:items-end justify-between border-b border-white/10 bg-black/50"
-                  >
+                  <div className="w-full p-6 md:p-8 flex flex-col lg:flex-row gap-6 items-start lg:items-end justify-between border-b border-white/10 bg-black/50">
                      <div className="flex-1">
                         <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight" style={{ color: selectedProject.color }}>
                            {selectedProject.alt}
@@ -211,7 +251,7 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
                           </a>
                         )}
                      </div>
-                  </motion.div>
+                  </div>
                   
                   {/* Bottom Section: The Live Project Preview / Iframe */}
                   <motion.div 
@@ -235,7 +275,7 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
                         </div>
                      )}
                   </motion.div>
-               </div>
+               </motion.div>
                
                {/* Close Button */}
                <button 
