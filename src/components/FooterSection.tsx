@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
+import { useLenis } from 'lenis/react';
 import Image from 'next/image';
 
 import BentLogo from './BentLogo';
@@ -9,6 +10,7 @@ import HologramBody from './HologramBody';
 
 export default function FooterSection() {
   const containerRef = React.useRef(null);
+  const lenis = useLenis();
   
   // Trigger exactly when the section enters the viewport
   const isInView = useInView(containerRef, { once: true, amount: 0.1 });
@@ -30,8 +32,6 @@ export default function FooterSection() {
   const ringOpacity = useTransform(scrollYProgress, [0, 0.2, 1], [0, 1, 1]);
 
   // The Cinematic Curtain (Slides UP from the bottom extremely slowly)
-  // We added a MASSIVE deadzone from 0.0 to 0.4. This acts as a physical brake!
-  // It forces fast scrollers to stop and stare at the portrait before the curtain triggers.
   const curtainY = useTransform(overlayProgress, [0.4, 0.8], ["100%", "0%"]);
   
   // 1. Text starts typing exactly when the curtain is half-way up the screen (0.6) and finishes at 0.9!
@@ -46,33 +46,17 @@ export default function FooterSection() {
   const btnOpacity = useTransform(overlayProgress, [0.95, 1.0], [0, 1]);
   const btnY = useTransform(overlayProgress, [0.95, 1.0], [30, 0]);
 
-  // Custom Cinematic Smooth Scroll to Top
+  // Cinematic Smooth Scroll to Top via Lenis!
   const handleScrollToTop = () => {
-    const startY = window.scrollY;
-    const duration = 2500; // 2.5 seconds cinematic glide
-    const startTime = performance.now();
-
-    const animateScroll = (currentTime: number) => {
-      const timeElapsed = currentTime - startTime;
-      const progress = Math.min(timeElapsed / duration, 1);
-      
-      // Extremely smooth easing function (easeInOutExpo)
-      const ease = progress === 0 
-        ? 0 
-        : progress === 1 
-          ? 1 
-          : progress < 0.5 
-            ? Math.pow(2, 20 * progress - 10) / 2 
-            : (2 - Math.pow(2, -20 * progress + 10)) / 2;
-
-      window.scrollTo(0, startY * (1 - ease));
-
-      if (progress < 1) {
-        requestAnimationFrame(animateScroll);
-      }
-    };
-
-    requestAnimationFrame(animateScroll);
+    if (lenis) {
+      lenis.scrollTo(0, {
+        duration: 2.5,
+        easing: (t) => t === 0 ? 0 : t === 1 ? 1 : t < 0.5 ? Math.pow(2, 20 * t - 10) / 2 : (2 - Math.pow(2, -20 * t + 10)) / 2,
+      });
+    } else {
+      // Fallback if Lenis isn't loaded
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   return (
