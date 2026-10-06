@@ -69,7 +69,9 @@ const projects = [
     zIndex: 5, 
     colors: ['#06b6d4', '#7dd3fc'], 
     desc: 'AI Mitra is an AI-powered voice assistant designed to make everyday tasks easier through natural voice interaction. It focuses on simple, accessible, and intelligent communication between users and AI.', 
-    tech: ['React Native', 'TypeScript', 'Google Gemini API', 'Firebase'] 
+    tech: ['React Native', 'TypeScript', 'Google Gemini API', 'Firebase'],
+    liveLink: 'https://aimitra.onrender.com/',
+    githubLink: 'https://github.com/achuthmanne/AI-Mitra'
   },
 ];
 
