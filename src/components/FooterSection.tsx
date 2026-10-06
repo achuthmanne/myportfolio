@@ -46,19 +46,6 @@ export default function FooterSection() {
   const btnOpacity = useTransform(overlayProgress, [0.95, 1.0], [0, 1]);
   const btnY = useTransform(overlayProgress, [0.95, 1.0], [30, 0]);
 
-  // Cinematic Smooth Scroll to Top via Lenis!
-  const handleScrollToTop = () => {
-    if (lenis) {
-      lenis.scrollTo(0, {
-        duration: 2.5,
-        easing: (t) => t === 0 ? 0 : t === 1 ? 1 : t < 0.5 ? Math.pow(2, 20 * t - 10) / 2 : (2 - Math.pow(2, -20 * t + 10)) / 2,
-      });
-    } else {
-      // Fallback if Lenis isn't loaded
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  };
-
   return (
     <section ref={containerRef} id="footer-section" className="relative w-full h-[500vh] bg-transparent z-20">
       
@@ -93,13 +80,20 @@ export default function FooterSection() {
           className="absolute inset-0 bg-[#000000] z-40 flex flex-col items-center justify-center pointer-events-auto"
           style={{ y: curtainY }}
         >
-          {/* The Final Quote with scroll-tied typing animation */}
-          <motion.h2 
-            className="text-2xl md:text-4xl lg:text-5xl font-black tracking-tight text-white px-4 text-center uppercase whitespace-nowrap mb-24"
-            style={{ opacity: textOpacity, clipPath: textClipPath }}
-          >
-            THERE&apos;S ALWAYS SOMETHING NEW TO <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-400">BUILD.</span>
-          </motion.h2>
+          {/* The Final Quote with scroll-tied typing animation using a sliding mask */}
+          <div className="relative inline-block mb-24">
+            <motion.h2 
+              className="text-2xl md:text-4xl lg:text-5xl font-black tracking-tight text-white px-4 text-center uppercase whitespace-nowrap"
+              style={{ opacity: textOpacity }}
+            >
+              THERE&apos;S ALWAYS SOMETHING NEW TO <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-400">BUILD.</span>
+            </motion.h2>
+            {/* The erasing cover */}
+            <motion.div 
+              className="absolute top-0 right-0 h-full bg-[#000000] z-10"
+              style={{ width: useTransform(textRevealPercent, (val) => `${val}%`) }}
+            />
+          </div>
 
           {/* The Minimal Footer Elements */}
           <motion.div 
@@ -111,22 +105,23 @@ export default function FooterSection() {
           </motion.div>
           
           {/* Back to Top - Pinned to absolute bottom edge */}
-          <motion.button 
-            onClick={handleScrollToTop}
-            className="absolute bottom-8 text-xs md:text-sm font-light text-red-500 tracking-[0.2em] hover:text-red-400 transition-colors uppercase flex items-center gap-2"
-            style={{ opacity: btnOpacity, y: btnY }}
-          >
-            RETURN TO ROOT 
-            <svg 
-              className="w-3.5 h-3.5" 
-              fill="none" 
-              viewBox="0 0 24 24" 
-              stroke="currentColor" 
-              strokeWidth={2}
+          <a href="#top" className="absolute bottom-8 z-50">
+            <motion.button 
+              className="text-xs md:text-sm font-light text-red-500 tracking-[0.2em] hover:text-red-400 transition-colors uppercase flex items-center gap-2"
+              style={{ opacity: btnOpacity, y: btnY }}
             >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 10.5L12 3m0 0l7.5 7.5M12 3v18" />
-            </svg>
-          </motion.button>
+              RETURN TO ROOT 
+              <svg 
+                className="w-3.5 h-3.5" 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor" 
+                strokeWidth={2}
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 10.5L12 3m0 0l7.5 7.5M12 3v18" />
+              </svg>
+            </motion.button>
+          </a>
         </motion.div>
 
       </div>

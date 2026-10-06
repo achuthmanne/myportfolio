@@ -92,6 +92,7 @@ export default function Home() {
 
   return (
     <main 
+      id="top"
       ref={containerRef}
       className="relative bg-bg-primary text-text-primary selection:bg-accent-rich selection:text-white"
     >
