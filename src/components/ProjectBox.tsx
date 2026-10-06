@@ -15,16 +15,16 @@ const projects = [
     rotate: -20, 
     x: -80, 
     zIndex: 1, 
-    color: '#4ade80', 
+    colors: ['#4ade80', '#166534'], // Light Green, Thick Green
     desc: 'Kisan Khata is an offline-first agricultural management app that helps farmers track daily expenses and worker attendance even with limited internet connectivity. It also delivers relevant government schemes in Telugu through an AI-powered system.',
     tech: ['React Native', 'Expo', 'TypeScript', 'Firebase', 'Gemini API'],
     liveLink: 'https://www.kisankhata.co.in/',
     githubLink: 'https://github.com/achuthmanne/kisan-khata-app'
   },
-  { id: 2, src: '/images/railsamay-card.jpg', alt: 'Rail Samay', rotate: -10, x: -40, zIndex: 2, color: '#facc15', desc: 'High-performance real-time railway tracking and schedule prediction system built for millions of commuters.', tech: ['React', 'Next.js', 'Tailwind'] },
-  { id: 3, src: '/images/capabilio-card.jpg', alt: 'Capabilio AI', rotate: 0, x: 0, zIndex: 3, color: '#3b82f6', desc: 'Enterprise AI-driven talent acquisition and capability mapping software redefining HR tech.', tech: ['React', 'Next.js', 'Tailwind'] },
-  { id: 4, src: '/images/arc-card.jpg', alt: 'ARC Aerospace', rotate: 10, x: 40, zIndex: 4, color: '#ef4444', desc: 'Advanced aviation tracking, analytics, and aerospace management dashboard.', tech: ['React', 'Next.js', 'Tailwind'] },
-  { id: 5, src: '/images/aimitra-card.jpg', alt: 'AI Mitra', rotate: 20, x: 80, zIndex: 5, color: '#a855f7', desc: 'Next-gen conversational AI companion and personalized assistant for modern students.', tech: ['React', 'Next.js', 'Tailwind'] },
+  { id: 2, src: '/images/railsamay-card.jpg', alt: 'Rail Samay', rotate: -10, x: -40, zIndex: 2, colors: ['#f97316', '#3b82f6'], desc: 'High-performance real-time railway tracking and schedule prediction system built for millions of commuters.', tech: ['React', 'Next.js', 'Tailwind'] },
+  { id: 3, src: '/images/capabilio-card.jpg', alt: 'Capabilio AI', rotate: 0, x: 0, zIndex: 3, colors: ['#f97316', '#ffffff'], desc: 'Enterprise AI-driven talent acquisition and capability mapping software redefining HR tech.', tech: ['React', 'Next.js', 'Tailwind'] },
+  { id: 4, src: '/images/arc-card.jpg', alt: 'ARC Aerospace', rotate: 10, x: 40, zIndex: 4, colors: ['#ffffff', '#333333'], desc: 'Advanced aviation tracking, analytics, and aerospace management dashboard.', tech: ['React', 'Next.js', 'Tailwind'] },
+  { id: 5, src: '/images/aimitra-card.jpg', alt: 'AI Mitra', rotate: 20, x: 80, zIndex: 5, colors: ['#06b6d4', '#7dd3fc'], desc: 'Next-gen conversational AI companion and personalized assistant for modern students.', tech: ['React', 'Next.js', 'Tailwind'] },
 ];
 
 export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps) {
@@ -230,7 +230,7 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
                   {/* Top Header: Title, Details, Buttons */}
                   <div className="w-full p-6 md:p-8 flex flex-col lg:flex-row gap-6 items-start lg:items-end justify-between border-b border-white/10 bg-black/50">
                      <div className="flex-1">
-                        <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight" style={{ color: selectedProject.color }}>
+                        <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight" style={{ color: selectedProject.colors[0] }}>
                            {selectedProject.alt}
                         </h2>
                         
@@ -240,7 +240,7 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
                         
                         <div className="flex flex-wrap gap-2 mt-4">
                            {selectedProject.tech?.map((tech: string) => (
-                             <span key={tech} className="px-3 py-1 rounded-sm text-[9px] md:text-[10px] font-bold tracking-widest uppercase bg-white/5 border border-white/10" style={{ color: selectedProject.color }}>
+                             <span key={tech} className="px-3 py-1 rounded-sm text-[9px] md:text-[10px] font-bold tracking-widest uppercase bg-white/5 border border-white/10" style={{ color: selectedProject.colors[0] }}>
                                {tech}
                              </span>
                            ))}
@@ -325,7 +325,7 @@ function ParticleSwarm({ project, cardRect, onComplete }: {
   onComplete: () => void;
 }) {
   const [particles, setParticles] = useState<Array<{
-    id: number; startX: number; startY: number; targetX: number; targetY: number; size: number; delay: number; duration: number;
+    id: number; startX: number; startY: number; targetX: number; targetY: number; size: number; delay: number; duration: number; color: string;
   }>>([]);
 
   useEffect(() => {
@@ -335,6 +335,7 @@ function ParticleSwarm({ project, cardRect, onComplete }: {
       const startY = Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1000);
       const targetX = cardRect.restingLeft + 80;
       const targetY = cardRect.restingTop + 140;
+      const particleColor = Math.random() > 0.5 ? project.colors[0] : project.colors[1];
       
       return {
         id: i,
@@ -345,10 +346,11 @@ function ParticleSwarm({ project, cardRect, onComplete }: {
         size: Math.random() * 5 + 2,
         delay: Math.random() * 0.15,
         duration: Math.random() * 0.5 + 0.5,
+        color: particleColor
       };
     });
     setParticles(generated);
-  }, [cardRect]);
+  }, [cardRect, project]);
 
   useEffect(() => {
     const timer = setTimeout(onComplete, 1200); // Wait for the longest particle
@@ -376,8 +378,8 @@ function ParticleSwarm({ project, cardRect, onComplete }: {
           style={{
             width: p.size,
             height: p.size,
-            backgroundColor: project.color,
-            boxShadow: `0 0 10px ${project.color}, 0 0 20px ${project.color}, 0 0 30px #ffffff`
+            backgroundColor: p.color,
+            boxShadow: `0 0 10px ${p.color}, 0 0 20px ${p.color}, 0 0 30px #ffffff`
           }}
         />
       ))}
