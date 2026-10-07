@@ -1,9 +1,13 @@
 import React from 'react';
+import HackathonWire from './HackathonWire';
 
 export default function BattlegroundsSection() {
   return (
-    <section id="battlegrounds-section" className="w-full min-h-[50vh] flex flex-col items-center justify-start bg-transparent text-white py-24">
+    <section id="battlegrounds-section" className="relative w-full min-h-[100vh] flex flex-col items-center justify-start bg-transparent text-white py-24 overflow-hidden">
       
+      {/* The 3D Wire Background */}
+      <HackathonWire />
+
       {/* Sleek, Minimalist Section Heading */}
       <div className="w-full flex flex-col items-center z-30 mb-8 md:mb-16 relative">
         <div className="text-center pointer-events-none">
