@@ -6,7 +6,19 @@ import * as THREE from 'three';
 import { Float, useTexture } from '@react-three/drei';
 
 // The Hanging Card component with gentle physics swinging
-function HangingCard({ position, imageSrc }: { position: THREE.Vector3, imageSrc: string }) {
+function HangingCard({ 
+  position, 
+  imageSrc,
+  wireBaseColor = "#002244",
+  wireEmissiveColor = "#0057B8",
+  sparkleColor = "#ffffff"
+}: { 
+  position: THREE.Vector3, 
+  imageSrc: string,
+  wireBaseColor?: string,
+  wireEmissiveColor?: string,
+  sparkleColor?: string
+}) {
   // Load the PNG as a 3D texture
   const texture = useTexture(imageSrc);
   const groupRef = useRef<THREE.Group>(null);
@@ -31,13 +43,13 @@ function HangingCard({ position, imageSrc }: { position: THREE.Vector3, imageSrc
 
   return (
     <group position={position}>
-      {/* The Short Electric Blue Wire (Stationary, slightly wider than the card) */}
+      {/* The Short Electric Wire (Stationary, slightly wider than the card) */}
       <mesh rotation={[0, 0, Math.PI / 2]}>
         <cylinderGeometry args={[0.07, 0.07, 3.2, 32]} />
         <meshStandardMaterial 
-          color="#002244" // Very dark blue base
-          emissive="#0057B8" // Royal Blue
-          emissiveIntensity={1.5} // Lowered intensity so it stays deep blue and doesn't blow out to sky blue/white
+          color={wireBaseColor} 
+          emissive={wireEmissiveColor} 
+          emissiveIntensity={1.5} 
           toneMapped={false}
           roughness={0.1}
           metalness={0.9}
@@ -45,7 +57,7 @@ function HangingCard({ position, imageSrc }: { position: THREE.Vector3, imageSrc
       </mesh>
 
       {/* Traveling sparkles uniquely orbiting this short wire */}
-      <TravelingSparkles curve={localWireCurve} count={40} />
+      <TravelingSparkles curve={localWireCurve} count={40} color={sparkleColor} />
 
       {/* The Swinging Card (pivots from the wire) */}
       <group ref={groupRef}>
@@ -70,18 +82,25 @@ function HangingCard({ position, imageSrc }: { position: THREE.Vector3, imageSrc
 function SparkleWire() {
   return (
     <group position={[0, 1.5, 0]}>
-      {/* Shifted the entire group UP by 1.5 units to gently close the gap between the heading and the cards */}
-      {/* The Hanging ID Cards */}
+      {/* Left side hackathon card (Trinetra) */}
+      <HangingCard 
+        position={new THREE.Vector3(-4, 0, 0)} 
+        imageSrc="/images/trinetra-card-transparent.png" 
+        wireBaseColor="#450a0a" // Very dark red base
+        wireEmissiveColor="#dc2626" // Intense neon red
+        sparkleColor="#fca5a5" // Light red sparkles
+      />
+
       {/* Right side hackathon card (Gear Up) */}
       <HangingCard 
-        position={new THREE.Vector3(4, 0, 0)} // Placed on the right side
+        position={new THREE.Vector3(4, 0, 0)} 
         imageSrc="/images/gear-up-card-transparent.png" 
       />
     </group>
   );
 }
 
-function TravelingSparkles({ curve, count }: { curve: THREE.Curve<THREE.Vector3>, count: number }) {
+function TravelingSparkles({ curve, count, color = "#ffffff" }: { curve: THREE.Curve<THREE.Vector3>, count: number, color?: string }) {
   const pointsRef = useRef<THREE.Points>(null);
   
   // Create initial random positions along the curve's timeline (0 to 1)
@@ -153,7 +172,7 @@ function TravelingSparkles({ curve, count }: { curve: THREE.Curve<THREE.Vector3>
     <points ref={pointsRef} geometry={geometry}>
       <pointsMaterial 
         size={0.06}
-        color="#ffffff" // White sparkles are back!
+        color={color}
         transparent
         opacity={1.0}
         blending={THREE.AdditiveBlending}
