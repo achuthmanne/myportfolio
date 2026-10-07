@@ -240,8 +240,8 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
                 rotateZ: 0,
                 borderRadius: '0px',
               }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], exit: { duration: 0 } }}
+              exit={{ opacity: 0, transition: { duration: 0 } }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               className="bg-[#050505] flex flex-col md:flex-row overflow-hidden shadow-2xl relative"
             >
                {/* LEFT SIDE: The exact Image Clone. */}
