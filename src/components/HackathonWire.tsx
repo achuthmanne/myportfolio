@@ -69,7 +69,8 @@ function HangingCard({ position, imageSrc }: { position: THREE.Vector3, imageSrc
 
 function SparkleWire() {
   return (
-    <group>
+    <group position={[0, 1.5, 0]}>
+      {/* Shifted the entire group UP by 1.5 units to gently close the gap between the heading and the cards */}
       {/* The Hanging ID Cards */}
       {/* Right side hackathon card (Gear Up) */}
       <HangingCard 
