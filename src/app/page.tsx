@@ -11,6 +11,7 @@ import StorySection from "@/components/StorySection";
 import MorphingParticles from "@/components/MorphingParticles";
 import LabSection from "@/components/LabSection";
 import WorkSection from "@/components/WorkSection";
+import BattlegroundsSection from "@/components/BattlegroundsSection";
 import ConnectSection from "@/components/ConnectSection";
 import SocialSection from "@/components/SocialSection";
 import FooterSection from "@/components/FooterSection";
@@ -25,6 +26,7 @@ export default function Home() {
   const [isReady, setIsReady] = useState(false);
   const [isCompiled, setIsCompiled] = useState(false);
   const [showWorkSection, setShowWorkSection] = useState(false);
+  const [showBattlegroundsSection, setShowBattlegroundsSection] = useState(false);
   const [showConnectSection, setShowConnectSection] = useState(false);
   const [showFooterSection, setShowFooterSection] = useState(false);
 
@@ -231,7 +233,14 @@ export default function Home() {
       
       {/* THE WORK SECTION */}
       {showWorkSection && (
-        <WorkSection onFolderComplete={() => setShowConnectSection(true)} />
+        <WorkSection onFolderComplete={() => setShowBattlegroundsSection(true)} />
+      )}
+
+      {/* THE BATTLEGROUNDS SECTION (Hackathons) */}
+      {showBattlegroundsSection && (
+        <div onMouseEnter={() => setShowConnectSection(true)}>
+          <BattlegroundsSection />
+        </div>
       )}
 
       {/* THE CONNECT SECTION (Optional Interaction) */}
