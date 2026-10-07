@@ -3,7 +3,41 @@
 import React, { useMemo, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { Float } from '@react-three/drei';
+import { Float, Html } from '@react-three/drei';
+
+// The Hanging Card component with gentle physics swinging
+function HangingCard({ curve, t, imageSrc, title }: { curve: THREE.CatmullRomCurve3, t: number, imageSrc: string, title: string }) {
+  const position = useMemo(() => curve.getPointAt(t), [curve, t]);
+  const groupRef = useRef<THREE.Group>(null);
+
+  // Subtle wind swinging physics
+  useFrame((state) => {
+    if (groupRef.current) {
+      const time = state.clock.getElapsedTime();
+      // Gentle pendulum swing on Z axis
+      groupRef.current.rotation.z = Math.sin(time * 1.5 + t * 10) * 0.05;
+      // Slight twisting on Y axis
+      groupRef.current.rotation.y = Math.sin(time * 0.8 + t * 10) * 0.03;
+    }
+  });
+
+  return (
+    <group position={position} ref={groupRef}>
+      {/* Html transform places DOM elements perfectly in 3D space! */}
+      <Html transform distanceFactor={18} center style={{ pointerEvents: 'none' }}>
+        <div className="relative group cursor-pointer" style={{ pointerEvents: 'auto' }}>
+          {/* We use mix-blend-multiply here as a genius CSS trick to instantly remove the white background from your uploaded JPG! */}
+          <img 
+            src={imageSrc} 
+            alt={title} 
+            className="w-[280px] md:w-[350px] object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-500 ease-out" 
+            style={{ filter: 'contrast(1.1) brightness(1.1)' }}
+          />
+        </div>
+      </Html>
+    </group>
+  );
+}
 
 function SparkleWire() {
   // Create a 3D arc that bows deeply into the screen (negative Z)
@@ -36,6 +70,15 @@ function SparkleWire() {
 
       {/* Travelling Sparkles along the wire */}
       <TravelingSparkles curve={curve} count={80} />
+
+      {/* The Hanging ID Cards */}
+      {/* Right side hackathon card (Gear Up) */}
+      <HangingCard 
+        curve={curve} 
+        t={0.8} // 0.8 is on the right side of the curve!
+        imageSrc="/images/gear-up-card.jpg" 
+        title="Gear Up Hackathon" 
+      />
     </group>
   );
 }
