@@ -35,9 +35,9 @@ function HangingCard({ position, imageSrc }: { position: THREE.Vector3, imageSrc
       <mesh rotation={[0, 0, Math.PI / 2]}>
         <cylinderGeometry args={[0.07, 0.07, 3.2, 32]} />
         <meshStandardMaterial 
-          color="#ffffff"
+          color="#002244" // Very dark blue base
           emissive="#0057B8" // Royal Blue
-          emissiveIntensity={4.0} // Boosted slightly since Royal Blue is darker than cyan
+          emissiveIntensity={1.5} // Lowered intensity so it stays deep blue and doesn't blow out to sky blue/white
           toneMapped={false}
           roughness={0.1}
           metalness={0.9}
@@ -49,7 +49,8 @@ function HangingCard({ position, imageSrc }: { position: THREE.Vector3, imageSrc
 
       {/* The Swinging Card (pivots from the wire) */}
       <group ref={groupRef}>
-        <group position={[0, -2.0, 0.1]}>
+        {/* Pushed to Z = -0.1 so the card hangs BEHIND the electric wire! */}
+        <group position={[0, -2.0, -0.1]}>
           <mesh>
             {/* Scaled down slightly to guarantee it fits on screen (Width is 2.3) */}
             <planeGeometry args={[2.3, 4.0]} />
@@ -151,9 +152,9 @@ function TravelingSparkles({ curve, count }: { curve: THREE.Curve<THREE.Vector3>
     <points ref={pointsRef} geometry={geometry}>
       <pointsMaterial 
         size={0.06}
-        color="#ffffff"
+        color="#ffffff" // White sparkles are back!
         transparent
-        opacity={0.9}
+        opacity={1.0}
         blending={THREE.AdditiveBlending}
         depthWrite={false}
       />
