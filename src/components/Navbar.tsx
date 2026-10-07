@@ -43,9 +43,7 @@ export default function Navbar() {
 
   const navLinks = [
     { name: "STORY", href: "#story" },
-    { name: "LAB", href: "#lab" },
-    { name: "WORK", href: "#work" },
-    { name: "CONNECT", href: "#connect" },
+    { name: "ARENA", href: "#work-section" },
   ];
 
   return (
