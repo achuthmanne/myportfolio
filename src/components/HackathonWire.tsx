@@ -59,21 +59,8 @@ function SparkleWire() {
   
   return (
     <group>
-      {/* The Core Lighting Wire - Thin, crisp, emissive */}
-      <mesh ref={tubeRef}>
-        <tubeGeometry args={[curve, 128, 0.03, 16, false]} />
-        <meshStandardMaterial 
-          color="#ffffff"
-          emissive="#dc2626" // Intense neon red
-          emissiveIntensity={2.5}
-          toneMapped={false}
-          roughness={0.2}
-          metalness={0.9} // High metalness gives it that physical "wire" look
-        />
-      </mesh>
-
-      {/* Travelling Sparkles along the wire */}
-      <TravelingSparkles curve={curve} count={80} />
+      {/* The Core Lighting Wire has been removed as requested */}
+      {/* Travelling Sparkles along the invisible path have been removed */}
 
       {/* The Hanging ID Cards */}
       {/* Right side hackathon card (Gear Up) */}
