@@ -3,56 +3,15 @@
 import React, { useMemo, useRef, Suspense } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { Float, useTexture } from '@react-three/drei';
-
-// The Hanging Card component with gentle physics swinging
-function HangingCard({ curve, t, imageSrc }: { curve: THREE.CatmullRomCurve3, t: number, imageSrc: string }) {
-  // Load the JPG as a 3D texture
-  const texture = useTexture(imageSrc);
-  const position = useMemo(() => curve.getPointAt(t), [curve, t]);
-  const groupRef = useRef<THREE.Group>(null);
-
-  // Subtle wind swinging physics
-  useFrame((state) => {
-    if (groupRef.current) {
-      const time = state.clock.getElapsedTime();
-      // Gentle pendulum swing on Z axis
-      groupRef.current.rotation.z = Math.sin(time * 1.5 + t * 10) * 0.05;
-      // Slight twisting on Y axis
-      groupRef.current.rotation.y = Math.sin(time * 0.8 + t * 10) * 0.03;
-    }
-  });
-
-  return (
-    <group position={position} ref={groupRef}>
-      {/* We pivot the card from the top so it swings naturally like a pendulum */}
-      <group position={[0, -2, 0]}>
-        <mesh>
-          {/* Card Dimensions: Approx 2:3 ratio */}
-          <planeGeometry args={[3, 4.5]} />
-          <meshBasicMaterial 
-            map={texture} 
-            side={THREE.DoubleSide} 
-            transparent={true} 
-            // Using Multiply blending to strip away the bright white background of the JPG, 
-            // integrating it perfectly into the dark scene!
-            blending={THREE.MultiplyBlending}
-          />
-        </mesh>
-      </group>
-    </group>
-  );
-}
+import { Float } from '@react-three/drei';
 
 function SparkleWire() {
-  // Create a 3D arc that bows deeply into the screen (negative Z)
+  // A straight wire floating in the center (not touching edges)
   const curve = useMemo(() => {
     return new THREE.CatmullRomCurve3([
-      new THREE.Vector3(-14, -2, 5),   // Far Left, close to camera
-      new THREE.Vector3(-7, 0, -4),    // Middle-left, deeper
-      new THREE.Vector3(0, 1.5, -12),  // Dead center, extremely deep in the screen
-      new THREE.Vector3(7, 0, -4),     // Middle-right, deeper
-      new THREE.Vector3(14, -2, 5),    // Far Right, close to camera
+      new THREE.Vector3(-8, 0, 0), // Left (but not edge)
+      new THREE.Vector3(0, 0, 0),  // Center
+      new THREE.Vector3(8, 0, 0),  // Right (but not edge)
     ]);
   }, []);
 
@@ -75,14 +34,6 @@ function SparkleWire() {
 
       {/* Travelling Sparkles along the wire */}
       <TravelingSparkles curve={curve} count={80} />
-
-      {/* The Hanging ID Cards */}
-      {/* Right side hackathon card (Gear Up) */}
-      <HangingCard 
-        curve={curve} 
-        t={0.8} // 0.8 is on the right side of the curve!
-        imageSrc="/images/gear-up-card.jpg" 
-      />
     </group>
   );
 }
