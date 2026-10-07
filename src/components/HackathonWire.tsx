@@ -27,18 +27,18 @@ function HangingCard({ curve, t, imageSrc }: { curve: THREE.CatmullRomCurve3, t:
     <group position={position} ref={groupRef}>
       {/* 
         We pivot the card from the metal clip!
-        The plane is 4.5 units tall. Shifting it down by -2.1 puts the metal clip exactly on the wire origin! 
+        Shifting it down puts the metal clip exactly on the wire origin! 
       */}
-      <group position={[0, -2.1, 0.1]}>
+      <group position={[0, -2.4, 0.1]}>
         <mesh>
-          {/* Card Dimensions: Approx 2:3 ratio */}
-          <planeGeometry args={[3, 4.5]} />
-          <meshStandardMaterial 
+          {/* Card Dimensions: Adjusted for exact ID card ratio with lanyard */}
+          <planeGeometry args={[2.8, 4.8]} />
+          {/* meshBasicMaterial ignores lighting, ensuring the image is NEVER dull, it stays 100% bright perfectly */}
+          <meshBasicMaterial 
             map={texture} 
             side={THREE.DoubleSide} 
             transparent={true} 
-            roughness={0.4}
-            metalness={0.1}
+            toneMapped={false}
           />
         </mesh>
       </group>
@@ -172,7 +172,8 @@ function TravelingSparkles({ curve, count }: { curve: THREE.CatmullRomCurve3, co
 export default function HackathonWire() {
   return (
     <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
-      <Canvas camera={{ position: [0, 0, 10], fov: 45 }}>
+      {/* Moved the camera down to Y=-2.5 and further back to Z=16 to completely eliminate bottom edge clipping! */}
+      <Canvas camera={{ position: [0, -2.5, 16], fov: 45 }}>
         {/* Subtle ambient light so it doesn't wash out the emissive glow */}
         <ambientLight intensity={0.4} />
         {/* Directional light to cast clean, crisp reflections on the metallic wire */}
