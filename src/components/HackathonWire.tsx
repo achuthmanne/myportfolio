@@ -6,74 +6,80 @@ import * as THREE from 'three';
 import { Float, useTexture } from '@react-three/drei';
 
 // The Hanging Card component with gentle physics swinging
-function HangingCard({ curve, t, imageSrc }: { curve: THREE.CatmullRomCurve3, t: number, imageSrc: string }) {
+function HangingCard({ position, imageSrc }: { position: THREE.Vector3, imageSrc: string }) {
   // Load the PNG as a 3D texture
   const texture = useTexture(imageSrc);
-  const position = useMemo(() => curve.getPointAt(t), [curve, t]);
   const groupRef = useRef<THREE.Group>(null);
+
+  // Create a strict local curve just for the short electric wire above the card
+  const localWireCurve = useMemo(() => {
+    return new THREE.LineCurve3(
+      new THREE.Vector3(-1.6, 0, 0),
+      new THREE.Vector3(1.6, 0, 0)
+    );
+  }, []);
 
   // Subtle wind swinging physics
   useFrame((state) => {
     if (groupRef.current) {
       const time = state.clock.getElapsedTime();
-      // Gentle pendulum swing on Z axis
-      groupRef.current.rotation.z = Math.sin(time * 1.5 + t * 10) * 0.04;
-      // Slight twisting on Y axis
-      groupRef.current.rotation.y = Math.sin(time * 0.8 + t * 10) * 0.05;
+      // Gentle pendulum swing based on card's X position to offset the wave
+      groupRef.current.rotation.z = Math.sin(time * 1.5 + position.x) * 0.04;
+      groupRef.current.rotation.y = Math.sin(time * 0.8 + position.x) * 0.05;
     }
   });
 
   return (
-    <group position={position} ref={groupRef}>
-      {/* 
-        We pivot the card from the metal clip!
-      */}
-      <group position={[0, -2.0, 0.1]}>
-        <mesh>
-          {/* Scaled down slightly to guarantee it fits on screen */}
-          <planeGeometry args={[2.3, 4.0]} />
-          {/* meshBasicMaterial ignores lighting, ensuring the image is NEVER dull, it stays 100% bright perfectly */}
-          <meshBasicMaterial 
-            map={texture} 
-            side={THREE.DoubleSide} 
-            transparent={true} 
-            toneMapped={false}
-          />
-        </mesh>
+    <group position={position}>
+      {/* The Short Electric Blue Wire (Stationary, slightly wider than the card) */}
+      <mesh rotation={[0, 0, Math.PI / 2]}>
+        <cylinderGeometry args={[0.07, 0.07, 3.2, 32]} />
+        <meshStandardMaterial 
+          color="#ffffff"
+          emissive="#0057B8" // Royal Blue
+          emissiveIntensity={4.0} // Boosted slightly since Royal Blue is darker than cyan
+          toneMapped={false}
+          roughness={0.1}
+          metalness={0.9}
+        />
+      </mesh>
+
+      {/* Traveling sparkles uniquely orbiting this short wire */}
+      <TravelingSparkles curve={localWireCurve} count={40} />
+
+      {/* The Swinging Card (pivots from the wire) */}
+      <group ref={groupRef}>
+        <group position={[0, -2.0, 0.1]}>
+          <mesh>
+            {/* Scaled down slightly to guarantee it fits on screen (Width is 2.3) */}
+            <planeGeometry args={[2.3, 4.0]} />
+            <meshBasicMaterial 
+              map={texture} 
+              side={THREE.DoubleSide} 
+              transparent={true} 
+              toneMapped={false}
+            />
+          </mesh>
+        </group>
       </group>
     </group>
   );
 }
 
 function SparkleWire() {
-  // A straight wire floating in the center (not touching edges)
-  const curve = useMemo(() => {
-    return new THREE.CatmullRomCurve3([
-      new THREE.Vector3(-8, 0, 0), // Left (but not edge)
-      new THREE.Vector3(0, 0, 0),  // Center
-      new THREE.Vector3(8, 0, 0),  // Right (but not edge)
-    ]);
-  }, []);
-
-  const tubeRef = useRef<THREE.Mesh>(null);
-  
   return (
     <group>
-      {/* The Core Lighting Wire has been removed as requested */}
-      {/* Travelling Sparkles along the invisible path have been removed */}
-
       {/* The Hanging ID Cards */}
       {/* Right side hackathon card (Gear Up) */}
       <HangingCard 
-        curve={curve} 
-        t={0.75} // Right side of the center wire
+        position={new THREE.Vector3(4, 0, 0)} // Placed on the right side
         imageSrc="/images/gear-up-card-transparent.png" 
       />
     </group>
   );
 }
 
-function TravelingSparkles({ curve, count }: { curve: THREE.CatmullRomCurve3, count: number }) {
+function TravelingSparkles({ curve, count }: { curve: THREE.Curve<THREE.Vector3>, count: number }) {
   const pointsRef = useRef<THREE.Points>(null);
   
   // Create initial random positions along the curve's timeline (0 to 1)
