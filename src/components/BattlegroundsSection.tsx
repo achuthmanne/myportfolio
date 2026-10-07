@@ -3,7 +3,7 @@ import HackathonWire from './HackathonWire';
 
 export default function BattlegroundsSection() {
   return (
-    <section id="battlegrounds-section" className="relative w-full min-h-[130vh] flex flex-col items-center justify-start bg-transparent text-white py-24 overflow-hidden">
+    <section id="battlegrounds-section" className="relative w-full min-h-[130vh] mt-32 md:mt-48 flex flex-col items-center justify-start bg-transparent text-white py-24 overflow-hidden">
       
       {/* The 3D Wire Background */}
       <HackathonWire />
