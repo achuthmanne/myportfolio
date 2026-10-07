@@ -26,8 +26,8 @@ function SparkleWire() {
         <tubeGeometry args={[curve, 128, 0.03, 16, false]} />
         <meshStandardMaterial 
           color="#ffffff"
-          emissive="#0ea5e9" // Deep cyan/blue crisp light
-          emissiveIntensity={2}
+          emissive="#dc2626" // Intense neon red
+          emissiveIntensity={2.5}
           toneMapped={false}
           roughness={0.2}
           metalness={0.9} // High metalness gives it that physical "wire" look
