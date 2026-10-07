@@ -1,12 +1,14 @@
 "use client";
 
-import React, { useMemo, useRef } from 'react';
+import React, { useMemo, useRef, Suspense } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { Float, Html } from '@react-three/drei';
+import { Float, useTexture } from '@react-three/drei';
 
 // The Hanging Card component with gentle physics swinging
-function HangingCard({ curve, t, imageSrc, title }: { curve: THREE.CatmullRomCurve3, t: number, imageSrc: string, title: string }) {
+function HangingCard({ curve, t, imageSrc }: { curve: THREE.CatmullRomCurve3, t: number, imageSrc: string }) {
+  // Load the JPG as a 3D texture
+  const texture = useTexture(imageSrc);
   const position = useMemo(() => curve.getPointAt(t), [curve, t]);
   const groupRef = useRef<THREE.Group>(null);
 
@@ -23,18 +25,21 @@ function HangingCard({ curve, t, imageSrc, title }: { curve: THREE.CatmullRomCur
 
   return (
     <group position={position} ref={groupRef}>
-      {/* Html transform places DOM elements perfectly in 3D space! */}
-      <Html transform distanceFactor={18} center style={{ pointerEvents: 'none' }}>
-        <div className="relative group cursor-pointer" style={{ pointerEvents: 'auto' }}>
-          {/* We use mix-blend-multiply here as a genius CSS trick to instantly remove the white background from your uploaded JPG! */}
-          <img 
-            src={imageSrc} 
-            alt={title} 
-            className="w-[280px] md:w-[350px] object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-500 ease-out" 
-            style={{ filter: 'contrast(1.1) brightness(1.1)' }}
+      {/* We pivot the card from the top so it swings naturally like a pendulum */}
+      <group position={[0, -2, 0]}>
+        <mesh>
+          {/* Card Dimensions: Approx 2:3 ratio */}
+          <planeGeometry args={[3, 4.5]} />
+          <meshBasicMaterial 
+            map={texture} 
+            side={THREE.DoubleSide} 
+            transparent={true} 
+            // Using Multiply blending to strip away the bright white background of the JPG, 
+            // integrating it perfectly into the dark scene!
+            blending={THREE.MultiplyBlending}
           />
-        </div>
-      </Html>
+        </mesh>
+      </group>
     </group>
   );
 }
@@ -77,7 +82,6 @@ function SparkleWire() {
         curve={curve} 
         t={0.8} // 0.8 is on the right side of the curve!
         imageSrc="/images/gear-up-card.jpg" 
-        title="Gear Up Hackathon" 
       />
     </group>
   );
@@ -177,7 +181,9 @@ export default function HackathonWire() {
         
         {/* We use Float to give the entire wire network a very subtle, natural breathing movement */}
         <Float speed={1.5} rotationIntensity={0.05} floatIntensity={0.2}>
-          <SparkleWire />
+          <Suspense fallback={null}>
+            <SparkleWire />
+          </Suspense>
         </Float>
       </Canvas>
     </div>
