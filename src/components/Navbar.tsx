@@ -13,10 +13,7 @@ export default function Navbar() {
   const [showNav, setShowNav] = useState(true);
   const { scrollY } = useScroll();
 
-  // Completely hide the navbar if we are inside the immersive hackathon routes
-  if (pathname && pathname.startsWith("/hackathons")) {
-    return null;
-  }
+  // We will hide the navbar for hackathon routes later, after all hooks have run
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     if (latest < 100) {
@@ -52,6 +49,11 @@ export default function Navbar() {
     { name: "STORY", href: "#story" },
     { name: "ARENA", href: "#work-section" },
   ];
+
+  // Completely hide the navbar if we are inside the immersive hackathon routes
+  if (pathname && pathname.startsWith("/hackathons")) {
+    return null;
+  }
 
   return (
     <motion.nav 
