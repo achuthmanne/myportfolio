@@ -81,23 +81,22 @@ function HangingCard({
 
 function SparkleWire() {
   return (
-    <group position={[0, 2.0, -5]} scale={1.25}>
+    <group position={[0, 3.0, 0]} scale={1.85}>
       {/* 
-        Pushed deep into the screen (Z=-5) for a deeper 3D feel!
-        Since it's further away, we scale it by 1.25 to make sure it stays the exact SAME visual size on screen. 
+        Scaled up MASSIVELY (1.85x) and increased the gap in the middle!
       */}
-      {/* Left side hackathon card (Trinetra) - Moved slightly inwards from -4 to -3.4 */}
+      {/* Left side hackathon card (Trinetra) */}
       <HangingCard 
-        position={new THREE.Vector3(-3.4, 0, 0)} 
+        position={new THREE.Vector3(-2.6, 0, 0)} 
         imageSrc="/images/trinetra-card-transparent.png" 
         wireBaseColor="#450a0a" // Very dark red base
         wireEmissiveColor="#dc2626" // Intense neon red
         sparkleColor="#fca5a5" // Light red sparkles
       />
 
-      {/* Right side hackathon card (Gear Up) - Moved slightly inwards from 4 to 3.4 */}
+      {/* Right side hackathon card (Gear Up) */}
       <HangingCard 
-        position={new THREE.Vector3(3.4, 0, 0)} 
+        position={new THREE.Vector3(2.6, 0, 0)} 
         imageSrc="/images/gear-up-card-transparent.png" 
       />
     </group>
