@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import HackathonWire from './HackathonWire';
 import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
 
 const hackathonData: Record<string, { title: string, subtitle: string, imageSrc: string, description: string, themeColor: string }> = {
   'trinetra': {
@@ -74,7 +75,7 @@ export default function BattlegroundsSection() {
               </div>
 
               {/* Right Side: Details */}
-              <div className="w-full md:w-1/2 h-[55%] md:h-full flex flex-col justify-center p-6 md:p-16 relative">
+              <div className="w-full md:w-1/2 h-[55%] md:h-full flex flex-col justify-start md:justify-center p-6 md:p-16 relative">
                  <motion.h2 
                    initial={{ x: 20, opacity: 0 }}
                    animate={{ x: 0, opacity: 1 }}
@@ -105,10 +106,27 @@ export default function BattlegroundsSection() {
                    initial={{ x: 20, opacity: 0 }}
                    animate={{ x: 0, opacity: 1 }}
                    transition={{ delay: 0.6 }}
-                   className="text-base md:text-lg text-gray-300 leading-relaxed font-sans"
+                   className="text-base md:text-lg text-gray-300 leading-relaxed font-sans mb-10"
                  >
                    {hackathonData[selectedHackathon].description}
                  </motion.p>
+
+                 {/* ENTER THE CASE STUDY BUTTON */}
+                 <motion.div
+                   initial={{ y: 20, opacity: 0 }}
+                   animate={{ y: 0, opacity: 1 }}
+                   transition={{ delay: 0.7 }}
+                 >
+                   <Link 
+                     href={`/hackathons/${selectedHackathon}`}
+                     className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-sm md:text-base font-bold tracking-widest uppercase transition-all duration-300 border border-white/20 bg-transparent text-white hover:bg-white hover:text-black group"
+                   >
+                     ENTER THE CASE STUDY
+                     <svg className="w-5 h-5 transform group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                     </svg>
+                   </Link>
+                 </motion.div>
               </div>
 
               {/* Close Button */}
