@@ -255,16 +255,18 @@ function TravelingSparkles({ curve, count, color = "#ffffff" }: { curve: THREE.C
 
 import { motion, AnimatePresence } from 'framer-motion';
 
-const hackathonData: Record<string, { title: string, subtitle: string, description: string }> = {
+const hackathonData: Record<string, { title: string, subtitle: string, description: string, imageSrc: string }> = {
   'trinetra': {
     title: 'TRINETRA',
     subtitle: '20 Hours Hackathon',
     description: 'An intense 20-hour cybersecurity and deep-tech hackathon organized by VentureSpace. Focused on building cutting-edge solutions for modern security challenges.',
+    imageSrc: '/images/trinetra-card-transparent.png'
   },
   'gear-up': {
     title: 'GEAR UP SEASON 5',
     subtitle: 'A 36 Hour Hackathon',
     description: 'A grueling 36-hour hackathon bringing together the best minds to build rapid, innovative software solutions under crazy deadlines.',
+    imageSrc: '/images/gear-up-card-transparent.png'
   }
 };
 
@@ -278,52 +280,69 @@ function HackathonModal({ id, onClose }: { id: string, onClose: () => void }) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
-      className="absolute inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm pointer-events-auto"
+      className="absolute inset-0 z-50 flex items-center justify-center bg-bg-primary/95 backdrop-blur-xl pointer-events-auto"
     >
-      <div className="relative max-w-2xl p-8 md:p-12 text-white ml-auto mr-12 md:mr-32 bg-gradient-to-r from-transparent to-black/80 rounded-xl border-r-2 border-accent-primary">
-        {/* Close Button */}
+      <div className="relative w-full h-full max-w-7xl mx-auto p-8 flex flex-col md:flex-row items-center justify-between">
+        
+        {/* Close Button (Cross) */}
         <button 
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-full transition-colors"
+          className="absolute top-8 right-8 p-3 text-gray-400 hover:text-white hover:bg-white/10 rounded-full transition-colors z-50"
         >
-          <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
 
-        <motion.h1 
-          initial={{ x: 50, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.8 }}
-          className="text-5xl md:text-7xl font-bold font-sans tracking-tight mb-4"
-        >
-          {data.title}
-        </motion.h1>
-        
-        <motion.div 
-          initial={{ x: 50, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ delay: 0.3, duration: 0.8 }}
-          className="w-20 h-1 bg-accent-primary mb-6"
-        ></motion.div>
+        {/* LEFT SIDE: Content */}
+        <div className="w-full md:w-1/2 text-white pr-0 md:pr-12 order-2 md:order-1 mt-12 md:mt-0 flex flex-col justify-center">
+          <motion.h1 
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.8 }}
+            className="text-5xl md:text-7xl font-bold font-sans tracking-tight mb-4"
+          >
+            {data.title}
+          </motion.h1>
+          
+          <motion.div 
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.8 }}
+            className="w-20 h-1 bg-accent-primary mb-6"
+          ></motion.div>
 
-        <motion.h2 
-          initial={{ x: 50, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ delay: 0.4, duration: 0.8 }}
-          className="text-2xl md:text-3xl text-gray-400 font-mono mb-8"
-        >
-          {data.subtitle}
-        </motion.h2>
+          <motion.h2 
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ delay: 0.4, duration: 0.8 }}
+            className="text-2xl md:text-3xl text-gray-400 font-mono mb-8"
+          >
+            {data.subtitle}
+          </motion.h2>
 
-        <motion.p 
-          initial={{ x: 50, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ delay: 0.5, duration: 0.8 }}
-          className="text-lg md:text-xl text-gray-300 leading-relaxed font-sans"
-        >
-          {data.description}
-        </motion.p>
+          <motion.p 
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+            className="text-lg md:text-xl text-gray-300 leading-relaxed font-sans"
+          >
+            {data.description}
+          </motion.p>
+        </div>
+
+        {/* RIGHT SIDE: Card Image */}
+        <div className="w-full md:w-1/2 flex justify-center items-center order-1 md:order-2 h-[50vh] md:h-full">
+          <motion.img 
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.8 }}
+            src={data.imageSrc} 
+            alt={data.title}
+            className="w-[280px] md:w-[450px] object-contain drop-shadow-[0_0_50px_rgba(255,255,255,0.15)]"
+          />
+        </div>
+
       </div>
     </motion.div>
   );
