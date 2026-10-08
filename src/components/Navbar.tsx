@@ -5,11 +5,18 @@ import Link from "next/link";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { useState, useEffect } from "react";
 import { RefreshCw } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
+  const pathname = usePathname();
   const [isLogoHovered, setIsLogoHovered] = useState(false);
   const [showNav, setShowNav] = useState(true);
   const { scrollY } = useScroll();
+
+  // Completely hide the navbar if we are inside the immersive hackathon routes
+  if (pathname && pathname.startsWith("/hackathons")) {
+    return null;
+  }
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     if (latest < 100) {
