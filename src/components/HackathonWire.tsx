@@ -11,17 +11,26 @@ function HangingCard({
   imageSrc,
   wireBaseColor = "#002244",
   wireEmissiveColor = "#0057B8",
-  sparkleColor = "#ffffff"
+  sparkleColor = "#ffffff",
+  onClick
 }: { 
   position: THREE.Vector3, 
   imageSrc: string,
   wireBaseColor?: string,
   wireEmissiveColor?: string,
-  sparkleColor?: string
+  sparkleColor?: string,
+  onClick?: () => void
 }) {
   // Load the PNG as a 3D texture
   const texture = useTexture(imageSrc);
   const groupRef = useRef<THREE.Group>(null);
+  const [hovered, setHovered] = React.useState(false);
+
+  // Change cursor when hovering over the card
+  React.useEffect(() => {
+    document.body.style.cursor = hovered ? 'pointer' : 'auto';
+    return () => { document.body.style.cursor = 'auto'; };
+  }, [hovered]);
 
   // Create a strict local curve just for the short electric wire above the card
   const localWireCurve = useMemo(() => {
@@ -63,7 +72,14 @@ function HangingCard({
       <group ref={groupRef}>
         {/* Pushed to Z = -0.1 so the card hangs BEHIND the electric wire! */}
         <group position={[0, -2.0, -0.1]}>
-          <mesh>
+          <mesh 
+            onClick={(e) => {
+              e.stopPropagation();
+              if (onClick) onClick();
+            }}
+            onPointerOver={(e) => { e.stopPropagation(); setHovered(true); }}
+            onPointerOut={(e) => { e.stopPropagation(); setHovered(false); }}
+          >
             {/* Scaled down slightly to guarantee it fits on screen (Width is 2.3) */}
             <planeGeometry args={[2.3, 4.0]} />
             <meshBasicMaterial 
@@ -79,27 +95,83 @@ function HangingCard({
   );
 }
 
-function SparkleWire() {
-  return (
-    <group position={[0, 3.0, 0]} scale={1.85}>
-      {/* 
-        Scaled up MASSIVELY (1.85x) and increased the gap in the middle!
-      */}
-      {/* Left side hackathon card (Trinetra) */}
-      <HangingCard 
-        position={new THREE.Vector3(-2.6, 0, 0)} 
-        imageSrc="/images/trinetra-card-transparent.png" 
-        wireBaseColor="#450a0a" // Very dark red base
-        wireEmissiveColor="#dc2626" // Intense neon red
-        sparkleColor="#fca5a5" // Light red sparkles
-      />
+import { useRouter } from 'next/navigation';
 
-      {/* Right side hackathon card (Gear Up) */}
-      <HangingCard 
-        position={new THREE.Vector3(2.6, 0, 0)} 
-        imageSrc="/images/gear-up-card-transparent.png" 
-      />
-    </group>
+function CameraAnimator({ 
+  zoomingTo, 
+  onZoomComplete 
+}: { 
+  zoomingTo: { id: string, pos: THREE.Vector3 } | null, 
+  onZoomComplete: () => void 
+}) {
+  const router = useRouter();
+  
+  useFrame((state, delta) => {
+    if (zoomingTo) {
+      // Calculate target position: slightly in front of the card to fill the screen
+      // The cards are in a group scaled by 1.85 and offset by Y=3.0, Z=0
+      // Actual world position of cards: 
+      // X = position.x * 1.85
+      // Y = (-2.0 * 1.85) + 3.0 = -3.7 + 3.0 = -0.7
+      // Z = -0.1 * 1.85 = -0.185
+      const targetPos = new THREE.Vector3(
+        zoomingTo.pos.x * 1.85, 
+        (-2.0 * 1.85) + 3.0, 
+        2.5 // Pull camera exactly 2.5 units away from the card to fill the screen perfectly
+      );
+      
+      // Smoothly lerp camera position
+      state.camera.position.lerp(targetPos, delta * 4);
+      
+      // Once we are close enough, trigger the route transition!
+      if (state.camera.position.distanceTo(targetPos) < 0.2) {
+        onZoomComplete();
+        // Fallback hard push if needed, but onZoomComplete will handle it
+      }
+    } else {
+      // Return camera to default position smoothly if not zooming
+      const defaultPos = new THREE.Vector3(0, -3, 20);
+      state.camera.position.lerp(defaultPos, delta * 3);
+    }
+  });
+
+  return null;
+}
+
+function SparkleWire() {
+  const [zoomingTo, setZoomingTo] = React.useState<{ id: string, pos: THREE.Vector3 } | null>(null);
+  const router = useRouter();
+  const hasNavigated = useRef(false);
+
+  const handleZoomComplete = () => {
+    if (!hasNavigated.current && zoomingTo) {
+      hasNavigated.current = true;
+      router.push(`/hackathons/${zoomingTo.id}`);
+    }
+  };
+
+  return (
+    <>
+      <CameraAnimator zoomingTo={zoomingTo} onZoomComplete={handleZoomComplete} />
+      <group position={[0, 3.0, 0]} scale={1.85}>
+        {/* Left side hackathon card (Trinetra) */}
+        <HangingCard 
+          position={new THREE.Vector3(-2.6, 0, 0)} 
+          imageSrc="/images/trinetra-card-transparent.png" 
+          wireBaseColor="#450a0a" // Very dark red base
+          wireEmissiveColor="#dc2626" // Intense neon red
+          sparkleColor="#fca5a5" // Light red sparkles
+          onClick={() => setZoomingTo({ id: 'trinetra', pos: new THREE.Vector3(-2.6, 0, 0) })}
+        />
+
+        {/* Right side hackathon card (Gear Up) */}
+        <HangingCard 
+          position={new THREE.Vector3(2.6, 0, 0)} 
+          imageSrc="/images/gear-up-card-transparent.png" 
+          onClick={() => setZoomingTo({ id: 'gear-up', pos: new THREE.Vector3(2.6, 0, 0) })}
+        />
+      </group>
+    </>
   );
 }
 
@@ -189,7 +261,7 @@ export default function HackathonWire() {
   return (
     <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
       {/* Moved the camera significantly down and back to completely guarantee no cutoffs */}
-      <Canvas camera={{ position: [0, -3, 20], fov: 45 }}>
+      <Canvas camera={{ position: [0, -3, 20], fov: 45 }} style={{ pointerEvents: 'auto' }}>
         {/* Subtle ambient light so it doesn't wash out the emissive glow */}
         <ambientLight intensity={0.4} />
         {/* Directional light to cast clean, crisp reflections on the metallic wire */}
