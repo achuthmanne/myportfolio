@@ -2,18 +2,20 @@ import React, { useState } from 'react';
 import HackathonWire from './HackathonWire';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const hackathonData: Record<string, { title: string, subtitle: string, imageSrc: string, description: string }> = {
+const hackathonData: Record<string, { title: string, subtitle: string, imageSrc: string, description: string, themeColor: string }> = {
   'trinetra': {
     title: 'TRINETRA',
     subtitle: '20 Hours Hackathon',
     imageSrc: '/images/trinetra-card-transparent.png',
     description: 'An intense 20-hour cybersecurity and deep-tech hackathon organized by VentureSpace. Focused on building cutting-edge solutions for modern security challenges.',
+    themeColor: 'bg-red-500'
   },
   'gear-up': {
     title: 'GEAR UP SEASON 5',
     subtitle: 'A 36 Hour Hackathon',
     imageSrc: '/images/gear-up-card-transparent.png',
     description: 'A grueling 36-hour hackathon bringing together the best minds to build rapid, innovative software solutions under crazy deadlines.',
+    themeColor: 'bg-[#0057B8]' // Royal Blue to match the wire
   }
 };
 
@@ -57,10 +59,10 @@ export default function BattlegroundsSection() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative w-full max-w-6xl h-[85vh] bg-[#0a0a0a] rounded-2xl md:rounded-3xl border border-white/10 overflow-hidden flex flex-col md:flex-row shadow-2xl z-10"
+              className="relative w-full max-w-[95vw] lg:max-w-7xl h-[85vh] bg-[#0a0a0a] rounded-2xl md:rounded-3xl border border-white/10 overflow-hidden flex flex-col md:flex-row shadow-2xl z-10"
             >
               {/* Left Side: Image display */}
-              <div className="w-full md:w-1/2 h-1/2 md:h-full bg-black/50 flex items-center justify-center p-8 relative">
+              <div className="w-full md:w-1/2 h-[45%] md:h-full bg-black/50 flex items-center justify-center p-8 relative">
                 <motion.img 
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
@@ -72,12 +74,12 @@ export default function BattlegroundsSection() {
               </div>
 
               {/* Right Side: Details */}
-              <div className="w-full md:w-1/2 h-1/2 md:h-full flex flex-col justify-center p-8 md:p-16 relative">
+              <div className="w-full md:w-1/2 h-[55%] md:h-full flex flex-col justify-center p-6 md:p-16 relative">
                  <motion.h2 
                    initial={{ x: 20, opacity: 0 }}
                    animate={{ x: 0, opacity: 1 }}
                    transition={{ delay: 0.3 }}
-                   className="text-4xl md:text-5xl font-black font-sans tracking-tight mb-2"
+                   className="text-3xl md:text-5xl lg:text-6xl font-black font-sans tracking-tight mb-2 whitespace-nowrap overflow-hidden text-ellipsis"
                  >
                    {hackathonData[selectedHackathon].title}
                  </motion.h2>
@@ -86,7 +88,8 @@ export default function BattlegroundsSection() {
                    initial={{ x: 20, opacity: 0 }}
                    animate={{ x: 0, opacity: 1 }}
                    transition={{ delay: 0.4 }}
-                   className="w-16 h-1 bg-red-500 mb-6"
+                   className={`w-16 h-1 mb-6 ${hackathonData[selectedHackathon].themeColor.startsWith('bg-') ? hackathonData[selectedHackathon].themeColor : ''}`}
+                   style={{ backgroundColor: hackathonData[selectedHackathon].themeColor.startsWith('#') ? hackathonData[selectedHackathon].themeColor : undefined }}
                  ></motion.div>
 
                  <motion.h3 
