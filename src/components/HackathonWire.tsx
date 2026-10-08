@@ -95,79 +95,26 @@ function HangingCard({
   );
 }
 
-function CameraAnimator({ 
-  zoomingTo, 
-  onZoomComplete 
-}: { 
-  zoomingTo: { id: string, pos: THREE.Vector3 } | null, 
-  onZoomComplete: () => void 
-}) {
-  const hasTriggered = useRef(false);
-
-  // Reset trigger when we start a new zoom
-  React.useEffect(() => {
-    if (zoomingTo) hasTriggered.current = false;
-  }, [zoomingTo]);
-
-  useFrame((state, delta) => {
-    if (zoomingTo) {
-      // Calculate target position: slightly in front of the card to fill the screen
-      const targetPos = new THREE.Vector3(
-        zoomingTo.pos.x * 1.85, 
-        (-2.0 * 1.85) + 3.0, 
-        2.5 // Pull camera exactly 2.5 units away from the card to fill the screen perfectly
-      );
-      
-      // Smoothly lerp camera position faster
-      state.camera.position.lerp(targetPos, delta * 5);
-      
-      // Once we are close enough, trigger the modal display!
-      if (!hasTriggered.current && state.camera.position.distanceTo(targetPos) < 0.5) {
-        hasTriggered.current = true;
-        onZoomComplete();
-      }
-    } else {
-      hasTriggered.current = false;
-      // Return camera to default position smoothly if not zooming
-      const defaultPos = new THREE.Vector3(0, -3, 20);
-      state.camera.position.lerp(defaultPos, delta * 4);
-    }
-  });
-
-  return null;
-}
-
-function SparkleWire({ 
-  zoomingTo, 
-  setZoomingTo, 
-  onZoomComplete 
-}: { 
-  zoomingTo: { id: string, pos: THREE.Vector3 } | null, 
-  setZoomingTo: (v: { id: string, pos: THREE.Vector3 } | null) => void,
-  onZoomComplete: () => void
-}) {
+function SparkleWire({ onCardClick }: { onCardClick?: (id: string) => void }) {
   return (
-    <>
-      <CameraAnimator zoomingTo={zoomingTo} onZoomComplete={onZoomComplete} />
-      <group position={[0, 3.0, 0]} scale={1.85}>
-        {/* Left side hackathon card (Trinetra) */}
-        <HangingCard 
-          position={new THREE.Vector3(-2.6, 0, 0)} 
-          imageSrc="/images/trinetra-card-transparent.png" 
-          wireBaseColor="#450a0a" // Very dark red base
-          wireEmissiveColor="#dc2626" // Intense neon red
-          sparkleColor="#fca5a5" // Light red sparkles
-          onClick={() => setZoomingTo({ id: 'trinetra', pos: new THREE.Vector3(-2.6, 0, 0) })}
-        />
+    <group position={[0, 3.0, 0]} scale={1.85}>
+      {/* Left side hackathon card (Trinetra) */}
+      <HangingCard 
+        position={new THREE.Vector3(-2.6, 0, 0)} 
+        imageSrc="/images/trinetra-card-transparent.png" 
+        wireBaseColor="#450a0a" // Very dark red base
+        wireEmissiveColor="#dc2626" // Intense neon red
+        sparkleColor="#fca5a5" // Light red sparkles
+        onClick={() => onCardClick && onCardClick('trinetra')}
+      />
 
-        {/* Right side hackathon card (Gear Up) */}
-        <HangingCard 
-          position={new THREE.Vector3(2.6, 0, 0)} 
-          imageSrc="/images/gear-up-card-transparent.png" 
-          onClick={() => setZoomingTo({ id: 'gear-up', pos: new THREE.Vector3(2.6, 0, 0) })}
-        />
-      </group>
-    </>
+      {/* Right side hackathon card (Gear Up) */}
+      <HangingCard 
+        position={new THREE.Vector3(2.6, 0, 0)} 
+        imageSrc="/images/gear-up-card-transparent.png" 
+        onClick={() => onCardClick && onCardClick('gear-up')}
+      />
+    </group>
   );
 }
 
@@ -253,105 +200,7 @@ function TravelingSparkles({ curve, count, color = "#ffffff" }: { curve: THREE.C
   );
 }
 
-import { motion, AnimatePresence } from 'framer-motion';
-
-const hackathonData: Record<string, { title: string, subtitle: string, description: string, imageSrc: string }> = {
-  'trinetra': {
-    title: 'TRINETRA',
-    subtitle: '20 Hours Hackathon',
-    description: 'An intense 20-hour cybersecurity and deep-tech hackathon organized by VentureSpace. Focused on building cutting-edge solutions for modern security challenges.',
-    imageSrc: '/images/trinetra-card-transparent.png'
-  },
-  'gear-up': {
-    title: 'GEAR UP SEASON 5',
-    subtitle: 'A 36 Hour Hackathon',
-    description: 'A grueling 36-hour hackathon bringing together the best minds to build rapid, innovative software solutions under crazy deadlines.',
-    imageSrc: '/images/gear-up-card-transparent.png'
-  }
-};
-
-function HackathonModal({ id, onClose }: { id: string, onClose: () => void }) {
-  const data = hackathonData[id];
-  if (!data) return null;
-
-  return (
-    <motion.div 
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
-      className="absolute inset-0 z-50 flex items-center justify-center bg-bg-primary/95 backdrop-blur-xl pointer-events-auto"
-    >
-      <div className="relative w-full h-full max-w-7xl mx-auto p-8 flex flex-col md:flex-row items-center justify-between">
-        
-        {/* Close Button (Cross) */}
-        <button 
-          onClick={onClose}
-          className="absolute top-8 right-8 p-3 text-gray-400 hover:text-white hover:bg-white/10 rounded-full transition-colors z-50"
-        >
-          <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-
-        {/* LEFT SIDE: Content */}
-        <div className="w-full md:w-1/2 text-white pr-0 md:pr-12 order-2 md:order-1 mt-12 md:mt-0 flex flex-col justify-center">
-          <motion.h1 
-            initial={{ x: -50, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-            className="text-5xl md:text-7xl font-bold font-sans tracking-tight mb-4"
-          >
-            {data.title}
-          </motion.h1>
-          
-          <motion.div 
-            initial={{ x: -50, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-            className="w-20 h-1 bg-accent-primary mb-6"
-          ></motion.div>
-
-          <motion.h2 
-            initial={{ x: -50, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-            className="text-2xl md:text-3xl text-gray-400 font-mono mb-8"
-          >
-            {data.subtitle}
-          </motion.h2>
-
-          <motion.p 
-            initial={{ x: -50, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
-            className="text-lg md:text-xl text-gray-300 leading-relaxed font-sans"
-          >
-            {data.description}
-          </motion.p>
-        </div>
-
-        {/* RIGHT SIDE: Card Image */}
-        <div className="w-full md:w-1/2 flex justify-center items-center order-1 md:order-2 h-[50vh] md:h-full">
-          <motion.img 
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-            src={data.imageSrc} 
-            alt={data.title}
-            className="w-[280px] md:w-[450px] object-contain drop-shadow-[0_0_50px_rgba(255,255,255,0.15)]"
-          />
-        </div>
-
-      </div>
-    </motion.div>
-  );
-}
-
-export default function HackathonWire() {
-  const [zoomingTo, setZoomingTo] = React.useState<{ id: string, pos: THREE.Vector3 } | null>(null);
-  const [showContent, setShowContent] = React.useState<string | null>(null);
-
+export default function HackathonWire({ onCardClick }: { onCardClick?: (id: string) => void }) {
   return (
     <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
       {/* Moved the camera significantly down and back to completely guarantee no cutoffs */}
@@ -365,28 +214,10 @@ export default function HackathonWire() {
         {/* We use Float to give the entire wire network a very subtle, natural breathing movement */}
         <Float speed={1.5} rotationIntensity={0.05} floatIntensity={0.2}>
           <Suspense fallback={null}>
-            <SparkleWire 
-              zoomingTo={zoomingTo} 
-              setZoomingTo={setZoomingTo} 
-              onZoomComplete={() => {
-                if (zoomingTo) setShowContent(zoomingTo.id);
-              }}
-            />
+            <SparkleWire onCardClick={onCardClick} />
           </Suspense>
         </Float>
       </Canvas>
-
-      <AnimatePresence>
-        {showContent && (
-          <HackathonModal 
-            id={showContent} 
-            onClose={() => {
-              setShowContent(null);
-              setZoomingTo(null); // This triggers the zoom OUT
-            }} 
-          />
-        )}
-      </AnimatePresence>
     </div>
   );
 }
