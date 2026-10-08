@@ -59,7 +59,7 @@ export default function BattlegroundsSection() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative w-full max-w-[95vw] lg:max-w-7xl h-[85vh] bg-[#0a0a0a] rounded-2xl md:rounded-3xl border border-white/10 overflow-hidden flex flex-col md:flex-row shadow-2xl z-10"
+              className="relative w-full max-w-[95vw] lg:max-w-7xl h-[95vh] bg-[#0a0a0a] rounded-2xl md:rounded-3xl border border-white/10 overflow-hidden flex flex-col md:flex-row shadow-2xl z-10"
             >
               {/* Left Side: Image display */}
               <div className="w-full md:w-1/2 h-[45%] md:h-full bg-black/50 flex items-center justify-center p-8 relative">
@@ -79,7 +79,7 @@ export default function BattlegroundsSection() {
                    initial={{ x: 20, opacity: 0 }}
                    animate={{ x: 0, opacity: 1 }}
                    transition={{ delay: 0.3 }}
-                   className="text-3xl md:text-5xl lg:text-6xl font-black font-sans tracking-tight mb-2 whitespace-nowrap overflow-hidden text-ellipsis"
+                   className="text-4xl md:text-5xl font-black font-sans tracking-tight mb-2"
                  >
                    {hackathonData[selectedHackathon].title}
                  </motion.h2>
