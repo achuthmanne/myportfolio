@@ -2,28 +2,35 @@
 
 import React, { use } from 'react';
 import Link from 'next/link';
+import BlockchainScene from '@/components/BlockchainScene';
 
 export default function HackathonCaseStudy({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = use(params);
-  
+
   return (
-    <main className="min-h-screen bg-bg-primary text-white flex flex-col items-center justify-center relative p-8">
-      {/* Temporary Back Button */}
-      <Link href="/" className="absolute top-12 left-8 md:left-16 text-gray-400 hover:text-white transition-colors flex items-center gap-2 group z-50">
-        <svg className="w-6 h-6 transform group-hover:-translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <main className="fixed inset-0 w-screen h-screen bg-[#07060b] overflow-hidden select-none">
+      {/* Subtle radial ambient atmosphere behind the 3D model */}
+      <div 
+        className="absolute inset-0 pointer-events-none z-0"
+        style={{
+          background: 'radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.16) 0%, rgba(10, 8, 18, 0.8) 60%, #07060b 100%)'
+        }}
+      />
+
+      {/* Return to Base navigation button */}
+      <Link 
+        href="/" 
+        className="absolute top-8 left-8 md:top-12 md:left-16 text-gray-400 hover:text-white transition-all flex items-center gap-2 group z-50 bg-black/40 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 hover:border-white/30"
+      >
+        <svg className="w-5 h-5 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
         </svg>
-        <span className="font-mono tracking-widest text-sm uppercase">Return to Base</span>
+        <span className="font-mono tracking-widest text-xs uppercase">Return to Base</span>
       </Link>
 
-      <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-4 uppercase">
-        {resolvedParams.id.replace('-', ' ')}
-      </h1>
-      <p className="text-gray-400 font-mono tracking-widest uppercase mb-8">Case Study in progress...</p>
-      
-      {/* Placeholder content - User will specify later */}
-      <div className="w-full max-w-3xl h-64 border border-dashed border-white/20 flex items-center justify-center rounded-xl">
-        <span className="text-white/30 font-mono">CONTENT GOES HERE</span>
+      {/* Fullscreen 3D Blockchain Background */}
+      <div className="absolute inset-0 w-full h-full z-10">
+        <BlockchainScene />
       </div>
     </main>
   );
