@@ -102,19 +102,19 @@ function HangingPhotoCard({
 
   return (
     <group position={[x, y, 0]}>
-      {/* 1. Metal clip hooked over the horizontal iron pipe */}
+      {/* 1. Slender metal clip hooked over the thin iron wire */}
       <mesh rotation={[0, 0, Math.PI / 2]}>
-        <cylinderGeometry args={[0.045, 0.045, 0.16, 16]} />
+        <cylinderGeometry args={[0.018, 0.018, 0.10, 16]} />
         <meshStandardMaterial color="#cbd5e1" metalness={0.94} roughness={0.2} />
       </mesh>
       {/* Clip clamp body hanging down */}
-      <mesh position={[0, -0.08, 0]}>
-        <boxGeometry args={[0.14, 0.12, 0.05]} />
+      <mesh position={[0, -0.05, 0]}>
+        <boxGeometry args={[0.09, 0.07, 0.03]} />
         <meshStandardMaterial color="#64748b" metalness={0.92} roughness={0.25} />
       </mesh>
 
       {/* 2. Hanging Card with Swing Physics from Top Pivot */}
-      <group ref={swingRef} position={[0, -0.14, 0]}>
+      <group ref={swingRef} position={[0, -0.09, 0]}>
         {/* Card Backplate / Subtle Rim */}
         <mesh position={[0, -height / 2, -0.005]}>
           <planeGeometry args={[width + 0.08, height + 0.08]} />
@@ -132,7 +132,7 @@ function HangingPhotoCard({
 }
 
 // -------------------------------------------------------------
-// 3. Straight Horizontal Iron Pipe Spanning Screen Edge to Edge
+// 3. Straight Horizontal Iron Wire Spanning Screen Edge to Edge
 // -------------------------------------------------------------
 function StraightIronGallery() {
   // Height chosen so the cards sit vertically centered in the viewport
@@ -148,9 +148,9 @@ function StraightIronGallery() {
 
   return (
     <group>
-      {/* Straight Iron Pipe running horizontally from left edge to right edge */}
+      {/* Ultra-slender straight iron wire running horizontally across the screen */}
       <mesh position={[0, pipeY, 0]} rotation={[0, 0, Math.PI / 2]}>
-        <cylinderGeometry args={[0.025, 0.025, 26, 32]} />
+        <cylinderGeometry args={[0.009, 0.009, 28, 32]} />
         <meshStandardMaterial
           color="#d1d5db" // Sleek metallic silver/iron
           metalness={0.94}
