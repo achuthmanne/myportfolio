@@ -219,9 +219,7 @@ function ChainLink({
         <meshStandardMaterial 
           color="#f59e0b" 
           metalness={0.85} 
-          roughness={0.18} 
-          emissive="#d97706" 
-          emissiveIntensity={0.15} 
+          roughness={0.2} 
         />
       </mesh>
     </group>
@@ -256,7 +254,11 @@ function ChainConnection({
       {/* Golden pin extending from Start cube */}
       <mesh position={[0, 0, -dist * 0.38]} rotation={[Math.PI / 2, 0, 0]}>
         <cylinderGeometry args={[0.05, 0.05, 0.4, 20]} />
-        <meshStandardMaterial color="#f59e0b" metalness={0.85} roughness={0.18} />
+        <meshStandardMaterial 
+          color="#f59e0b" 
+          metalness={0.85} 
+          roughness={0.2} 
+        />
       </mesh>
 
       {/* Chain Link 1 (Flat in plane) */}
@@ -268,7 +270,11 @@ function ChainConnection({
       {/* Golden pin extending from End cube */}
       <mesh position={[0, 0, dist * 0.38]} rotation={[Math.PI / 2, 0, 0]}>
         <cylinderGeometry args={[0.05, 0.05, 0.4, 20]} />
-        <meshStandardMaterial color="#f59e0b" metalness={0.85} roughness={0.18} />
+        <meshStandardMaterial 
+          color="#f59e0b" 
+          metalness={0.85} 
+          roughness={0.2} 
+        />
       </mesh>
     </group>
   );
@@ -290,8 +296,8 @@ function BlockchainCube({
     <group position={position} rotation={rotation}>
       <RoundedBox args={[size, size, size]} radius={0.18} smoothness={4}>
         <meshStandardMaterial 
-          color="#9d78ff" 
-          roughness={0.28} 
+          color="#c53030" 
+          roughness={0.35} 
           metalness={0.06} 
         />
       </RoundedBox>
@@ -333,7 +339,7 @@ function BlockchainWorld() {
   return (
     <Float speed={1.6} rotationIntensity={0.15} floatIntensity={0.3}>
       <group ref={worldRef} scale={0.78}>
-        {/* 1. The 5 Purple Blockchain Cubes */}
+        {/* 1. The 5 Trinetra Crimson Blockchain Cubes */}
         <BlockchainCube position={centerPos} size={1.25} />
         <BlockchainCube position={topPos} size={1.35} />
         <BlockchainCube position={bottomPos} size={1.35} />
@@ -346,7 +352,7 @@ function BlockchainWorld() {
         <ChainConnection start={bottomPos} end={leftPos} />
         <ChainConnection start={bottomPos} end={rightPos} />
 
-        {/* 3. Floating Crypto Coins */}
+        {/* 3. Floating Crypto Coins (High-Contrast Authentic Crypto Palette) */}
         {/* Bitcoin (Gold) - Top Left */}
         <Coin 
           position={[-2.7, 1.8, 0.7]} 
@@ -369,7 +375,7 @@ function BlockchainWorld() {
           scale={0.95}
         />
 
-        {/* Ethereum (Pink) - Top Right */}
+        {/* Ethereum (Pink/Magenta) - Top Right */}
         <Coin 
           position={[2.65, 1.75, 0.7]} 
           rotation={[0.2, -0.35, 0.1]}
@@ -381,7 +387,7 @@ function BlockchainWorld() {
           scale={1.05}
         />
 
-        {/* Litecoin (Teal) - Bottom Right */}
+        {/* Litecoin (Teal/Mint) - Bottom Right */}
         <Coin 
           position={[2.05, -2.45, 0.6]} 
           rotation={[-0.15, -0.2, 0.05]}
@@ -392,14 +398,14 @@ function BlockchainWorld() {
           scale={1.0}
         />
 
-        {/* 4. Floating Decorative Spheres */}
-        {/* Mint Sphere - Top Right */}
+        {/* 4. Floating Decorative Accent Spheres */}
+        {/* Mint/Teal Sphere - Top Right */}
         <FloatingSphere position={[0.9, 3.1, 0.2]} radius={0.18} color="#2dd4bf" />
 
-        {/* Orange Sphere - Bottom Left */}
+        {/* Golden Amber Sphere - Bottom Left */}
         <FloatingSphere position={[-2.3, -2.5, 0.5]} radius={0.19} color="#f59e0b" />
 
-        {/* Small Pink Sphere - Far Left */}
+        {/* Soft Pink Marble - Far Left */}
         <FloatingSphere position={[-3.4, -1.6, 0.3]} radius={0.11} color="#f472b6" />
       </group>
     </Float>
@@ -416,8 +422,8 @@ export default function BlockchainScene() {
         camera={{ position: [0, 0, 8.8], fov: 45 }}
         style={{ pointerEvents: 'auto', width: '100%', height: '100%' }}
       >
-        {/* Soft studio ambient light */}
-        <ambientLight intensity={0.9} color="#f5f3ff" />
+        {/* Soft clean neutral ambient light */}
+        <ambientLight intensity={0.9} color="#ffffff" />
 
         {/* Key Directional Light (Top-Left) */}
         <directionalLight 
@@ -429,23 +435,8 @@ export default function BlockchainScene() {
         {/* Fill Directional Light (Bottom-Left) */}
         <directionalLight 
           position={[-6, -5, 4]} 
-          intensity={0.8} 
-          color="#c4b5fd" 
-        />
-
-        {/* Rear Violet Rim Light */}
-        <directionalLight 
-          position={[0, 4, -6]} 
-          intensity={1.6} 
-          color="#8b5cf6" 
-        />
-
-        {/* Warm center point light to highlight golden chains */}
-        <pointLight 
-          position={[0, 0, 3.5]} 
-          intensity={1.2} 
+          intensity={0.6} 
           color="#ffffff" 
-          distance={10} 
         />
 
         {/* The Complete 3D Blockchain System */}

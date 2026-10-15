@@ -8,14 +8,7 @@ export default function HackathonCaseStudy({ params }: { params: Promise<{ id: s
   const resolvedParams = use(params);
 
   return (
-    <main className="fixed inset-0 w-screen h-screen bg-[#07060b] overflow-hidden select-none">
-      {/* Subtle radial ambient atmosphere behind the 3D model */}
-      <div 
-        className="absolute inset-0 pointer-events-none z-0"
-        style={{
-          background: 'radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.16) 0%, rgba(10, 8, 18, 0.8) 60%, #07060b 100%)'
-        }}
-      />
+    <main className="fixed inset-0 w-screen h-screen bg-[#070707] overflow-hidden select-none">
 
       {/* Return to Base navigation button */}
       <Link 
