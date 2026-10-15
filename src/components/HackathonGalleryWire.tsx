@@ -202,14 +202,42 @@ function CurvedIronWire() {
         <meshStandardMaterial color="#6b7280" metalness={0.9} roughness={0.3} />
       </mesh>
 
-      {/* First Hanging Photo Card (Trust Ballot) */}
+      {/* The 4 Hanging Photo Cards along the 3D Curved Wire */}
       <Suspense fallback={null}>
+        {/* Card 1: Trust Ballot Concept */}
         <HangingPhotoCard
           curve={curve}
-          t={0.32}
+          t={0.24}
           imageSrc="/images/trust-ballot-card.jpg"
-          width={2.2}
-          height={2.75}
+          width={1.85}
+          height={2.31}
+        />
+
+        {/* Card 2: Building Trust Ballot */}
+        <HangingPhotoCard
+          curve={curve}
+          t={0.42}
+          imageSrc="/images/building-trust-ballot.jpg"
+          width={1.85}
+          height={2.31}
+        />
+
+        {/* Card 3: The Creators */}
+        <HangingPhotoCard
+          curve={curve}
+          t={0.58}
+          imageSrc="/images/the-creators.jpg"
+          width={1.85}
+          height={2.31}
+        />
+
+        {/* Card 4: Trinetra Certificate 2025 */}
+        <HangingPhotoCard
+          curve={curve}
+          t={0.76}
+          imageSrc="/images/trinetra-certificate.png"
+          width={1.85}
+          height={2.31}
         />
       </Suspense>
     </group>
@@ -223,7 +251,7 @@ export default function HackathonGalleryWire() {
   return (
     <div className="fixed inset-0 w-full h-full pointer-events-none z-0">
       <Canvas
-        camera={{ position: [0, 1.1, 7.5], fov: 45 }}
+        camera={{ position: [0, 0.6, 8.2], fov: 45 }}
         style={{ pointerEvents: 'none', width: '100%', height: '100%' }}
       >
         {/* Clean studio lighting for crisp metallic specular highlights */}
