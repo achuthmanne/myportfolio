@@ -104,24 +104,6 @@ function CurvedIronWire() {
     };
   }, []);
 
-  // Subtle interactive parallax on mouse move
-  useFrame((state, delta) => {
-    if (wireGroupRef.current) {
-      const { pointer } = state;
-      // Gentle tilt so user can feel the 3D semicircle depth
-      wireGroupRef.current.rotation.y = THREE.MathUtils.lerp(
-        wireGroupRef.current.rotation.y,
-        pointer.x * 0.12,
-        delta * 2.5
-      );
-      wireGroupRef.current.rotation.x = THREE.MathUtils.lerp(
-        wireGroupRef.current.rotation.x,
-        -pointer.y * 0.08,
-        delta * 2.5
-      );
-    }
-  });
-
   return (
     <group ref={wireGroupRef}>
       {/* The Slender Iron Wire Tube */}
@@ -166,7 +148,7 @@ export default function HackathonGalleryWire() {
     <div className="fixed inset-0 w-full h-full pointer-events-none z-0">
       <Canvas
         camera={{ position: [0, 0.8, 7.5], fov: 45 }}
-        style={{ pointerEvents: 'auto', width: '100%', height: '100%' }}
+        style={{ pointerEvents: 'none', width: '100%', height: '100%' }}
       >
         {/* Clean studio lighting for crisp metallic specular highlights */}
         <ambientLight intensity={0.7} color="#ffffff" />
