@@ -332,7 +332,7 @@ function BlockchainWorld() {
 
   return (
     <Float speed={1.6} rotationIntensity={0.15} floatIntensity={0.3}>
-      <group ref={worldRef}>
+      <group ref={worldRef} scale={0.78}>
         {/* 1. The 5 Purple Blockchain Cubes */}
         <BlockchainCube position={centerPos} size={1.25} />
         <BlockchainCube position={topPos} size={1.35} />
