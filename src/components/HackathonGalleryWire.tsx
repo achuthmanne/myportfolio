@@ -145,9 +145,9 @@ function CurvedIronWire() {
   const { curve, startPoint, endPoint, centerDeepPoint } = useMemo(() => {
     const points: THREE.Vector3[] = [];
     const segments = 64;
-    const radiusX = 6.2; // Horizontal span across screen
-    const radiusZ = 2.0; // Sleek, shallow curve depth so vertical height on screen is compact
-    const wireY = 1.6;   // Positioned high up cleanly near the top
+    const radiusX = 7.2; // Expanded horizontal span to comfortably fit larger cards
+    const radiusZ = 2.2; // Gentle, elegant curve depth
+    const wireY = 1.8;   // Positioned high up cleanly near the top
 
     for (let i = 0; i <= segments; i++) {
       const t = i / segments; // 0 to 1
@@ -202,42 +202,42 @@ function CurvedIronWire() {
         <meshStandardMaterial color="#6b7280" metalness={0.9} roughness={0.3} />
       </mesh>
 
-      {/* The 4 Hanging Photo Cards along the 3D Curved Wire */}
+      {/* The 4 Hanging Photo Cards along the 3D Curved Wire (Enlarged for high clarity) */}
       <Suspense fallback={null}>
         {/* Card 1: Trust Ballot Concept */}
         <HangingPhotoCard
           curve={curve}
-          t={0.24}
+          t={0.22}
           imageSrc="/images/trust-ballot-card.jpg"
-          width={1.85}
-          height={2.31}
+          width={2.35}
+          height={2.94}
         />
 
         {/* Card 2: Building Trust Ballot */}
         <HangingPhotoCard
           curve={curve}
-          t={0.42}
+          t={0.41}
           imageSrc="/images/building-trust-ballot.jpg"
-          width={1.85}
-          height={2.31}
+          width={2.35}
+          height={2.94}
         />
 
         {/* Card 3: The Creators */}
         <HangingPhotoCard
           curve={curve}
-          t={0.58}
+          t={0.59}
           imageSrc="/images/the-creators.jpg"
-          width={1.85}
-          height={2.31}
+          width={2.35}
+          height={2.94}
         />
 
         {/* Card 4: Trinetra Certificate 2025 */}
         <HangingPhotoCard
           curve={curve}
-          t={0.76}
+          t={0.78}
           imageSrc="/images/trinetra-certificate.png"
-          width={1.85}
-          height={2.31}
+          width={2.35}
+          height={2.94}
         />
       </Suspense>
     </group>
@@ -251,7 +251,7 @@ export default function HackathonGalleryWire() {
   return (
     <div className="fixed inset-0 w-full h-full pointer-events-none z-0">
       <Canvas
-        camera={{ position: [0, 0.6, 8.2], fov: 45 }}
+        camera={{ position: [0, 0.5, 8.8], fov: 45 }}
         style={{ pointerEvents: 'none', width: '100%', height: '100%' }}
       >
         {/* Clean studio lighting for crisp metallic specular highlights */}
