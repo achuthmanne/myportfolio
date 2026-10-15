@@ -79,7 +79,8 @@ function HangingPhotoCard({
   imageSrc,
   width = 2.35,
   height = 2.94,
-  swingOffset = 0
+  swingOffset = 0,
+  onClick
 }: {
   x: number;
   y: number;
@@ -87,9 +88,21 @@ function HangingPhotoCard({
   width?: number;
   height?: number;
   swingOffset?: number;
+  onClick?: () => void;
 }) {
   const texture = useTexture(imageSrc);
   const swingRef = useRef<THREE.Group>(null);
+  const [hovered, setHovered] = React.useState(false);
+
+  // Manage cursor style on card hover
+  React.useEffect(() => {
+    if (hovered) {
+      document.body.style.cursor = 'pointer';
+    } else {
+      document.body.style.cursor = 'auto';
+    }
+    return () => { document.body.style.cursor = 'auto'; };
+  }, [hovered]);
 
   // Gentle physical pendulum swinging physics
   useFrame((state) => {
@@ -113,16 +126,28 @@ function HangingPhotoCard({
         <meshStandardMaterial color="#64748b" metalness={0.92} roughness={0.25} />
       </mesh>
 
-      {/* 2. Hanging Card with Swing Physics from Top Pivot */}
-      <group ref={swingRef} position={[0, -0.09, 0]}>
+      {/* 2. Hanging Card with Swing Physics and Hover Interactivity */}
+      <group 
+        ref={swingRef} 
+        position={[0, -0.09, 0]}
+        scale={hovered ? 1.04 : 1.0}
+      >
         {/* Card Backplate / Subtle Rim */}
         <mesh position={[0, -height / 2, -0.005]}>
           <planeGeometry args={[width + 0.08, height + 0.08]} />
-          <meshStandardMaterial color="#0b0f19" roughness={0.3} metalness={0.1} />
+          <meshStandardMaterial color={hovered ? "#dc2626" : "#0b0f19"} roughness={0.3} metalness={0.1} />
         </mesh>
 
-        {/* The Front Photo Image (Crisp & Full Quality) */}
-        <mesh position={[0, -height / 2, 0.005]}>
+        {/* The Front Photo Image (Clickable) */}
+        <mesh 
+          position={[0, -height / 2, 0.005]}
+          onPointerOver={(e) => { e.stopPropagation(); setHovered(true); }}
+          onPointerOut={() => setHovered(false)}
+          onClick={(e) => {
+            e.stopPropagation();
+            if (onClick) onClick();
+          }}
+        >
           <planeGeometry args={[width, height]} />
           <meshBasicMaterial map={texture} side={THREE.DoubleSide} />
         </mesh>
@@ -134,7 +159,7 @@ function HangingPhotoCard({
 // -------------------------------------------------------------
 // 3. Straight Horizontal Iron Wire Spanning Screen Edge to Edge
 // -------------------------------------------------------------
-function StraightIronGallery() {
+function StraightIronGallery({ onCardClick }: { onCardClick?: (src: string) => void }) {
   // Height chosen so the cards sit vertically centered in the viewport
   const pipeY = 1.45;
 
@@ -170,6 +195,7 @@ function StraightIronGallery() {
             width={2.35}
             height={2.94}
             swingOffset={card.offset}
+            onClick={() => onCardClick && onCardClick(card.src)}
           />
         ))}
       </Suspense>
@@ -180,12 +206,12 @@ function StraightIronGallery() {
 // -------------------------------------------------------------
 // 4. Full 3D Scene Viewport
 // -------------------------------------------------------------
-export default function HackathonGalleryWire() {
+export default function HackathonGalleryWire({ onCardClick }: { onCardClick?: (src: string) => void }) {
   return (
     <div className="fixed inset-0 w-full h-full pointer-events-none z-0">
       <Canvas
         camera={{ position: [0, 0, 8.5], fov: 45 }}
-        style={{ pointerEvents: 'none', width: '100%', height: '100%' }}
+        style={{ pointerEvents: 'auto', width: '100%', height: '100%' }}
       >
         {/* Clean studio lighting for crisp metallic specular highlights */}
         <ambientLight intensity={0.75} color="#ffffff" />
@@ -194,7 +220,7 @@ export default function HackathonGalleryWire() {
         <directionalLight position={[0, -3, 2]} intensity={0.5} color="#94a3b8" />
 
         {/* Straight Iron Pipe Gallery */}
-        <StraightIronGallery />
+        <StraightIronGallery onCardClick={onCardClick} />
 
         {/* Tiny Cosmic Particles Floating in the Ambient Background */}
         <TinyParticles />
