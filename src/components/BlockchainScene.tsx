@@ -2,7 +2,7 @@
 
 import React, { useRef, useMemo, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { RoundedBox, Float, Sparkles } from '@react-three/drei';
+import { RoundedBox, Float, Sparkles, Text } from '@react-three/drei';
 import * as THREE from 'three';
 
 // -------------------------------------------------------------
@@ -329,18 +329,40 @@ function BlockchainWorld() {
     }
   });
 
-  // Coordinates matching the uploaded 3D illustration
-  const topPos: [number, number, number] = [0, 2.2, 0];
-  const bottomPos: [number, number, number] = [0, -2.2, 0];
-  const leftPos: [number, number, number] = [-2.25, 0, 0];
-  const rightPos: [number, number, number] = [2.25, 0, 0];
-  const centerPos: [number, number, number] = [0, 0, -0.15];
+  // Coordinates widened horizontally to create a cinematic diamond frame for TRINETRA
+  const topPos: [number, number, number] = [0, 2.1, 0];
+  const bottomPos: [number, number, number] = [0, -2.1, 0];
+  const leftPos: [number, number, number] = [-3.15, 0, 0];
+  const rightPos: [number, number, number] = [3.15, 0, 0];
 
   return (
     <Float speed={1.6} rotationIntensity={0.15} floatIntensity={0.3}>
       <group ref={worldRef} scale={0.78}>
-        {/* 1. The 5 Trinetra Crimson Blockchain Cubes */}
-        <BlockchainCube position={centerPos} size={1.25} />
+        {/* Center: TRINETRA Title inside the blockchain diamond frame */}
+        <group position={[0, 0, 0]}>
+          <Text
+            fontSize={0.82}
+            letterSpacing={0.22}
+            color="#ffffff"
+            anchorX="center"
+            anchorY="middle"
+            font="/fonts/LuxiSans-Regular.ttf"
+          >
+            TRINETRA
+          </Text>
+          <Text
+            position={[0, -0.52, 0]}
+            fontSize={0.16}
+            letterSpacing={0.3}
+            color="#ef4444"
+            anchorX="center"
+            anchorY="middle"
+          >
+            20H BLOCKCHAIN BUILD
+          </Text>
+        </group>
+
+        {/* 1. The 4 Outer Trinetra Crimson Blockchain Cubes */}
         <BlockchainCube position={topPos} size={1.35} />
         <BlockchainCube position={bottomPos} size={1.35} />
         <BlockchainCube position={leftPos} size={1.35} />
@@ -355,7 +377,7 @@ function BlockchainWorld() {
         {/* 3. Floating Crypto Coins (High-Contrast Authentic Crypto Palette) */}
         {/* Bitcoin (Gold) - Top Left */}
         <Coin 
-          position={[-2.7, 1.8, 0.7]} 
+          position={[-3.7, 1.8, 0.7]} 
           rotation={[0.2, 0.4, -0.1]}
           symbol="₿" 
           bgColor="#fef08a" 
@@ -366,7 +388,7 @@ function BlockchainWorld() {
 
         {/* Doge Token (Lilac) - Top Center Left */}
         <Coin 
-          position={[-1.15, 3.15, 0.4]} 
+          position={[-1.2, 3.1, 0.4]} 
           rotation={[0.15, -0.1, 0.1]}
           symbol="Ð" 
           bgColor="#e9d5ff" 
@@ -377,7 +399,7 @@ function BlockchainWorld() {
 
         {/* Ethereum (Pink/Magenta) - Top Right */}
         <Coin 
-          position={[2.65, 1.75, 0.7]} 
+          position={[3.7, 1.75, 0.7]} 
           rotation={[0.2, -0.35, 0.1]}
           symbol="ETH" 
           bgColor="#fbcfe8" 
@@ -389,7 +411,7 @@ function BlockchainWorld() {
 
         {/* Litecoin (Teal/Mint) - Bottom Right */}
         <Coin 
-          position={[2.05, -2.45, 0.6]} 
+          position={[2.75, -2.4, 0.6]} 
           rotation={[-0.15, -0.2, 0.05]}
           symbol="Ł" 
           bgColor="#99f6e4" 
@@ -400,13 +422,13 @@ function BlockchainWorld() {
 
         {/* 4. Floating Decorative Accent Spheres */}
         {/* Mint/Teal Sphere - Top Right */}
-        <FloatingSphere position={[0.9, 3.1, 0.2]} radius={0.18} color="#2dd4bf" />
+        <FloatingSphere position={[1.0, 3.1, 0.2]} radius={0.18} color="#2dd4bf" />
 
         {/* Golden Amber Sphere - Bottom Left */}
-        <FloatingSphere position={[-2.3, -2.5, 0.5]} radius={0.19} color="#f59e0b" />
+        <FloatingSphere position={[-2.9, -2.45, 0.5]} radius={0.19} color="#f59e0b" />
 
         {/* Soft Pink Marble - Far Left */}
-        <FloatingSphere position={[-3.4, -1.6, 0.3]} radius={0.11} color="#f472b6" />
+        <FloatingSphere position={[-4.4, -1.6, 0.3]} radius={0.11} color="#f472b6" />
       </group>
     </Float>
   );
