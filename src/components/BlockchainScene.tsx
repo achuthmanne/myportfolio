@@ -2,7 +2,7 @@
 
 import React, { useRef, useMemo, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { RoundedBox, Float } from '@react-three/drei';
+import { RoundedBox, Float, Sparkles } from '@react-three/drei';
 import * as THREE from 'three';
 
 // -------------------------------------------------------------
@@ -437,6 +437,24 @@ export default function BlockchainScene() {
           position={[-6, -5, 4]} 
           intensity={0.6} 
           color="#ffffff" 
+        />
+
+        {/* Delicate, subtle floating background micro-sparkles */}
+        <Sparkles 
+          count={150} 
+          scale={[16, 12, 10]} 
+          size={1.4} 
+          speed={0.35} 
+          opacity={0.6} 
+          color="#ffffff" 
+        />
+        <Sparkles 
+          count={60} 
+          scale={[12, 9, 8]} 
+          size={2.0} 
+          speed={0.25} 
+          opacity={0.45} 
+          color="#fef08a" 
         />
 
         {/* The Complete 3D Blockchain System */}
