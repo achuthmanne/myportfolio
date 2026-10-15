@@ -81,17 +81,17 @@ function CurvedIronWire() {
     const points: THREE.Vector3[] = [];
     const segments = 64;
     const radiusX = 6.2; // Horizontal span across screen
-    const radiusZ = 4.8; // Curves deep into -Z
-    const wireY = 1.2;   // Upper horizontal position
+    const radiusZ = 2.0; // Sleek, shallow curve depth so vertical height on screen is compact
+    const wireY = 1.6;   // Positioned high up cleanly near the top
 
     for (let i = 0; i <= segments; i++) {
       const t = i / segments; // 0 to 1
       const angle = Math.PI * t; // 0 to PI
       const x = -Math.cos(angle) * radiusX;
-      // Negative Z pulls the center deep into the 3D space
+      // Negative Z pulls the center gracefully into the 3D space
       const z = -Math.sin(angle) * radiusZ;
-      // Very gentle physical sag in the center
-      const y = wireY - Math.sin(angle) * 0.15;
+      // Slender level wire with minimal sag
+      const y = wireY - Math.sin(angle) * 0.06;
       points.push(new THREE.Vector3(x, y, z));
     }
 
@@ -108,7 +108,7 @@ function CurvedIronWire() {
     <group ref={wireGroupRef}>
       {/* The Slender Iron Wire Tube */}
       <mesh>
-        <tubeGeometry args={[curve, 128, 0.022, 16, false]} />
+        <tubeGeometry args={[curve, 128, 0.02, 16, false]} />
         <meshStandardMaterial
           color="#d1d5db" // Sleek metallic silver/iron
           metalness={0.94}
@@ -119,21 +119,21 @@ function CurvedIronWire() {
 
       {/* Subtle outer metallic ring caps at the wire ends */}
       <mesh position={[startPoint.x, startPoint.y, startPoint.z]}>
-        <sphereGeometry args={[0.05, 16, 16]} />
+        <sphereGeometry args={[0.045, 16, 16]} />
         <meshStandardMaterial color="#9ca3af" metalness={0.95} roughness={0.2} />
       </mesh>
       <mesh position={[endPoint.x, endPoint.y, endPoint.z]}>
-        <sphereGeometry args={[0.05, 16, 16]} />
+        <sphereGeometry args={[0.045, 16, 16]} />
         <meshStandardMaterial color="#9ca3af" metalness={0.95} roughness={0.2} />
       </mesh>
 
       {/* Thin vertical ceiling anchor wires supporting the ends */}
-      <mesh position={[startPoint.x, startPoint.y + 2.5, startPoint.z]}>
-        <cylinderGeometry args={[0.008, 0.008, 5, 8]} />
+      <mesh position={[startPoint.x, startPoint.y + 1.5, startPoint.z]}>
+        <cylinderGeometry args={[0.008, 0.008, 3, 8]} />
         <meshStandardMaterial color="#6b7280" metalness={0.9} roughness={0.3} />
       </mesh>
-      <mesh position={[endPoint.x, endPoint.y + 2.5, endPoint.z]}>
-        <cylinderGeometry args={[0.008, 0.008, 5, 8]} />
+      <mesh position={[endPoint.x, endPoint.y + 1.5, endPoint.z]}>
+        <cylinderGeometry args={[0.008, 0.008, 3, 8]} />
         <meshStandardMaterial color="#6b7280" metalness={0.9} roughness={0.3} />
       </mesh>
     </group>
@@ -147,7 +147,7 @@ export default function HackathonGalleryWire() {
   return (
     <div className="fixed inset-0 w-full h-full pointer-events-none z-0">
       <Canvas
-        camera={{ position: [0, 0.8, 7.5], fov: 45 }}
+        camera={{ position: [0, 1.1, 7.5], fov: 45 }}
         style={{ pointerEvents: 'none', width: '100%', height: '100%' }}
       >
         {/* Clean studio lighting for crisp metallic specular highlights */}
