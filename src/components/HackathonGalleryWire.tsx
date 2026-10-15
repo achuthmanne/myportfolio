@@ -3,7 +3,6 @@
 import React, { useRef, useMemo, Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import { useTexture } from "@react-three/drei";
 
 // -------------------------------------------------------------
@@ -129,7 +128,7 @@ function HangingPhotoCard({
         {/* The Front Photo Image */}
         <mesh position={[0, -height / 2, 0.005]}>
           <planeGeometry args={[width, height]} />
-          <meshBasicMaterial map={texture} toneMapped={false} side={THREE.DoubleSide} />
+          <meshBasicMaterial map={texture} side={THREE.DoubleSide} />
         </mesh>
       </group>
     </group>
@@ -238,11 +237,6 @@ export default function HackathonGalleryWire() {
 
         {/* Tiny Cosmic Particles Floating in the Ambient Background */}
         <TinyParticles />
-
-        {/* Subtle Bloom */}
-        <EffectComposer>
-          <Bloom luminanceThreshold={0.75} mipmapBlur intensity={0.8} />
-        </EffectComposer>
       </Canvas>
     </div>
   );
