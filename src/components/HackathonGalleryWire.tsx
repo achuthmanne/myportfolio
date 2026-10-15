@@ -71,44 +71,40 @@ function TinyParticles() {
 }
 
 // -------------------------------------------------------------
-// -------------------------------------------------------------
 // 2. Hanging Photo Card Component
 // -------------------------------------------------------------
 function HangingPhotoCard({
-  curve,
-  t = 0.32,
+  x,
+  y,
   imageSrc,
-  width = 2.2,
-  height = 2.75
+  width = 2.35,
+  height = 2.94,
+  swingOffset = 0
 }: {
-  curve: THREE.CatmullRomCurve3;
-  t?: number;
+  x: number;
+  y: number;
   imageSrc: string;
   width?: number;
   height?: number;
+  swingOffset?: number;
 }) {
   const texture = useTexture(imageSrc);
   const swingRef = useRef<THREE.Group>(null);
-
-  // Exact 3D point on the wire curve
-  const point = useMemo(() => curve.getPointAt(t), [curve, t]);
-  const tangent = useMemo(() => curve.getTangentAt(t), [curve, t]);
-  const angleY = useMemo(() => Math.atan2(tangent.z, tangent.x), [tangent]);
 
   // Gentle physical pendulum swinging physics
   useFrame((state) => {
     if (swingRef.current) {
       const time = state.clock.getElapsedTime();
-      swingRef.current.rotation.z = Math.sin(time * 1.5 + t * 4) * 0.035;
-      swingRef.current.rotation.x = Math.sin(time * 1.1 + t * 2) * 0.03;
+      swingRef.current.rotation.z = Math.sin(time * 1.5 + swingOffset) * 0.025;
+      swingRef.current.rotation.x = Math.sin(time * 1.1 + swingOffset * 1.3) * 0.02;
     }
   });
 
   return (
-    <group position={[point.x, point.y, point.z]} rotation={[0, -angleY * 0.4, 0]}>
-      {/* 1. Metal clip hooked onto the iron wire */}
+    <group position={[x, y, 0]}>
+      {/* 1. Metal clip hooked over the horizontal iron pipe */}
       <mesh rotation={[0, 0, Math.PI / 2]}>
-        <cylinderGeometry args={[0.042, 0.042, 0.16, 16]} />
+        <cylinderGeometry args={[0.045, 0.045, 0.16, 16]} />
         <meshStandardMaterial color="#cbd5e1" metalness={0.94} roughness={0.2} />
       </mesh>
       {/* Clip clamp body hanging down */}
@@ -117,7 +113,7 @@ function HangingPhotoCard({
         <meshStandardMaterial color="#64748b" metalness={0.92} roughness={0.25} />
       </mesh>
 
-      {/* 2. Hanging Card Group with Swing Physics from Top Pivot */}
+      {/* 2. Hanging Card with Swing Physics from Top Pivot */}
       <group ref={swingRef} position={[0, -0.14, 0]}>
         {/* Card Backplate / Subtle Rim */}
         <mesh position={[0, -height / 2, -0.005]}>
@@ -125,7 +121,7 @@ function HangingPhotoCard({
           <meshStandardMaterial color="#0b0f19" roughness={0.3} metalness={0.1} />
         </mesh>
 
-        {/* The Front Photo Image */}
+        {/* The Front Photo Image (Crisp & Full Quality) */}
         <mesh position={[0, -height / 2, 0.005]}>
           <planeGeometry args={[width, height]} />
           <meshBasicMaterial map={texture} side={THREE.DoubleSide} />
@@ -136,44 +132,25 @@ function HangingPhotoCard({
 }
 
 // -------------------------------------------------------------
-// 3. Slender Curved Iron Wire Sweeping Inwards in 3D Depth
+// 3. Straight Horizontal Iron Pipe Spanning Screen Edge to Edge
 // -------------------------------------------------------------
-function CurvedIronWire() {
-  const wireGroupRef = useRef<THREE.Group>(null);
+function StraightIronGallery() {
+  // Height chosen so the cards sit vertically centered in the viewport
+  const pipeY = 1.45;
 
-  // Generate a smooth horizontal semicircle curving deep inwards into Z-depth
-  const { curve, startPoint, endPoint, centerDeepPoint } = useMemo(() => {
-    const points: THREE.Vector3[] = [];
-    const segments = 64;
-    const radiusX = 7.2; // Expanded horizontal span to comfortably fit larger cards
-    const radiusZ = 2.2; // Gentle, elegant curve depth
-    const wireY = 1.8;   // Positioned high up cleanly near the top
-
-    for (let i = 0; i <= segments; i++) {
-      const t = i / segments; // 0 to 1
-      const angle = Math.PI * t; // 0 to PI
-      const x = -Math.cos(angle) * radiusX;
-      // Negative Z pulls the center gracefully into the 3D space
-      const z = -Math.sin(angle) * radiusZ;
-      // Slender level wire with minimal sag
-      const y = wireY - Math.sin(angle) * 0.06;
-      points.push(new THREE.Vector3(x, y, z));
-    }
-
-    const c = new THREE.CatmullRomCurve3(points);
-    return {
-      curve: c,
-      startPoint: points[0],
-      endPoint: points[points.length - 1],
-      centerDeepPoint: points[Math.floor(segments / 2)]
-    };
-  }, []);
+  // The 4 Cards in chronological sequence
+  const cards = [
+    { id: "trust-ballot", x: -4.8, src: "/images/trust-ballot-card.jpg", offset: 0 },
+    { id: "building", x: -1.6, src: "/images/building-trust-ballot.jpg", offset: 1.6 },
+    { id: "creators", x: 1.6, src: "/images/the-creators.jpg", offset: 3.2 },
+    { id: "certificate", x: 4.8, src: "/images/trinetra-certificate.png", offset: 4.8 },
+  ];
 
   return (
-    <group ref={wireGroupRef}>
-      {/* The Slender Iron Wire Tube */}
-      <mesh>
-        <tubeGeometry args={[curve, 128, 0.02, 16, false]} />
+    <group>
+      {/* Straight Iron Pipe running horizontally from left edge to right edge */}
+      <mesh position={[0, pipeY, 0]} rotation={[0, 0, Math.PI / 2]}>
+        <cylinderGeometry args={[0.025, 0.025, 26, 32]} />
         <meshStandardMaterial
           color="#d1d5db" // Sleek metallic silver/iron
           metalness={0.94}
@@ -182,86 +159,42 @@ function CurvedIronWire() {
         />
       </mesh>
 
-      {/* Subtle outer metallic ring caps at the wire ends */}
-      <mesh position={[startPoint.x, startPoint.y, startPoint.z]}>
-        <sphereGeometry args={[0.045, 16, 16]} />
-        <meshStandardMaterial color="#9ca3af" metalness={0.95} roughness={0.2} />
-      </mesh>
-      <mesh position={[endPoint.x, endPoint.y, endPoint.z]}>
-        <sphereGeometry args={[0.045, 16, 16]} />
-        <meshStandardMaterial color="#9ca3af" metalness={0.95} roughness={0.2} />
-      </mesh>
-
-      {/* Thin vertical ceiling anchor wires supporting the ends */}
-      <mesh position={[startPoint.x, startPoint.y + 1.5, startPoint.z]}>
-        <cylinderGeometry args={[0.008, 0.008, 3, 8]} />
-        <meshStandardMaterial color="#6b7280" metalness={0.9} roughness={0.3} />
-      </mesh>
-      <mesh position={[endPoint.x, endPoint.y + 1.5, endPoint.z]}>
-        <cylinderGeometry args={[0.008, 0.008, 3, 8]} />
-        <meshStandardMaterial color="#6b7280" metalness={0.9} roughness={0.3} />
-      </mesh>
-
-      {/* The 4 Hanging Photo Cards along the 3D Curved Wire (Enlarged for high clarity) */}
+      {/* The 4 Hanging Photo Cards along the straight pipe */}
       <Suspense fallback={null}>
-        {/* Card 1: Trust Ballot Concept */}
-        <HangingPhotoCard
-          curve={curve}
-          t={0.22}
-          imageSrc="/images/trust-ballot-card.jpg"
-          width={2.35}
-          height={2.94}
-        />
-
-        {/* Card 2: Building Trust Ballot */}
-        <HangingPhotoCard
-          curve={curve}
-          t={0.41}
-          imageSrc="/images/building-trust-ballot.jpg"
-          width={2.35}
-          height={2.94}
-        />
-
-        {/* Card 3: The Creators */}
-        <HangingPhotoCard
-          curve={curve}
-          t={0.59}
-          imageSrc="/images/the-creators.jpg"
-          width={2.35}
-          height={2.94}
-        />
-
-        {/* Card 4: Trinetra Certificate 2025 */}
-        <HangingPhotoCard
-          curve={curve}
-          t={0.78}
-          imageSrc="/images/trinetra-certificate.png"
-          width={2.35}
-          height={2.94}
-        />
+        {cards.map((card) => (
+          <HangingPhotoCard
+            key={card.id}
+            x={card.x}
+            y={pipeY}
+            imageSrc={card.src}
+            width={2.35}
+            height={2.94}
+            swingOffset={card.offset}
+          />
+        ))}
       </Suspense>
     </group>
   );
 }
 
 // -------------------------------------------------------------
-// 3. Full 3D Scene Viewport
+// 4. Full 3D Scene Viewport
 // -------------------------------------------------------------
 export default function HackathonGalleryWire() {
   return (
     <div className="fixed inset-0 w-full h-full pointer-events-none z-0">
       <Canvas
-        camera={{ position: [0, 0.5, 8.8], fov: 45 }}
+        camera={{ position: [0, 0, 8.5], fov: 45 }}
         style={{ pointerEvents: 'none', width: '100%', height: '100%' }}
       >
         {/* Clean studio lighting for crisp metallic specular highlights */}
-        <ambientLight intensity={0.7} color="#ffffff" />
-        <directionalLight position={[5, 8, 5]} intensity={2.0} color="#ffffff" />
-        <directionalLight position={[-5, 4, 3]} intensity={1.2} color="#ffffff" />
+        <ambientLight intensity={0.75} color="#ffffff" />
+        <directionalLight position={[6, 8, 5]} intensity={2.0} color="#ffffff" />
+        <directionalLight position={[-6, 4, 3]} intensity={1.2} color="#ffffff" />
         <directionalLight position={[0, -3, 2]} intensity={0.5} color="#94a3b8" />
 
-        {/* 3D Curved Iron Wire */}
-        <CurvedIronWire />
+        {/* Straight Iron Pipe Gallery */}
+        <StraightIronGallery />
 
         {/* Tiny Cosmic Particles Floating in the Ambient Background */}
         <TinyParticles />
