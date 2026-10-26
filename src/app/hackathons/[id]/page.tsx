@@ -230,16 +230,16 @@ export default function HackathonCaseStudy({ params }: { params: Promise<{ id: s
           </div>
         </div>
 
-        {/* 2-Column Grid: Expanded Left Column (8 cols) + Right Image (4 cols) with Generous Gap */}
-        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        {/* 2-Column Grid: Expanded Left Column (7 cols) + Right Image (5 cols) with Comfortable Gap */}
+        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Left Column (Matter / Problem Statement / Pillars - Wiper Unmask Reveal) */}
-          <div className="lg:col-span-8 flex flex-col gap-6 sm:gap-7 relative z-10 overflow-hidden p-1 -m-1">
+          <div className="lg:col-span-7 flex flex-col gap-6 sm:gap-7 relative z-10 overflow-hidden p-1 -m-1">
             {/* Wiper Wipe Curtain: Slides from left to right revealing the matter like a car window wiper */}
             <motion.div
               initial={{ x: "0%" }}
               whileInView={{ x: "102%", transitionEnd: { display: "none" } }}
               viewport={{ once: true, amount: 0.15 }}
-              transition={{ duration: 1.25, delay: 0.75, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 1.25, delay: 0.75, ease: luxuryEase }}
               className="absolute inset-0 z-30 bg-[#07070a] pointer-events-none flex"
             >
               {/* Sharp Red Wiper Blade Line sweeping across */}
@@ -292,32 +292,24 @@ export default function HackathonCaseStudy({ params }: { params: Promise<{ id: s
             </div>
           </div>
 
-          {/* Right Column (Dedicated 3D Thinking Character Artwork - Wiper Sweep Entrance) */}
-          <div className="lg:col-span-4 flex justify-center lg:justify-end items-center relative z-20">
+          {/* Right Column (Dedicated 3D Thinking Character - Clean Static Smooth Slide Entrance) */}
+          <div className="lg:col-span-5 flex justify-center lg:justify-end items-center relative z-20">
             <motion.div
               ref={imageWrapperRef}
               initial={{
                 x: isDesktop ? -sweepDistance : "-75%",
                 opacity: 0,
-                scale: 0.95,
-                rotate: -6,
               }}
               whileInView={{
                 x: 0,
                 opacity: 1,
-                scale: 1,
-                rotate: 0,
               }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 1.4, delay: 0.75, ease: [0.22, 1, 0.36, 1] }}
-              className="relative w-full max-w-[400px] aspect-[1024/819] flex items-center justify-center select-none"
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 1.25, delay: 0.75, ease: luxuryEase }}
+              className="relative w-full max-w-[480px] lg:max-w-[540px] aspect-[1024/819] flex items-center justify-center select-none"
             >
-              {/* Gentle Floating Motion */}
-              <motion.div
-                animate={{ y: [-8, 8, -8] }}
-                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                className="relative w-full h-full"
-              >
+              {/* Clean, Steady Static 3D Image (Zero wobble, Zero tilt, Zero shaking) */}
+              <div className="relative w-full h-full">
                 <Image
                   src="/images/challenge-thinking-red-3d.png"
                   alt="3D Thinking Character with Red Metallic Question Mark"
@@ -326,7 +318,7 @@ export default function HackathonCaseStudy({ params }: { params: Promise<{ id: s
                   quality={95}
                   className="object-contain"
                 />
-              </motion.div>
+              </div>
             </motion.div>
           </div>
         </div>
