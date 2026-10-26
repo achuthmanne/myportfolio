@@ -43,8 +43,8 @@ export default function HackathonCaseStudy({ params }: { params: Promise<{ id: s
           <span>Back to Battlegrounds</span>
         </Link>
 
-        {/* Organization / Event Badge with Theme Red Accent */}
-        <div className="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-950/25 border border-red-500/30 backdrop-blur-md text-xs font-mono text-red-200 tracking-wider uppercase shadow-[0_0_15px_rgba(239,68,68,0.15)]">
+        {/* Organization / Event Badge */}
+        <div className="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md text-xs font-mono text-gray-300 tracking-wider uppercase">
           <MapPin className="w-3.5 h-3.5 text-red-500" />
           <span>VentureSpace • LPU</span>
         </div>
