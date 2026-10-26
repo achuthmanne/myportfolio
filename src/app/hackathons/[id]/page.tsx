@@ -64,19 +64,7 @@ export default function HackathonCaseStudy({ params }: { params: Promise<{ id: s
           TRINETRA
         </motion.h1>
 
-        {/* Subtitle / Divider Line */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-          className="flex items-center justify-center gap-3 sm:gap-6 mt-3 sm:mt-4 w-full"
-        >
-          <div className="h-[1px] flex-1 max-w-[80px] sm:max-w-[140px] bg-gradient-to-r from-transparent to-red-500/80" />
-          <span className="text-lg sm:text-2xl md:text-3xl font-extrabold tracking-[0.22em] text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-white to-red-400 uppercase drop-shadow-[0_0_20px_rgba(239,68,68,0.4)]">
-            20 HOURS HACKATHON
-          </span>
-          <div className="h-[1px] flex-1 max-w-[80px] sm:max-w-[140px] bg-gradient-to-l from-transparent to-red-500/80" />
-        </motion.div>
+
 
         {/* Punchy Tagline */}
         <motion.p
