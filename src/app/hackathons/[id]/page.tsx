@@ -43,9 +43,9 @@ export default function HackathonCaseStudy({ params }: { params: Promise<{ id: s
           <span>Back to Battlegrounds</span>
         </Link>
 
-        {/* Organization / Event Badge */}
-        <div className="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md text-xs font-mono text-gray-300 tracking-wider uppercase">
-          <MapPin className="w-3.5 h-3.5 text-red-500" />
+        {/* Organization / Location Badge (Exact same styling as Back button) */}
+        <div className="hidden sm:inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-black/50 hover:bg-black/80 backdrop-blur-xl border border-white/10 hover:border-white/25 text-xs sm:text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 shadow-lg cursor-default">
+          <MapPin className="w-4 h-4 text-red-500" />
           <span>VentureSpace • LPU</span>
         </div>
       </header>
