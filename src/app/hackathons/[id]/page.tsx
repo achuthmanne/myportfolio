@@ -232,14 +232,20 @@ export default function HackathonCaseStudy({ params }: { params: Promise<{ id: s
 
         {/* 2-Column Grid: Expanded Left Column (8 cols) + Right Image (4 cols) with Generous Gap */}
         <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          {/* Left Column (Matter / Problem Statement / Pillars - Revealed like car wiper) */}
-          <motion.div
-            initial={{ opacity: 0, clipPath: "inset(0 100% 0 0)" }}
-            whileInView={{ opacity: 1, clipPath: "inset(0 0% 0 0)" }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 1.25, delay: 0.75, ease: [0.22, 1, 0.36, 1] }}
-            className="lg:col-span-8 flex flex-col gap-6 sm:gap-7 relative z-10"
-          >
+          {/* Left Column (Matter / Problem Statement / Pillars - Wiper Unmask Reveal) */}
+          <div className="lg:col-span-8 flex flex-col gap-6 sm:gap-7 relative z-10 overflow-hidden p-1 -m-1">
+            {/* Wiper Wipe Curtain: Slides from left to right revealing the matter like a car window wiper */}
+            <motion.div
+              initial={{ x: "0%" }}
+              whileInView={{ x: "102%", transitionEnd: { display: "none" } }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 1.25, delay: 0.75, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute inset-0 z-30 bg-[#07070a] pointer-events-none flex"
+            >
+              {/* Sharp Red Wiper Blade Line sweeping across */}
+              <div className="w-1.5 h-full bg-red-500 shrink-0" />
+            </motion.div>
+
             {/* Context Statement */}
             <p className="text-base sm:text-lg md:text-[19px] text-gray-300/90 font-normal leading-relaxed max-w-3xl">
               Traditional democratic voting systems continue to suffer from centralized vulnerabilities, opaque tabulation, and an inherent lack of public trust.
@@ -284,7 +290,7 @@ export default function HackathonCaseStudy({ params }: { params: Promise<{ id: s
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Right Column (Dedicated 3D Thinking Character Artwork - Wiper Sweep Entrance) */}
           <div className="lg:col-span-4 flex justify-center lg:justify-end items-center relative z-20">
