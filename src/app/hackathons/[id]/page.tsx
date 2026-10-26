@@ -252,11 +252,11 @@ export default function HackathonCaseStudy({ params }: { params: Promise<{ id: s
             <div className="p-6 sm:p-8 rounded-2xl bg-white/[0.02] border border-white/10 backdrop-blur-md shadow-xl flex flex-col gap-6 sm:gap-7">
               {/* Header Label & Question */}
               <div className="flex flex-col gap-3">
-                <span className="block text-[11px] sm:text-xs font-sans font-bold tracking-[0.2em] text-red-500 uppercase">
+                <span className="block text-[11px] sm:text-xs font-sans font-bold tracking-[0.2em] text-gray-400 uppercase">
                   THE CORE PROBLEM STATEMENT
                 </span>
                 <p className="text-base sm:text-lg md:text-[21px] text-white/95 font-medium leading-[1.65] tracking-normal">
-                  How can we architect a <span className="text-red-400 font-bold">decentralized, tamper-proof</span> digital voting infrastructure that guarantees <span className="underline decoration-red-500/60 underline-offset-4 font-semibold">100% cryptographic verifiability</span> and <span className="text-white font-bold">absolute voter anonymity</span>, without compromising on real-time transparency or scalability?
+                  How can we architect a <span className="text-white font-bold">decentralized, tamper-proof</span> digital voting infrastructure that guarantees <span className="underline decoration-white/40 underline-offset-4 font-semibold">100% cryptographic verifiability</span> and <span className="text-white font-bold">absolute voter anonymity</span>, without compromising on real-time transparency or scalability?
                 </p>
               </div>
 
@@ -265,22 +265,22 @@ export default function HackathonCaseStudy({ params }: { params: Promise<{ id: s
 
               {/* 3 Structured Pillars (Spacious Cards with comfortable text kerning) */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5 flex flex-col gap-2">
-                  <span className="font-sans text-xs text-red-500 font-bold tracking-wider block">01. IMMUTABILITY</span>
+                <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5 flex flex-col gap-2 transition-colors duration-300 hover:border-white/15">
+                  <span className="font-sans text-xs text-white font-bold tracking-wider block">01. IMMUTABILITY</span>
                   <p className="text-[13px] text-gray-300/80 leading-[1.6] font-normal tracking-normal">
                     Distributed ledger architecture preventing retroactive tampering or ballot stuffing.
                   </p>
                 </div>
 
-                <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5 flex flex-col gap-2">
-                  <span className="font-sans text-xs text-red-500 font-bold tracking-wider block">02. PRIVACY</span>
+                <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5 flex flex-col gap-2 transition-colors duration-300 hover:border-white/15">
+                  <span className="font-sans text-xs text-white font-bold tracking-wider block">02. PRIVACY</span>
                   <p className="text-[13px] text-gray-300/80 leading-[1.6] font-normal tracking-normal">
                     Cryptographic proofs allowing vote verification without exposing voter identity.
                   </p>
                 </div>
 
-                <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5 flex flex-col gap-2">
-                  <span className="font-sans text-xs text-red-500 font-bold tracking-wider block">03. AUDITABILITY</span>
+                <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5 flex flex-col gap-2 transition-colors duration-300 hover:border-white/15">
+                  <span className="font-sans text-xs text-white font-bold tracking-wider block">03. AUDITABILITY</span>
                   <p className="text-[13px] text-gray-300/80 leading-[1.6] font-normal tracking-normal">
                     Publicly verifiable tallies completely eliminating reliance on centralized authorities.
                   </p>
