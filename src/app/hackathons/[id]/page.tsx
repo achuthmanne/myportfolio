@@ -44,9 +44,10 @@ export default function HackathonCaseStudy({ params }: { params: Promise<{ id: s
         </Link>
 
         {/* Organization / Event Badge */}
-        <div className="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md text-xs font-mono text-gray-300 tracking-wider uppercase">
-          <MapPin className="w-3.5 h-3.5 text-gray-400" />
-          <span>VentureSpace • LPU</span>
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md text-[11px] sm:text-xs font-mono text-gray-300 tracking-wider uppercase">
+          <span>VentureSpace</span>
+          <MapPin className="w-3.5 h-3.5 text-red-500 drop-shadow-[0_0_10px_rgba(239,68,68,0.75)] shrink-0" />
+          <span>LPU</span>
         </div>
       </header>
 
