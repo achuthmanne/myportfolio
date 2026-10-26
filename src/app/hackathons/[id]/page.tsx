@@ -52,21 +52,7 @@ export default function HackathonCaseStudy({ params }: { params: Promise<{ id: s
 
       {/* 3. CENTER HERO HEADLINE & TAGLINE CONTENT */}
       <section className="relative z-10 w-full max-w-6xl mx-auto px-6 py-12 flex flex-col items-center text-center my-auto">
-        {/* Glowing Pill / Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: -16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="inline-flex items-center gap-2.5 px-4 py-1.5 sm:px-5 sm:py-2 rounded-full bg-red-950/50 border border-red-500/35 backdrop-blur-xl shadow-[0_0_25px_rgba(239,68,68,0.3)] mb-6"
-        >
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500" />
-          </span>
-          <span className="text-xs sm:text-sm font-bold tracking-[0.2em] text-red-300 uppercase">
-            20 Hours National Hackathon
-          </span>
-        </motion.div>
+
 
         {/* Main Hackathon Name (Giant, Bold, Hero Title) */}
         <motion.h1
@@ -131,13 +117,7 @@ export default function HackathonCaseStudy({ params }: { params: Promise<{ id: s
         </motion.div>
       </section>
 
-      {/* 4. BOTTOM FOOTER STATUS */}
-      <footer className="relative z-10 w-full px-6 py-6 sm:py-8 flex items-center justify-center text-xs font-mono text-gray-400/80">
-        <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/40 border border-white/5 backdrop-blur-md">
-          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-          <span>Case Study Under Active Construction</span>
-        </div>
-      </footer>
+
     </main>
   );
 }
