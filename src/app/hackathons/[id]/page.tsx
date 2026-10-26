@@ -4,7 +4,7 @@ import React, { use } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Clock, ShieldCheck, Trophy, Sparkles } from 'lucide-react';
+import { ArrowLeft, Clock, ShieldCheck, Trophy, Sparkles, MapPin } from 'lucide-react';
 
 export default function HackathonCaseStudy({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = use(params);
@@ -44,9 +44,9 @@ export default function HackathonCaseStudy({ params }: { params: Promise<{ id: s
         </Link>
 
         {/* Organization / Event Badge */}
-        <div className="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md text-xs font-mono text-gray-400 tracking-wider uppercase">
-          <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-          VentureSpace • LPU
+        <div className="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md text-xs font-mono text-gray-300 tracking-wider uppercase">
+          <MapPin className="w-3.5 h-3.5 text-gray-400" />
+          <span>VentureSpace • LPU</span>
         </div>
       </header>
 
