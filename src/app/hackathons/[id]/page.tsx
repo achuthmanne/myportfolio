@@ -37,9 +37,9 @@ export default function HackathonCaseStudy({ params }: { params: Promise<{ id: s
       <header className="relative z-20 w-full px-6 py-6 sm:px-10 sm:py-8 flex items-center justify-between">
         <Link 
           href="/#battlegrounds-section"
-          className="group inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-black/50 hover:bg-black/80 backdrop-blur-xl border border-white/10 hover:border-red-500/50 text-xs sm:text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 shadow-lg hover:shadow-[0_0_20px_rgba(239,68,68,0.25)]"
+          className="group inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-black/50 hover:bg-black/80 backdrop-blur-xl border border-white/10 hover:border-white/25 text-xs sm:text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 shadow-lg"
         >
-          <ArrowLeft className="w-4 h-4 transform group-hover:-translate-x-1 transition-transform duration-300 text-red-400" />
+          <ArrowLeft className="w-4 h-4 transform group-hover:-translate-x-1 transition-transform duration-300 text-red-500" />
           <span>Back to Battlegrounds</span>
         </Link>
 
