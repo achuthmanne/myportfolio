@@ -1,9 +1,10 @@
 "use client";
 
 import React, { use, useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Clock, ShieldCheck, Trophy, Zap, MapPin, X, Maximize2, ArrowUpRight } from 'lucide-react';
+import { Clock, ShieldCheck, Trophy, Zap, MapPin, X, Maximize2, ArrowUpRight, ArrowLeft } from 'lucide-react';
 
 // Refined corporate easing curve (Apple / Vercel style)
 const luxuryEase = [0.16, 1, 0.3, 1] as const;
@@ -76,6 +77,10 @@ export default function HackathonCaseStudy({ params }: { params: Promise<{ id: s
   } | null>(null);
 
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('returnToBattlegrounds', 'true');
+      sessionStorage.setItem('scrollBattleground', 'true');
+    }
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setSelectedImage(null);
     };
@@ -1483,6 +1488,29 @@ export default function HackathonCaseStudy({ params }: { params: Promise<{ id: s
             </motion.div>
           </div>
         </div>
+      </section>
+
+      {/* ======================================================== */}
+      {/* RETURN TO BATTLEGROUNDS (Minimalist Clean Action - Zero Glow) */}
+      {/* ======================================================== */}
+      <section className="w-full flex flex-col items-center justify-center pt-8 sm:pt-10 pb-28 sm:pb-36 px-6 relative z-20">
+        {/* Clean subtle divider */}
+        <div className="w-12 h-[1px] bg-white/10 mb-8" />
+
+        {/* Clean, neat Pill Button without any glow */}
+        <Link
+          href="/#battlegrounds-section"
+          onClick={() => {
+            if (typeof window !== 'undefined') {
+              sessionStorage.setItem('returnToBattlegrounds', 'true');
+              sessionStorage.setItem('scrollBattleground', 'true');
+            }
+          }}
+          className="group inline-flex items-center gap-3 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 hover:border-white/20 transition-all duration-200 text-sm font-medium text-gray-300 hover:text-white cursor-pointer select-none"
+        >
+          <ArrowLeft className="w-4 h-4 text-gray-400 group-hover:text-white transition-all duration-200 group-hover:-translate-x-1" />
+          <span className="tracking-wide">Back to Battlegrounds</span>
+        </Link>
       </section>
 
       {/* ======================================================== */}

@@ -16,6 +16,7 @@ import ConnectSection from "@/components/ConnectSection";
 import SocialSection from "@/components/SocialSection";
 import FooterSection from "@/components/FooterSection";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
+import { useLenis } from "lenis/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -29,6 +30,62 @@ export default function Home() {
   const [showBattlegroundsSection, setShowBattlegroundsSection] = useState(false);
   const [showConnectSection, setShowConnectSection] = useState(false);
   const [showFooterSection, setShowFooterSection] = useState(false);
+  const lenis = useLenis();
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const isReturn =
+      window.location.search.includes('battleground') ||
+      window.location.hash.includes('battleground') ||
+      window.location.href.includes('battleground') ||
+      sessionStorage.getItem('returnToBattlegrounds') === 'true';
+
+    if (isReturn) {
+      setIsCompiled(true);
+      setShowWorkSection(true);
+      setShowBattlegroundsSection(true);
+      setShowConnectSection(true);
+      setShowFooterSection(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!showBattlegroundsSection || typeof window === 'undefined') return;
+
+    const shouldScroll =
+      window.location.search.includes('battleground') ||
+      window.location.hash.includes('battleground') ||
+      window.location.href.includes('battleground') ||
+      sessionStorage.getItem('scrollBattleground') === 'true';
+
+    if (shouldScroll) {
+      const scrollToBattlegrounds = () => {
+        const el = document.getElementById('battlegrounds-section');
+        if (el) {
+          if (lenis) {
+            lenis.scrollTo(el, { immediate: true, offset: 0 });
+          } else {
+            el.scrollIntoView({ behavior: 'instant', block: 'start' });
+          }
+          ScrollTrigger.refresh();
+        }
+      };
+
+      scrollToBattlegrounds();
+      const t1 = setTimeout(scrollToBattlegrounds, 50);
+      const t2 = setTimeout(scrollToBattlegrounds, 150);
+      const t3 = setTimeout(scrollToBattlegrounds, 350);
+      const t4 = setTimeout(scrollToBattlegrounds, 700);
+
+      return () => {
+        clearTimeout(t1);
+        clearTimeout(t2);
+        clearTimeout(t3);
+        clearTimeout(t4);
+      };
+    }
+  }, [showBattlegroundsSection, lenis]);
 
   const pipelineSteps = [
     { id: "figma", src: "/images/pipeline/figma.png", title: "01. ARCHITECTURE", desc: "Wireframing & UI/UX Design." },

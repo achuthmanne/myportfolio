@@ -120,6 +120,12 @@ export default function BattlegroundsSection() {
                  >
                    <Link 
                      href={`/hackathons/${selectedHackathon}`}
+                      onClick={() => {
+                        if (typeof window !== 'undefined') {
+                          sessionStorage.setItem('returnToBattlegrounds', 'true');
+                          sessionStorage.setItem('scrollBattleground', 'true');
+                        }
+                      }}
                      className="inline-flex items-center justify-center gap-3 w-full md:w-auto px-8 py-4 rounded-xl text-base font-normal tracking-wide transition-all duration-300 border border-white/20 bg-white/5 text-white hover:bg-white hover:text-black hover:scale-105 group"
                    >
                      View case study

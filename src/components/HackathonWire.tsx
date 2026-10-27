@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useMemo, useRef, Suspense } from 'react';
+import React, { useMemo, useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { Float, useTexture } from '@react-three/drei';
+import { Float } from '@react-three/drei';
 
 // The Hanging Card component with gentle physics swinging
 function HangingCard({ 
@@ -21,13 +21,34 @@ function HangingCard({
   sparkleColor?: string,
   onClick?: () => void
 }) {
-  // Load the PNG as a 3D texture
-  const texture = useTexture(imageSrc);
+  const [texture, setTexture] = useState<THREE.Texture | null>(null);
   const groupRef = useRef<THREE.Group>(null);
-  const [hovered, setHovered] = React.useState(false);
+  const [hovered, setHovered] = useState(false);
+
+  // Load texture cleanly without Drei global suspense cache issues
+  useEffect(() => {
+    let isMounted = true;
+    const loader = new THREE.TextureLoader();
+    loader.load(
+      imageSrc,
+      (loadedTex) => {
+        if (!isMounted) return;
+        loadedTex.colorSpace = THREE.SRGBColorSpace;
+        loadedTex.needsUpdate = true;
+        setTexture(loadedTex);
+      },
+      undefined,
+      (err) => {
+        console.error("Failed to load hackathon card texture:", err);
+      }
+    );
+    return () => {
+      isMounted = false;
+    };
+  }, [imageSrc]);
 
   // Change cursor when hovering over the card
-  React.useEffect(() => {
+  useEffect(() => {
     document.body.style.cursor = hovered ? 'pointer' : 'auto';
     return () => { document.body.style.cursor = 'auto'; };
   }, [hovered]);
@@ -72,23 +93,25 @@ function HangingCard({
       <group ref={groupRef}>
         {/* Pushed to Z = -0.1 so the card hangs BEHIND the electric wire! */}
         <group position={[0, -2.0, -0.1]}>
-          <mesh 
-            onClick={(e) => {
-              e.stopPropagation();
-              if (onClick) onClick();
-            }}
-            onPointerOver={(e) => { e.stopPropagation(); setHovered(true); }}
-            onPointerOut={(e) => { e.stopPropagation(); setHovered(false); }}
-          >
-            {/* Scaled down slightly to guarantee it fits on screen (Width is 2.3) */}
-            <planeGeometry args={[2.3, 4.0]} />
-            <meshBasicMaterial 
-              map={texture} 
-              side={THREE.DoubleSide} 
-              transparent={true} 
-              toneMapped={false}
-            />
-          </mesh>
+          {texture && (
+            <mesh 
+              onClick={(e) => {
+                e.stopPropagation();
+                if (onClick) onClick();
+              }}
+              onPointerOver={(e) => { e.stopPropagation(); setHovered(true); }}
+              onPointerOut={(e) => { e.stopPropagation(); setHovered(false); }}
+            >
+              {/* Scaled down slightly to guarantee it fits on screen (Width is 2.3) */}
+              <planeGeometry args={[2.3, 4.0]} />
+              <meshBasicMaterial 
+                map={texture} 
+                side={THREE.DoubleSide} 
+                transparent={true} 
+                toneMapped={false}
+              />
+            </mesh>
+          )}
         </group>
       </group>
     </group>
@@ -202,20 +225,21 @@ function TravelingSparkles({ curve, count, color = "#ffffff" }: { curve: THREE.C
 
 export default function HackathonWire({ onCardClick }: { onCardClick?: (id: string) => void }) {
   return (
-    <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
+    <div className="absolute inset-0 w-full min-h-full h-full pointer-events-none z-0">
       {/* Moved the camera significantly down and back to completely guarantee no cutoffs */}
-      <Canvas camera={{ position: [0, -3, 20], fov: 45 }} style={{ pointerEvents: 'auto' }}>
+      <Canvas 
+        camera={{ position: [0, -3, 20], fov: 45 }} 
+        style={{ width: '100%', height: '100%', minHeight: '120vh', pointerEvents: 'auto' }}
+      >
         {/* Subtle ambient light so it doesn't wash out the emissive glow */}
-        <ambientLight intensity={0.4} />
+        <ambientLight intensity={0.5} />
         {/* Directional light to cast clean, crisp reflections on the metallic wire */}
         <directionalLight position={[5, 10, 5]} intensity={1.5} />
         <directionalLight position={[-5, -10, -5]} intensity={0.5} />
         
         {/* We use Float to give the entire wire network a very subtle, natural breathing movement */}
         <Float speed={1.5} rotationIntensity={0.05} floatIntensity={0.2}>
-          <Suspense fallback={null}>
-            <SparkleWire onCardClick={onCardClick} />
-          </Suspense>
+          <SparkleWire onCardClick={onCardClick} />
         </Float>
       </Canvas>
     </div>
