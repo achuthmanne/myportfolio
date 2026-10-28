@@ -6,16 +6,40 @@ import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { useState, useEffect } from "react";
 import { RefreshCw } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { useLenis } from "lenis/react";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const lenis = useLenis();
   const [isLogoHovered, setIsLogoHovered] = useState(false);
   const [showNav, setShowNav] = useState(true);
   const { scrollY } = useScroll();
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith("#")) {
+      if (pathname === "/") {
+        e.preventDefault();
+        if (lenis) {
+          lenis.scrollTo(href, { offset: -20, duration: 1.2 });
+        } else {
+          const target = document.querySelector(href);
+          target?.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      } else {
+        e.preventDefault();
+        window.location.href = `/${href}`;
+      }
+    }
+  };
+
   // We will hide the navbar for hackathon routes later, after all hooks have run
 
   useMotionValueEvent(scrollY, "change", (latest) => {
+    if (pathname !== "/") {
+      setShowNav(true);
+      return;
+    }
+
     if (latest < 100) {
       setShowNav(true);
       return;
@@ -46,12 +70,12 @@ export default function Navbar() {
   });
 
   const navLinks = [
-    { name: "STORY", href: "#story" },
+    { name: "STORY", href: "/story" },
     { name: "ARENA", href: "#work-section" },
   ];
 
-  // Completely hide the navbar if we are inside the immersive hackathon routes
-  if (pathname && pathname.startsWith("/hackathons")) {
+  // Completely hide the navbar on immersive routes (hackathons and story page)
+  if (pathname && (pathname.startsWith("/hackathons") || pathname.startsWith("/story"))) {
     return null;
   }
 
@@ -113,7 +137,8 @@ export default function Navbar() {
           <Link 
             key={index} 
             href={link.href}
-            className="relative px-5 py-2 text-xs sm:text-sm font-semibold tracking-[0.15em] text-text-secondary hover:text-white transition-colors duration-300 group z-10"
+            onClick={(e) => handleNavClick(e, link.href)}
+            className="relative px-5 py-2 text-xs sm:text-sm font-semibold tracking-[0.15em] text-text-secondary hover:text-white transition-colors duration-300 group z-10 cursor-pointer"
           >
             <span className="relative z-10">{link.name}</span>
             
