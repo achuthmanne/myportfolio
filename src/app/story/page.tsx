@@ -3,6 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import StoryBanner from '@/components/StoryBanner';
 
 export default function StoryPage() {
   return (
@@ -14,17 +15,8 @@ export default function StoryPage() {
         transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
         className="w-full max-w-6xl xl:max-w-7xl relative z-10 rounded-2xl border border-white/10 bg-[#0d0e12] overflow-hidden"
       >
-        {/* Top Banner Area (Reduced Height at Bottom - Sleek Panoramic Ratio) */}
-        <div className="relative w-full h-40 sm:h-52 md:h-60 lg:h-64 bg-black overflow-hidden">
-          <Image
-            src="/images/story/story-banner-v2.png"
-            alt="Full Stack Developer & AI Builder Banner"
-            fill
-            priority
-            quality={98}
-            className="object-cover object-center"
-          />
-        </div>
+        {/* Top Banner Area: Interactive Code-Based 3D Banner (Zero Glow, Minimal Corporate Level) */}
+        <StoryBanner />
 
         {/* Profile Details Container (Flat) */}
         <div className="relative px-6 sm:px-8 lg:px-10 pb-8 sm:pb-10">
