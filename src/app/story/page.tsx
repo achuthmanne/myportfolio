@@ -529,7 +529,7 @@ export default function StoryPage() {
           className="w-full flex flex-col items-center mb-10 sm:mb-12 pointer-events-none text-center"
         >
           <h2 className="text-4xl md:text-5xl font-black tracking-tight text-white mb-3">
-            THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-[#93C5FD] to-[#3B82F6]">FOUNDATION</span>
+            THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-[#FDBA74] to-[#F97316]">FOUNDATION</span>
           </h2>
           <p className="text-gray-400 text-[11px] sm:text-xs md:text-sm lg:text-base font-light tracking-[0.14em] sm:tracking-[0.2em] uppercase whitespace-nowrap max-w-full">
             The knowledge and experiences shaping my path forward
