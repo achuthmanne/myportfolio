@@ -109,6 +109,32 @@ const NARAYANA_PARTICLES = [
   { top: '8%', left: '55%', size: 1, color: '#60A5FA', opacity: 0.6 },
 ];
 
+// Sri Gowthami Theme Particles (Balanced Mix of Crisp White & Warm Bronze/Amber Dots)
+const GOWTHAMI_PARTICLES = [
+  { top: '10%', left: '8%', size: 1.5, color: '#FFFFFF', opacity: 0.8 },
+  { top: '20%', left: '16%', size: 2, color: '#D97706', opacity: 0.7 },
+  { top: '32%', left: '11%', size: 1, color: '#FFFFFF', opacity: 0.65 },
+  { top: '16%', left: '28%', size: 1.5, color: '#B45309', opacity: 0.7 },
+  { top: '12%', left: '82%', size: 2, color: '#FFFFFF', opacity: 0.85 },
+  { top: '22%', left: '90%', size: 1.5, color: '#D97706', opacity: 0.7 },
+  { top: '30%', left: '86%', size: 1, color: '#FFFFFF', opacity: 0.6 },
+  { top: '16%', left: '72%', size: 2, color: '#F59E0B', opacity: 0.7 },
+  { top: '48%', left: '6%', size: 1.5, color: '#FFFFFF', opacity: 0.75 },
+  { top: '60%', left: '14%', size: 2, color: '#92400E', opacity: 0.65 },
+  { top: '46%', left: '94%', size: 1.5, color: '#FFFFFF', opacity: 0.75 },
+  { top: '58%', left: '88%', size: 2, color: '#D97706', opacity: 0.7 },
+  { top: '75%', left: '9%', size: 1.5, color: '#FFFFFF', opacity: 0.7 },
+  { top: '86%', left: '18%', size: 2, color: '#92400E', opacity: 0.6 },
+  { top: '80%', left: '26%', size: 1, color: '#FFFFFF', opacity: 0.65 },
+  { top: '74%', left: '80%', size: 1.5, color: '#B45309', opacity: 0.7 },
+  { top: '88%', left: '91%', size: 2, color: '#FFFFFF', opacity: 0.85 },
+  { top: '82%', left: '95%', size: 1, color: '#D97706', opacity: 0.65 },
+  { top: '92%', left: '42%', size: 1.5, color: '#FFFFFF', opacity: 0.7 },
+  { top: '94%', left: '58%', size: 1.5, color: '#D97706', opacity: 0.6 },
+  { top: '7%', left: '48%', size: 1.5, color: '#FFFFFF', opacity: 0.8 },
+  { top: '8%', left: '54%', size: 1, color: '#F59E0B', opacity: 0.6 },
+];
+
 export default function StoryPage() {
   return (
     <main className="min-h-screen w-full bg-[#07070a] text-white relative selection:bg-white/20 selection:text-white flex flex-col items-center justify-start pb-24 px-3 sm:px-6 lg:px-8">
@@ -818,6 +844,135 @@ export default function StoryPage() {
                   <span
                     key={track}
                     className="text-xs sm:text-sm font-medium px-3.5 py-1.5 rounded-full bg-[#3B82F6]/10 border border-[#3B82F6]/25 text-[#93C5FD]"
+                  >
+                    {track}
+                  </span>
+                ))}
+              </motion.div>
+
+            </div>
+          </motion.div>
+
+          {/* Sri Gowthami High School Card - Smooth Scale & Glide-In Reveal */}
+          <motion.div
+            initial={{ opacity: 0, y: 36, scale: 0.985 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.75, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="w-full relative rounded-2xl border border-white/10 bg-transparent overflow-hidden px-6 py-10 sm:px-10 md:px-14 lg:px-16 flex flex-col text-left"
+          >
+            {/* Subtle Precision Horizon Light Beams in Sri Gowthami Theme Warm Bronze/Brown */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 max-w-2xl h-[1.5px] bg-gradient-to-r from-transparent via-[#D97706]/80 to-transparent pointer-events-none z-20" />
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 max-w-2xl h-[1.5px] bg-gradient-to-r from-transparent via-[#D97706]/80 to-transparent pointer-events-none z-20" />
+
+            {/* Background Watermark: Sri Gowthami School Emblem (Subtle & Proportioned) */}
+            <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0 flex items-center justify-center">
+              <div className="relative w-56 h-56 sm:w-72 sm:h-72 md:w-[320px] md:h-[320px] opacity-[0.14] sm:opacity-[0.18]">
+                <Image
+                  src="/images/story/sri-gowthami-logo.png"
+                  alt="Sri Gowthami Emblem Watermark"
+                  fill
+                  priority
+                  className="object-contain object-center"
+                />
+              </div>
+            </div>
+
+            {/* Sri Gowthami Theme Tiny Particles (Warm Brown/Bronze & White Palette) */}
+            <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
+              {GOWTHAMI_PARTICLES.map((p, idx) => (
+                <span
+                  key={idx}
+                  className="absolute rounded-full block transform -translate-x-1/2 -translate-y-1/2"
+                  style={{
+                    top: p.top,
+                    left: p.left,
+                    width: `${p.size}px`,
+                    height: `${p.size}px`,
+                    backgroundColor: p.color,
+                    opacity: p.opacity,
+                  }}
+                />
+              ))}
+            </div>
+
+            {/* Foreground Foundation Content */}
+            <div className="relative z-10 flex flex-col w-full">
+              
+              {/* Header: Logo + Degree + Institution + Timeline & Location */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/10">
+                <div className="flex items-center gap-4">
+                  {/* Logo badge */}
+                  <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden bg-white border border-white/20 p-1.5 shrink-0 hover:border-[#D97706]/80 transition-colors group cursor-default">
+                    <Image
+                      src="/images/story/sri-gowthami-logo.png"
+                      alt="Sri Gowthami High School Logo"
+                      fill
+                      className="object-contain p-0.5 group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+
+                  {/* Program & Institution */}
+                  <div className="flex flex-col">
+                    <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                      Secondary School Education — Class X
+                    </h3>
+                    
+                    <span className="text-base sm:text-lg font-semibold text-[#D97706] mt-1 w-fit">
+                      Sri Gowthami High School
+                    </span>
+                  </div>
+                </div>
+
+                {/* Percentage & Location Badge */}
+                <div className="flex flex-col sm:items-end gap-1 text-xs sm:text-sm text-gray-400 font-normal shrink-0">
+                  <span className="font-medium text-gray-300">Jaggayyapeta, Andhra Pradesh, India</span>
+                  <span>
+                    <strong className="text-white font-semibold">82.4%</strong>
+                  </span>
+                </div>
+              </div>
+
+              {/* Narrative Content */}
+              <div className="flex flex-col gap-5 mt-6 w-full">
+                <p className="text-base sm:text-lg text-gray-200 font-normal leading-relaxed">
+                  My academic journey began at Sri Gowthami High School, where I developed the foundations of learning,
+                  discipline, and curiosity. These early years played an important role in shaping my approach towards
+                  education, encouraging me to explore new subjects, understand concepts, and develop a consistent
+                  learning mindset.
+                </p>
+
+                <p className="text-base sm:text-lg text-gray-200 font-normal leading-relaxed">
+                  Beyond academics, school life helped me build confidence, adaptability, and the ability to approach
+                  challenges with patience and determination. It was during this phase that I began discovering my
+                  interests and developing the mindset that continues to guide my learning journey.
+                </p>
+
+                <p className="text-base sm:text-lg text-gray-200 font-normal leading-relaxed">
+                  The knowledge, values, and experiences gained during these formative years became the foundation for my
+                  higher education and my continued exploration of technology.
+                </p>
+              </div>
+
+              {/* Academic Focus Areas Footer */}
+              <motion.div
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                className="pt-6 border-t border-white/10 flex flex-wrap items-center gap-2.5 mt-8"
+              >
+                <span className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-gray-400 mr-2">
+                  Academic Focus:
+                </span>
+                {[
+                  "Secondary School Certificate (SSC)",
+                  "Foundational Learning",
+                  "Discipline & Consistency",
+                ].map((track) => (
+                  <span
+                    key={track}
+                    className="text-xs sm:text-sm font-medium px-3.5 py-1.5 rounded-full bg-[#B45309]/10 border border-[#B45309]/25 text-[#FDE68A]"
                   >
                     {track}
                   </span>
