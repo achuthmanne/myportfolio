@@ -175,18 +175,30 @@ export default function StoryPage() {
       {/* ==================================================================== */}
       <section className="w-full max-w-6xl xl:max-w-7xl mt-8 sm:mt-12 md:mt-16 relative flex flex-col items-center py-6 px-3 sm:px-6 lg:px-8">
         
-        {/* Main Page Signature Heading Style & Exact Font */}
-        <div className="w-full flex flex-col items-center mb-10 sm:mb-12 pointer-events-none text-center">
+        {/* Main Page Signature Heading Style - Scroll Reveal */}
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          className="w-full flex flex-col items-center mb-10 sm:mb-12 pointer-events-none text-center"
+        >
           <h2 className="text-4xl md:text-5xl font-black tracking-tight text-white mb-3">
             THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-400">STORY</span>
           </h2>
           <p className="text-gray-400 text-[11px] sm:text-xs md:text-sm lg:text-base font-light tracking-[0.14em] sm:tracking-[0.2em] uppercase whitespace-nowrap max-w-full">
             From curiosity to code · The journey of building with purpose
           </p>
-        </div>
+        </motion.div>
 
-        {/* Full-Width Story Card (Minimal Clean Border with Subtle Ruby Top/Bottom Horizon Beams) */}
-        <div className="w-full relative rounded-2xl border border-white/10 bg-transparent overflow-hidden px-6 py-12 sm:px-12 md:px-16 lg:px-20 flex flex-col items-center text-center">
+        {/* Full-Width Story Card - Smooth Scale & Glide-In Reveal */}
+        <motion.div
+          initial={{ opacity: 0, y: 36, scale: 0.985 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.75, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="w-full relative rounded-2xl border border-white/10 bg-transparent overflow-hidden px-6 py-12 sm:px-12 md:px-16 lg:px-20 flex flex-col items-center text-center"
+        >
           
           {/* Subtle Precision Horizon Light Beams (Zero Corner Clutter) */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 max-w-2xl h-[1.5px] bg-gradient-to-r from-transparent via-[#C92A3A]/80 to-transparent pointer-events-none z-20" />
@@ -253,7 +265,7 @@ export default function StoryPage() {
             </p>
 
           </div>
-        </div>
+        </motion.div>
 
       </section>
 
@@ -262,18 +274,30 @@ export default function StoryPage() {
       {/* ==================================================================== */}
       <section className="w-full max-w-6xl xl:max-w-7xl mt-16 sm:mt-20 md:mt-28 relative flex flex-col items-center py-6 px-3 sm:px-6 lg:px-8">
         
-        {/* Main Page Signature Heading Style & Exact Font */}
-        <div className="w-full flex flex-col items-center mb-10 sm:mb-12 pointer-events-none text-center">
+        {/* Main Page Signature Heading Style - Scroll Reveal */}
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          className="w-full flex flex-col items-center mb-10 sm:mb-12 pointer-events-none text-center"
+        >
           <h2 className="text-4xl md:text-5xl font-black tracking-tight text-white mb-3">
             THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-green-500">EXPERIENCE</span>
           </h2>
           <p className="text-gray-400 text-[11px] sm:text-xs md:text-sm lg:text-base font-light tracking-[0.14em] sm:tracking-[0.2em] uppercase whitespace-nowrap max-w-full">
             Roles, milestones, and hands-on building
           </p>
-        </div>
+        </motion.div>
 
-        {/* Full-Width Kisan Khata Experience Card (Theme Dots + Sleek Top/Btm Border in Theme Color) */}
-        <div className="w-full relative rounded-2xl border border-white/10 bg-transparent overflow-hidden px-6 py-10 sm:px-10 md:px-14 lg:px-16 flex flex-col text-left">
+        {/* Full-Width Kisan Khata Experience Card - Smooth Scale & Glide-In Reveal */}
+        <motion.div
+          initial={{ opacity: 0, y: 36, scale: 0.985 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.75, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="w-full relative rounded-2xl border border-white/10 bg-transparent overflow-hidden px-6 py-10 sm:px-10 md:px-14 lg:px-16 flex flex-col text-left"
+        >
           
           {/* Subtle Precision Horizon Light Beams in Kisan Khata Theme Emerald Green */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 max-w-2xl h-[1.5px] bg-gradient-to-r from-transparent via-[#22C55E]/80 to-transparent pointer-events-none z-20" />
@@ -383,7 +407,14 @@ export default function StoryPage() {
                   desc: "Integrated weather updates and agricultural market-price information to make essential farming insights more accessible.",
                 },
               ].map((item, idx) => (
-                <div key={idx} className="flex items-start gap-3.5">
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.45, delay: 0.15 + (idx * 0.08), ease: [0.16, 1, 0.3, 1] }}
+                  className="flex items-start gap-3.5"
+                >
                   <span className="w-2 h-2 rounded-full bg-[#22C55E] mt-2.5 shrink-0" />
                   <p className="text-base sm:text-lg text-gray-200 leading-relaxed font-normal">
                     <strong className="font-semibold text-white mr-2">
@@ -391,12 +422,18 @@ export default function StoryPage() {
                     </strong>
                     {item.desc}
                   </p>
-                </div>
+                </motion.div>
               ))}
             </div>
 
-            {/* Tech Stack Footer Bar */}
-            <div className="pt-6 border-t border-white/10 flex flex-wrap items-center gap-2.5">
+            {/* Tech Stack Footer Bar - Cascading Entry */}
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
+              className="pt-6 border-t border-white/10 flex flex-wrap items-center gap-2.5"
+            >
               <span className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-gray-400 mr-2">
                 Tech Stack:
               </span>
@@ -417,10 +454,10 @@ export default function StoryPage() {
                   {tech}
                 </span>
               ))}
-            </div>
+            </motion.div>
 
           </div>
-        </div>
+        </motion.div>
 
       </section>
     </main>
