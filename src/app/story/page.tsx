@@ -328,23 +328,17 @@ export default function StoryPage() {
 
                 {/* Role & Company */}
                 <div className="flex flex-col">
-                  <div className="flex items-center gap-2.5 flex-wrap">
-                    <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-                      Founder &amp; Full Stack Developer
-                    </h3>
-                    <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#22C55E]/15 text-[#4ADE80] border border-[#22C55E]/30">
-                      Live Venture
-                    </span>
-                  </div>
+                  <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                    Founder &amp; Full Stack Developer
+                  </h3>
                   
                   <a
                     href="https://www.kisankhata.co.in/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-base sm:text-lg font-semibold text-[#22C55E] hover:text-[#4ADE80] transition-colors flex items-center gap-1.5 mt-0.5 group w-fit cursor-pointer"
+                    className="text-base sm:text-lg font-semibold text-[#22C55E] hover:text-[#4ADE80] transition-colors mt-0.5 w-fit cursor-pointer"
                   >
-                    <span>Kisan Khata</span>
-                    <span className="text-xs text-gray-400 group-hover:text-white transition-colors">↗</span>
+                    Kisan Khata
                   </a>
                 </div>
               </div>
@@ -396,17 +390,21 @@ export default function StoryPage() {
               ))}
             </div>
 
-            {/* Technologies Footer Bar */}
+            {/* Tech Stack Footer Bar */}
             <div className="pt-6 border-t border-white/10 flex flex-wrap items-center gap-2 sm:gap-2.5">
               <span className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-gray-400 mr-2">
-                Technologies:
+                Tech Stack:
               </span>
               {[
                 "React Native",
                 "Expo",
                 "TypeScript",
                 "Firebase",
+                "Firestore",
+                "Cloud Functions",
+                "FCM",
                 "Google Gemini API",
+                "OpenWeather API",
               ].map((tech) => (
                 <span
                   key={tech}
