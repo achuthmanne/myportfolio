@@ -109,30 +109,30 @@ const NARAYANA_PARTICLES = [
   { top: '8%', left: '55%', size: 1, color: '#60A5FA', opacity: 0.6 },
 ];
 
-// Sri Gowthami Theme Particles (Balanced Mix of Crisp White & Warm Bronze/Amber Dots)
+// Sri Gowthami Theme Particles (Balanced Mix of Crisp White & Dark Chocolate/Saddle Brown Dots)
 const GOWTHAMI_PARTICLES = [
   { top: '10%', left: '8%', size: 1.5, color: '#FFFFFF', opacity: 0.8 },
-  { top: '20%', left: '16%', size: 2, color: '#D97706', opacity: 0.7 },
+  { top: '20%', left: '16%', size: 2, color: '#8B4513', opacity: 0.75 },
   { top: '32%', left: '11%', size: 1, color: '#FFFFFF', opacity: 0.65 },
-  { top: '16%', left: '28%', size: 1.5, color: '#B45309', opacity: 0.7 },
+  { top: '16%', left: '28%', size: 1.5, color: '#A0522D', opacity: 0.7 },
   { top: '12%', left: '82%', size: 2, color: '#FFFFFF', opacity: 0.85 },
-  { top: '22%', left: '90%', size: 1.5, color: '#D97706', opacity: 0.7 },
+  { top: '22%', left: '90%', size: 1.5, color: '#8B4513', opacity: 0.75 },
   { top: '30%', left: '86%', size: 1, color: '#FFFFFF', opacity: 0.6 },
-  { top: '16%', left: '72%', size: 2, color: '#F59E0B', opacity: 0.7 },
+  { top: '16%', left: '72%', size: 2, color: '#78350F', opacity: 0.75 },
   { top: '48%', left: '6%', size: 1.5, color: '#FFFFFF', opacity: 0.75 },
-  { top: '60%', left: '14%', size: 2, color: '#92400E', opacity: 0.65 },
+  { top: '60%', left: '14%', size: 2, color: '#5D2906', opacity: 0.7 },
   { top: '46%', left: '94%', size: 1.5, color: '#FFFFFF', opacity: 0.75 },
-  { top: '58%', left: '88%', size: 2, color: '#D97706', opacity: 0.7 },
+  { top: '58%', left: '88%', size: 2, color: '#8B4513', opacity: 0.75 },
   { top: '75%', left: '9%', size: 1.5, color: '#FFFFFF', opacity: 0.7 },
-  { top: '86%', left: '18%', size: 2, color: '#92400E', opacity: 0.6 },
+  { top: '86%', left: '18%', size: 2, color: '#5D2906', opacity: 0.65 },
   { top: '80%', left: '26%', size: 1, color: '#FFFFFF', opacity: 0.65 },
-  { top: '74%', left: '80%', size: 1.5, color: '#B45309', opacity: 0.7 },
+  { top: '74%', left: '80%', size: 1.5, color: '#A0522D', opacity: 0.7 },
   { top: '88%', left: '91%', size: 2, color: '#FFFFFF', opacity: 0.85 },
-  { top: '82%', left: '95%', size: 1, color: '#D97706', opacity: 0.65 },
+  { top: '82%', left: '95%', size: 1, color: '#8B4513', opacity: 0.7 },
   { top: '92%', left: '42%', size: 1.5, color: '#FFFFFF', opacity: 0.7 },
-  { top: '94%', left: '58%', size: 1.5, color: '#D97706', opacity: 0.6 },
+  { top: '94%', left: '58%', size: 1.5, color: '#78350F', opacity: 0.65 },
   { top: '7%', left: '48%', size: 1.5, color: '#FFFFFF', opacity: 0.8 },
-  { top: '8%', left: '54%', size: 1, color: '#F59E0B', opacity: 0.6 },
+  { top: '8%', left: '54%', size: 1, color: '#A0522D', opacity: 0.65 },
 ];
 
 export default function StoryPage() {
@@ -861,9 +861,9 @@ export default function StoryPage() {
             transition={{ duration: 0.75, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="w-full relative rounded-2xl border border-white/10 bg-transparent overflow-hidden px-6 py-10 sm:px-10 md:px-14 lg:px-16 flex flex-col text-left"
           >
-            {/* Subtle Precision Horizon Light Beams in Sri Gowthami Theme Warm Bronze/Brown */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 max-w-2xl h-[1.5px] bg-gradient-to-r from-transparent via-[#D97706]/80 to-transparent pointer-events-none z-20" />
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 max-w-2xl h-[1.5px] bg-gradient-to-r from-transparent via-[#D97706]/80 to-transparent pointer-events-none z-20" />
+            {/* Subtle Precision Horizon Light Beams in Sri Gowthami Theme Dark Saddle Brown */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 max-w-2xl h-[1.5px] bg-gradient-to-r from-transparent via-[#8B4513]/80 to-transparent pointer-events-none z-20" />
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 max-w-2xl h-[1.5px] bg-gradient-to-r from-transparent via-[#8B4513]/80 to-transparent pointer-events-none z-20" />
 
             {/* Background Watermark: Sri Gowthami School Emblem (Subtle & Proportioned) */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0 flex items-center justify-center">
@@ -878,7 +878,7 @@ export default function StoryPage() {
               </div>
             </div>
 
-            {/* Sri Gowthami Theme Tiny Particles (Warm Brown/Bronze & White Palette) */}
+            {/* Sri Gowthami Theme Tiny Particles (Dark Brown & White Palette) */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
               {GOWTHAMI_PARTICLES.map((p, idx) => (
                 <span
@@ -903,7 +903,7 @@ export default function StoryPage() {
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/10">
                 <div className="flex items-center gap-4">
                   {/* Logo badge */}
-                  <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden bg-white border border-white/20 p-1.5 shrink-0 hover:border-[#D97706]/80 transition-colors group cursor-default">
+                  <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden bg-white border border-white/20 p-1.5 shrink-0 hover:border-[#8B4513]/80 transition-colors group cursor-default">
                     <Image
                       src="/images/story/sri-gowthami-logo.png"
                       alt="Sri Gowthami High School Logo"
@@ -918,17 +918,17 @@ export default function StoryPage() {
                       Secondary School Education — Class X
                     </h3>
                     
-                    <span className="text-base sm:text-lg font-semibold text-[#D97706] mt-1 w-fit">
+                    <span className="text-base sm:text-lg font-semibold text-[#C47D48] mt-1 w-fit">
                       Sri Gowthami High School
                     </span>
                   </div>
                 </div>
 
-                {/* Percentage & Location Badge */}
+                {/* Timeline, Percentage & Location Badge */}
                 <div className="flex flex-col sm:items-end gap-1 text-xs sm:text-sm text-gray-400 font-normal shrink-0">
                   <span className="font-medium text-gray-300">Jaggayyapeta, Andhra Pradesh, India</span>
                   <span>
-                    <strong className="text-white font-semibold">82.4%</strong>
+                    June 2021 – April 2022 · <strong className="text-white font-semibold">86.5%</strong>
                   </span>
                 </div>
               </div>
@@ -972,7 +972,7 @@ export default function StoryPage() {
                 ].map((track) => (
                   <span
                     key={track}
-                    className="text-xs sm:text-sm font-medium px-3.5 py-1.5 rounded-full bg-[#B45309]/10 border border-[#B45309]/25 text-[#FDE68A]"
+                    className="text-xs sm:text-sm font-medium px-3.5 py-1.5 rounded-full bg-[#78350F]/20 border border-[#8B4513]/40 text-[#E8C4A2]"
                   >
                     {track}
                   </span>
