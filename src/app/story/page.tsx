@@ -775,9 +775,27 @@ export default function StoryPage() {
               {/* Narrative Content */}
               <div className="flex flex-col gap-5 mt-6 w-full">
                 <p className="text-base sm:text-lg text-gray-200 font-normal leading-relaxed">
-                  My intermediate education at Narayana Junior College helped strengthen my academic foundation and
-                  develop a disciplined approach towards learning. It was an important phase in shaping my analytical
-                  thinking, building consistency, and preparing me for the journey into Computer Science and Engineering.
+                  My intermediate education at Narayana Junior College was an important phase in shaping my academic
+                  foundation and approach towards learning. Through the MPC curriculum, I developed a stronger
+                  understanding of Mathematics, Physics, and Chemistry while strengthening my analytical thinking,
+                  logical reasoning, and problem-solving abilities.
+                </p>
+
+                <p className="text-base sm:text-lg text-gray-200 font-normal leading-relaxed">
+                  Alongside my academic coursework, I prepared for and appeared in competitive entrance examinations,
+                  including JEE and EAMCET. This journey challenged me to go beyond classroom learning, strengthen my
+                  conceptual understanding, and apply knowledge under time constraints.
+                </p>
+
+                <p className="text-base sm:text-lg text-gray-200 font-normal leading-relaxed">
+                  The preparation and examination experience taught me discipline, consistency, time management, and how
+                  to approach unfamiliar problems with patience and structured thinking.
+                </p>
+
+                <p className="text-base sm:text-lg text-gray-200 font-normal leading-relaxed">
+                  These experiences played a significant role in my academic growth and prepared me for the transition
+                  into Computer Science and Engineering, where I continue to explore, learn, and solve problems through
+                  technology.
                 </p>
               </div>
 
@@ -794,6 +812,7 @@ export default function StoryPage() {
                 </span>
                 {[
                   "Mathematics, Physics & Chemistry (MPC)",
+                  "Competitive Exams (JEE & EAMCET)",
                   "Analytical Problem Solving",
                   "Academic Discipline",
                 ].map((track) => (
