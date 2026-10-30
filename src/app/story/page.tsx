@@ -274,11 +274,11 @@ export default function StoryPage() {
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 max-w-2xl h-[1.5px] bg-gradient-to-r from-transparent via-[#22C55E]/80 to-transparent pointer-events-none z-20" />
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 max-w-2xl h-[1.5px] bg-gradient-to-r from-transparent via-[#22C55E]/80 to-transparent pointer-events-none z-20" />
 
-          {/* Background Watermark: Kisan Khata Emblem */}
+          {/* Background Watermark: Pure Kisan Khata Emblem (Zero Text) */}
           <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0 flex items-center justify-center">
-            <div className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 opacity-[0.12] sm:opacity-[0.16]">
+            <div className="relative w-64 h-48 sm:w-80 sm:h-60 md:w-[460px] md:h-[340px] opacity-[0.16] sm:opacity-[0.22]">
               <Image
-                src="/images/story/kisan-khata-logo-transparent.png"
+                src="/images/story/kisan-khata-emblem.png"
                 alt="Kisan Khata Emblem"
                 fill
                 priority
