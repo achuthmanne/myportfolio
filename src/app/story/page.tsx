@@ -198,19 +198,22 @@ export default function StoryPage() {
             {/* Narrative Body */}
             <div className="flex flex-col gap-6 text-base sm:text-lg text-gray-200 font-normal leading-relaxed">
               <p>
-                I didn’t start with a perfect roadmap. I started with curiosity — wanting to understand how things work and how technology can turn ideas into something real.
+                I never had a perfect roadmap to becoming a developer. It all began with curiosity — a desire to understand how things work, explore what technology can do, and turn ideas into something meaningful.
               </p>
               <p>
-                As I explored development, writing code became more than solving problems. It became a way to create experiences, experiment with ideas, and build things that people can actually use.
+                What started as an interest in coding gradually became a passion for building. I began exploring different technologies, experimenting with ideas, and learning how to transform concepts into real, usable experiences. Along the way, I discovered that development is not just about writing code — it&apos;s about thinking creatively, solving problems, and finding better ways to make things work.
               </p>
               <p>
-                Today, I explore the intersection of full-stack engineering and AI — building responsive interfaces, scalable applications, and intelligent systems while constantly pushing myself to learn beyond what I already know.
+                As I grew, my interests expanded beyond traditional development into the world of AI. I became fascinated by how intelligent systems could complement software engineering and open up entirely new possibilities.
+              </p>
+              <p>
+                Today, I work across full-stack development and AI, exploring new technologies and building applications that combine functionality, thoughtful design, and meaningful experiences. I believe in learning by building, embracing challenges, and constantly pushing beyond my comfort zone.
               </p>
             </div>
 
             {/* Closing Line */}
             <p className="text-lg sm:text-xl font-semibold text-[#C92A3A] tracking-wide mt-10">
-              Still exploring. Always building.
+              I&apos;m still learning, still experimenting, and still discovering what&apos;s possible.
             </p>
 
           </div>
