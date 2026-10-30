@@ -403,7 +403,6 @@ export default function StoryPage() {
                 "Firestore",
                 "Cloud Functions",
                 "FCM",
-                "Google Gemini API",
                 "OpenWeather API",
               ].map((tech) => (
                 <span
