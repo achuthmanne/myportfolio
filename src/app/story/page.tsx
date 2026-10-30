@@ -357,23 +357,41 @@ export default function StoryPage() {
 
             {/* Mission Overview */}
             <p className="text-base sm:text-lg text-gray-200 font-normal leading-relaxed mt-6 mb-8 max-w-4xl">
-              Building a digital platform focused on simplifying agricultural management for farmers across Andhra Pradesh and Telangana.
+              Building a digital agricultural management platform focused on simplifying farm operations and financial record-keeping for farmers across Andhra Pradesh and Telangana.
             </p>
 
             {/* Bullet Points / Achievements */}
-            <div className="flex flex-col gap-3.5 mb-8">
+            <div className="flex flex-col gap-4 mb-8">
               {[
-                "Developed an offline-first mobile application to help farmers manage daily expenses and worker attendance.",
-                "Integrated Firebase services for real-time data management, authentication, cloud functions, and notifications.",
-                "Built AI-powered workflows using Google Gemini to collect, translate, and categorize government schemes into Telugu.",
-                "Designed a bilingual Telugu-English interface with accessibility-focused features.",
-                "Integrated weather updates and agricultural market-price information to make essential information more accessible.",
-              ].map((point, idx) => (
+                {
+                  label: "Mobile Development",
+                  desc: "Developed an offline-first mobile application using React Native and Expo, enabling farmers to manage daily expenses and worker attendance even with limited internet connectivity.",
+                },
+                {
+                  label: "Backend & Cloud",
+                  desc: "Integrated Firebase Firestore, Authentication, Cloud Functions, and FCM for data management, cloud processing, and real-time notifications.",
+                },
+                {
+                  label: "AI Integration",
+                  desc: "Built AI-powered workflows using Google Gemini to collect, translate, and categorize government schemes into Telugu, delivering relevant updates to farmers.",
+                },
+                {
+                  label: "User Experience",
+                  desc: "Designed a bilingual Telugu-English interface with accessibility-focused features and voice-based input to simplify everyday interactions.",
+                },
+                {
+                  label: "Agricultural Intelligence",
+                  desc: "Integrated weather updates and agricultural market-price information to make essential farming insights more accessible.",
+                },
+              ].map((item, idx) => (
                 <div key={idx} className="flex items-start gap-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] mt-2.5 shrink-0" />
-                  <span className="text-sm sm:text-base text-gray-300 leading-relaxed font-normal">
-                    {point}
-                  </span>
+                  <p className="text-sm sm:text-base text-gray-300 leading-relaxed font-normal">
+                    <strong className="font-semibold text-white mr-1.5">
+                      {item.label}:
+                    </strong>
+                    {item.desc}
+                  </p>
                 </div>
               ))}
             </div>
