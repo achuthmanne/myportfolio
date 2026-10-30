@@ -59,14 +59,18 @@ const KISAN_PARTICLES = [
 
 export default function StoryPage() {
   return (
-    <main className="min-h-screen w-full bg-[#07070a] text-white relative selection:bg-white/20 selection:text-white flex flex-col items-center justify-start pt-8 sm:pt-12 md:pt-14 pb-20 px-3 sm:px-6 lg:px-8">
-      {/* Main Centered Profile Card (Full-Width Flat Layout - Zero Glow / Zero Elevations) */}
-      <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-        className="w-full max-w-6xl xl:max-w-7xl relative z-10 rounded-2xl border border-white/10 bg-[#0d0e12] overflow-hidden"
-      >
+    <main className="min-h-screen w-full bg-[#07070a] text-white relative selection:bg-white/20 selection:text-white flex flex-col items-center justify-start pb-24 px-3 sm:px-6 lg:px-8">
+      {/* ==================================================================== */}
+      {/* HERO SECTION: Strictly ONLY the Profile Board in the Initial Viewport */}
+      {/* ==================================================================== */}
+      <section className="w-full min-h-screen flex flex-col items-center justify-center pt-20 sm:pt-24 pb-10 sm:pb-14">
+        {/* Main Centered Profile Card (Full-Width Flat Layout - Zero Glow / Zero Elevations) */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+          className="w-full max-w-6xl xl:max-w-7xl relative z-10 rounded-2xl border border-white/10 bg-[#0d0e12] overflow-hidden"
+        >
         {/* Top Banner Area: Interactive Code-Based 3D Banner (Zero Glow, Minimal Corporate Level) */}
         <StoryBanner />
 
@@ -164,11 +168,12 @@ export default function StoryPage() {
           </div>
         </div>
       </motion.div>
+      </section>
 
       {/* ==================================================================== */}
       {/* THE STORY SECTION (Full Width Card with Paper Plane Graphic) */}
       {/* ==================================================================== */}
-      <section className="w-full max-w-6xl xl:max-w-7xl mt-12 sm:mt-16 md:mt-20 relative flex flex-col items-center py-6 px-3 sm:px-6 lg:px-8">
+      <section className="w-full max-w-6xl xl:max-w-7xl mt-8 sm:mt-12 md:mt-16 relative flex flex-col items-center py-6 px-3 sm:px-6 lg:px-8">
         
         {/* Main Page Signature Heading Style & Exact Font */}
         <div className="w-full flex flex-col items-center mb-10 sm:mb-12 pointer-events-none text-center">
