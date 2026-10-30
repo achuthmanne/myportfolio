@@ -813,7 +813,6 @@ export default function StoryPage() {
                 {[
                   "Mathematics, Physics & Chemistry (MPC)",
                   "Competitive Exams (JEE & EAMCET)",
-                  "Analytical Problem Solving",
                   "Academic Discipline",
                 ].map((track) => (
                   <span
