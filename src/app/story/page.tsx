@@ -187,8 +187,8 @@ export default function StoryPage() {
             ))}
           </div>
 
-          {/* Foreground Story Content (Clean & Simple) */}
-          <div className="relative z-10 flex flex-col items-center text-center max-w-3xl w-full">
+          {/* Foreground Story Content (Clean & Simple - Expanded Width) */}
+          <div className="relative z-10 flex flex-col items-center text-center max-w-4xl lg:max-w-5xl w-full">
             
             {/* Heading */}
             <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight mb-8">
