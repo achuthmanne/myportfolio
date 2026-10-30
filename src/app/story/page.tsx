@@ -204,9 +204,9 @@ export default function StoryPage() {
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 max-w-2xl h-[1.5px] bg-gradient-to-r from-transparent via-[#E83D71]/80 to-transparent pointer-events-none z-20" />
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 max-w-2xl h-[1.5px] bg-gradient-to-r from-transparent via-[#E83D71]/80 to-transparent pointer-events-none z-20" />
 
-          {/* Background Pink Paper Plane Graphic */}
+          {/* Background Pink Paper Plane Graphic (Subtly Scaled Down) */}
           <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0 flex items-center justify-center">
-            <div className="relative w-64 h-44 sm:w-80 sm:h-56 md:w-[420px] md:h-[290px] opacity-25 sm:opacity-35">
+            <div className="relative w-56 h-38 sm:w-72 sm:h-50 md:w-[360px] md:h-[250px] opacity-20 sm:opacity-28">
               <Image
                 src="/images/story/pink-paper-plane.png"
                 alt="Paper Plane"
