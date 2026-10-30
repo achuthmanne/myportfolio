@@ -579,7 +579,7 @@ export default function StoryPage() {
                   {/* Degree & Institution */}
                   <div className="flex flex-col">
                     <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
-                      Bachelor of Technology — Computer Science &amp; Engineering
+                      Bachelor of Technology — Computer Science &amp; Engineering (CSE)
                     </h3>
                     
                     <a
@@ -629,7 +629,7 @@ export default function StoryPage() {
                   Academic Focus:
                 </span>
                 {[
-                  "Computer Science & Engineering",
+                  "Computer Science & Engineering (CSE)",
                   "Open Minor in UI/UX Design",
                   "Minor in Full Stack Web Development",
                 ].map((track) => (
