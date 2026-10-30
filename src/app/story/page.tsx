@@ -767,7 +767,7 @@ export default function StoryPage() {
                 <div className="flex flex-col sm:items-end gap-1 text-xs sm:text-sm text-gray-400 font-normal shrink-0">
                   <span className="font-medium text-gray-300">Vijayawada, Andhra Pradesh, India</span>
                   <span>
-                    Class XII · <strong className="text-white font-semibold">95.4%</strong>
+                    June 2022 – March 2024 · <strong className="text-white font-semibold">95.4%</strong>
                   </span>
                 </div>
               </div>
