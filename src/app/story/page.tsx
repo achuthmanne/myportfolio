@@ -1,8 +1,9 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { X } from 'lucide-react';
 import StoryBanner from '@/components/StoryBanner';
 
 // Flight-Themed Particles (Balanced Mix of Crisp White & Ruby/Pink Theme Dots)
@@ -136,6 +137,24 @@ const GOWTHAMI_PARTICLES = [
 ];
 
 export default function StoryPage() {
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsProfileOpen(false);
+    };
+    if (isProfileOpen) {
+      window.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'unset';
+    };
+  }, [isProfileOpen]);
+
   return (
     <main className="min-h-screen w-full bg-[#07070a] text-white relative selection:bg-white/20 selection:text-white flex flex-col items-center justify-start pb-24 px-3 sm:px-6 lg:px-8">
       {/* ==================================================================== */}
@@ -154,18 +173,29 @@ export default function StoryPage() {
 
         {/* Profile Details Container (Flat) */}
         <div className="relative px-6 sm:px-8 lg:px-10 pb-8 sm:pb-10">
-          {/* Circular Avatar Overlapping the Banner (Flat - No Drop Shadows) */}
+          {/* Circular Avatar Overlapping the Banner (Click to View / Expand) */}
           <div className="flex items-end justify-between -mt-16 sm:-mt-20 md:-mt-24 mb-4">
-            <div className="relative w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 rounded-full border-4 border-[#0d0e12] bg-[#0d0e12] overflow-hidden shrink-0">
+            <button
+              type="button"
+              onClick={() => setIsProfileOpen(true)}
+              aria-label="View profile photo"
+              className="relative w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 rounded-full border-4 border-[#0d0e12] bg-[#0d0e12] overflow-hidden shrink-0 cursor-pointer group transition-transform duration-300 hover:scale-[1.03] focus:outline-none focus:ring-2 focus:ring-white/40"
+            >
               <Image
                 src="/images/achuth-profile.jpg"
                 alt="Manne Achuth"
                 fill
                 priority
                 quality={98}
-                className="object-cover object-center"
+                className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
               />
-            </div>
+              {/* Subtle hover overlay with view pill */}
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <span className="text-white text-xs font-medium px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-sm border border-white/20 shadow-md">
+                  View
+                </span>
+              </div>
+            </button>
           </div>
 
           {/* 2-Column Information Layout */}
@@ -984,6 +1014,65 @@ export default function StoryPage() {
         </div>
 
       </section>
+
+      {/* Profile Picture Lightbox Modal */}
+      <AnimatePresence>
+        {isProfileOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            onClick={() => setIsProfileOpen(false)}
+            className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 sm:p-6"
+          >
+            {/* Close Button Top Right */}
+            <button
+              type="button"
+              onClick={() => setIsProfileOpen(false)}
+              aria-label="Close profile picture"
+              className="absolute top-5 right-5 sm:top-8 sm:right-8 z-50 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center text-white/80 hover:text-white transition-all duration-200 cursor-pointer focus:outline-none"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            {/* Modal Dialog Content (Click inside won't close) */}
+            <motion.div
+              initial={{ scale: 0.88, opacity: 0, y: 15 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.88, opacity: 0, y: 15 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative max-w-sm sm:max-w-md md:max-w-lg w-full flex flex-col items-center"
+            >
+              {/* Profile Image Container */}
+              <div className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 rounded-full border-4 border-white/20 overflow-hidden shadow-2xl bg-[#0d0e12]">
+                <Image
+                  src="/images/achuth-profile.jpg"
+                  alt="Manne Achuth"
+                  fill
+                  quality={100}
+                  priority
+                  className="object-cover object-center"
+                />
+              </div>
+
+              {/* Caption Under Profile Image */}
+              <div className="mt-5 text-center flex flex-col items-center">
+                <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                  Manne Achuth
+                </h3>
+                <p className="text-xs sm:text-sm text-gray-400 mt-1">
+                  Founder &amp; Full Stack Developer at Kisan Khata
+                </p>
+                <p className="text-[11px] text-gray-500 mt-2">
+                  Click anywhere or press Esc to close
+                </p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }
