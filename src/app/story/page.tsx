@@ -260,7 +260,7 @@ export default function StoryPage() {
         {/* Main Page Signature Heading Style & Exact Font */}
         <div className="w-full flex flex-col items-center mb-10 sm:mb-12 pointer-events-none text-center">
           <h2 className="text-4xl md:text-5xl font-black tracking-tight text-white mb-3">
-            THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-400">EXPERIENCE</span>
+            THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-green-500">EXPERIENCE</span>
           </h2>
           <p className="text-gray-400 text-[11px] sm:text-xs md:text-sm lg:text-base font-light tracking-[0.14em] sm:tracking-[0.2em] uppercase whitespace-nowrap max-w-full">
             Roles, milestones, and hands-on building
@@ -370,7 +370,7 @@ export default function StoryPage() {
                 "Integrated weather updates and agricultural market-price information to make essential information more accessible.",
               ].map((point, idx) => (
                 <div key={idx} className="flex items-start gap-3">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] mt-2.5 shrink-0 shadow-[0_0_8px_rgba(34,197,94,0.7)]" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] mt-2.5 shrink-0" />
                   <span className="text-sm sm:text-base text-gray-300 leading-relaxed font-normal">
                     {point}
                   </span>
