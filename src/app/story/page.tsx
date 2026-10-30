@@ -31,6 +31,32 @@ const FLIGHT_PARTICLES = [
   { top: '9%', left: '54%', size: 1, color: '#E83D71', opacity: 0.55 },
 ];
 
+// Kisan Khata Theme Particles (Agricultural Emerald / Mint / Sprout Green Palette)
+const KISAN_PARTICLES = [
+  { top: '10%', left: '7%', size: 1.5, color: '#22C55E', opacity: 0.65 },
+  { top: '20%', left: '15%', size: 2, color: '#4ADE80', opacity: 0.7 },
+  { top: '32%', left: '10%', size: 1, color: '#16A34A', opacity: 0.5 },
+  { top: '16%', left: '26%', size: 1.5, color: '#3E880F', opacity: 0.65 },
+  { top: '12%', left: '84%', size: 2, color: '#22C55E', opacity: 0.7 },
+  { top: '22%', left: '92%', size: 1.5, color: '#86EFAC', opacity: 0.65 },
+  { top: '30%', left: '88%', size: 1, color: '#16A34A', opacity: 0.5 },
+  { top: '16%', left: '74%', size: 2, color: '#4ADE80', opacity: 0.7 },
+  { top: '48%', left: '5%', size: 2, color: '#22C55E', opacity: 0.65 },
+  { top: '60%', left: '12%', size: 1.5, color: '#3E880F', opacity: 0.55 },
+  { top: '46%', left: '95%', size: 1.5, color: '#4ADE80', opacity: 0.65 },
+  { top: '58%', left: '89%', size: 2, color: '#22C55E', opacity: 0.7 },
+  { top: '75%', left: '8%', size: 1.5, color: '#4ADE80', opacity: 0.6 },
+  { top: '86%', left: '17%', size: 2, color: '#16A34A', opacity: 0.55 },
+  { top: '80%', left: '25%', size: 1, color: '#22C55E', opacity: 0.65 },
+  { top: '74%', left: '82%', size: 1.5, color: '#3E880F', opacity: 0.7 },
+  { top: '88%', left: '90%', size: 2, color: '#22C55E', opacity: 0.75 },
+  { top: '82%', left: '95%', size: 1, color: '#4ADE80', opacity: 0.55 },
+  { top: '92%', left: '40%', size: 1.5, color: '#22C55E', opacity: 0.55 },
+  { top: '94%', left: '60%', size: 1.5, color: '#4ADE80', opacity: 0.6 },
+  { top: '7%', left: '46%', size: 1.5, color: '#86EFAC', opacity: 0.65 },
+  { top: '8%', left: '55%', size: 1, color: '#22C55E', opacity: 0.55 },
+];
+
 export default function StoryPage() {
   return (
     <main className="min-h-screen w-full bg-[#07070a] text-white relative selection:bg-white/20 selection:text-white flex flex-col items-center justify-start pt-8 sm:pt-12 md:pt-14 pb-20 px-3 sm:px-6 lg:px-8">
@@ -239,6 +265,141 @@ export default function StoryPage() {
           <p className="text-gray-400 text-[11px] sm:text-xs md:text-sm lg:text-base font-light tracking-[0.14em] sm:tracking-[0.2em] uppercase whitespace-nowrap max-w-full">
             Roles, milestones, and hands-on building
           </p>
+        </div>
+
+        {/* Full-Width Kisan Khata Experience Card (Theme Dots + Sleek Top/Btm Border in Theme Color) */}
+        <div className="w-full relative rounded-2xl border border-white/10 bg-transparent overflow-hidden px-6 py-10 sm:px-10 md:px-14 lg:px-16 flex flex-col text-left">
+          
+          {/* Subtle Precision Horizon Light Beams in Kisan Khata Theme Emerald Green */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 max-w-2xl h-[1.5px] bg-gradient-to-r from-transparent via-[#22C55E]/80 to-transparent pointer-events-none z-20" />
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 max-w-2xl h-[1.5px] bg-gradient-to-r from-transparent via-[#22C55E]/80 to-transparent pointer-events-none z-20" />
+
+          {/* Background Watermark: Kisan Khata Emblem */}
+          <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0 flex items-center justify-center">
+            <div className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 opacity-[0.12] sm:opacity-[0.16]">
+              <Image
+                src="/images/story/kisan-khata-logo-transparent.png"
+                alt="Kisan Khata Emblem"
+                fill
+                priority
+                className="object-contain object-center"
+              />
+            </div>
+          </div>
+
+          {/* Kisan Khata Theme Tiny Particles (Sprout & Emerald Green Palette) */}
+          <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
+            {KISAN_PARTICLES.map((p, idx) => (
+              <span
+                key={idx}
+                className="absolute rounded-full block transform -translate-x-1/2 -translate-y-1/2"
+                style={{
+                  top: p.top,
+                  left: p.left,
+                  width: `${p.size}px`,
+                  height: `${p.size}px`,
+                  backgroundColor: p.color,
+                  opacity: p.opacity,
+                }}
+              />
+            ))}
+          </div>
+
+          {/* Foreground Experience Content */}
+          <div className="relative z-10 flex flex-col w-full">
+            
+            {/* Header: Logo + Role + Company + Badge */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/10">
+              <div className="flex items-center gap-4">
+                {/* Logo badge with link */}
+                <a
+                  href="https://www.kisankhata.co.in/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden bg-white border border-white/20 p-1.5 shrink-0 hover:border-[#22C55E]/80 transition-colors group cursor-pointer"
+                >
+                  <Image
+                    src="/images/story/kisan-khata-logo-v2.jpg"
+                    alt="Kisan Khata Logo"
+                    fill
+                    className="object-contain p-1 group-hover:scale-105 transition-transform duration-300"
+                  />
+                </a>
+
+                {/* Role & Company */}
+                <div className="flex flex-col">
+                  <div className="flex items-center gap-2.5 flex-wrap">
+                    <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                      Founder &amp; Full Stack Developer
+                    </h3>
+                    <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#22C55E]/15 text-[#4ADE80] border border-[#22C55E]/30">
+                      Live Venture
+                    </span>
+                  </div>
+                  
+                  <a
+                    href="https://www.kisankhata.co.in/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-base sm:text-lg font-semibold text-[#22C55E] hover:text-[#4ADE80] transition-colors flex items-center gap-1.5 mt-0.5 group w-fit cursor-pointer"
+                  >
+                    <span>Kisan Khata</span>
+                    <span className="text-xs text-gray-400 group-hover:text-white transition-colors">↗</span>
+                  </a>
+                </div>
+              </div>
+
+              {/* Location Badge */}
+              <div className="text-xs sm:text-sm text-gray-400 font-normal">
+                <span>Andhra Pradesh &amp; Telangana, India</span>
+              </div>
+            </div>
+
+            {/* Mission Overview */}
+            <p className="text-base sm:text-lg text-gray-200 font-normal leading-relaxed mt-6 mb-8 max-w-4xl">
+              Building a digital platform focused on simplifying agricultural management for farmers across Andhra Pradesh and Telangana.
+            </p>
+
+            {/* Bullet Points / Achievements */}
+            <div className="flex flex-col gap-3.5 mb-8">
+              {[
+                "Developed an offline-first mobile application to help farmers manage daily expenses and worker attendance.",
+                "Integrated Firebase services for real-time data management, authentication, cloud functions, and notifications.",
+                "Built AI-powered workflows using Google Gemini to collect, translate, and categorize government schemes into Telugu.",
+                "Designed a bilingual Telugu-English interface with accessibility-focused features.",
+                "Integrated weather updates and agricultural market-price information to make essential information more accessible.",
+              ].map((point, idx) => (
+                <div key={idx} className="flex items-start gap-3">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] mt-2.5 shrink-0 shadow-[0_0_8px_rgba(34,197,94,0.7)]" />
+                  <span className="text-sm sm:text-base text-gray-300 leading-relaxed font-normal">
+                    {point}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            {/* Technologies Footer Bar */}
+            <div className="pt-6 border-t border-white/10 flex flex-wrap items-center gap-2 sm:gap-2.5">
+              <span className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-gray-400 mr-2">
+                Technologies:
+              </span>
+              {[
+                "React Native",
+                "Expo",
+                "TypeScript",
+                "Firebase",
+                "Google Gemini API",
+              ].map((tech) => (
+                <span
+                  key={tech}
+                  className="text-xs sm:text-sm font-medium px-3 py-1 rounded-full bg-[#22C55E]/10 border border-[#22C55E]/25 text-[#86EFAC]"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+
+          </div>
         </div>
 
       </section>
