@@ -225,6 +225,23 @@ export default function StoryPage() {
         </div>
 
       </section>
+
+      {/* ==================================================================== */}
+      {/* THE EXPERIENCE SECTION */}
+      {/* ==================================================================== */}
+      <section className="w-full max-w-6xl xl:max-w-7xl mt-16 sm:mt-20 md:mt-28 relative flex flex-col items-center py-6 px-3 sm:px-6 lg:px-8">
+        
+        {/* Main Page Signature Heading Style & Exact Font */}
+        <div className="w-full flex flex-col items-center mb-10 sm:mb-12 pointer-events-none text-center">
+          <h2 className="text-4xl md:text-5xl font-black tracking-tight text-white mb-3">
+            THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-400">EXPERIENCE</span>
+          </h2>
+          <p className="text-gray-400 text-[11px] sm:text-xs md:text-sm lg:text-base font-light tracking-[0.14em] sm:tracking-[0.2em] uppercase whitespace-nowrap max-w-full">
+            Roles, milestones, and hands-on building
+          </p>
+        </div>
+
+      </section>
     </main>
   );
 }
