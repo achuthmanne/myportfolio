@@ -154,8 +154,8 @@ export default function StoryPage() {
           </p>
         </div>
 
-        {/* Full-Width Story Card (Zero Glow Flat Dark BG + Pink Paper Plane + Flight-Themed Particles) */}
-        <div className="w-full relative rounded-2xl border border-white/10 bg-[#0d0e12] overflow-hidden px-6 py-12 sm:px-12 md:px-16 lg:px-20 flex flex-col items-center text-center">
+        {/* Full-Width Story Card (Transparent BG with Border Line Only + Pink Paper Plane + Flight-Themed Particles) */}
+        <div className="w-full relative rounded-2xl border border-white/10 bg-transparent overflow-hidden px-6 py-12 sm:px-12 md:px-16 lg:px-20 flex flex-col items-center text-center">
           {/* Background Pink Paper Plane Graphic */}
           <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0 flex items-center justify-center">
             <div className="relative w-64 h-44 sm:w-80 sm:h-56 md:w-[420px] md:h-[290px] opacity-25 sm:opacity-35">
