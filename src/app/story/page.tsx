@@ -614,7 +614,7 @@ export default function StoryPage() {
                       rel="noopener noreferrer"
                       className="text-base sm:text-lg font-semibold text-[#F97316] hover:text-[#FB923C] transition-colors mt-1 w-fit cursor-pointer"
                     >
-                      Lovely Professional University (LPU)
+                      Lovely Professional University
                     </a>
                   </div>
                 </div>
