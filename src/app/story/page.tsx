@@ -603,17 +603,28 @@ export default function StoryPage() {
               </div>
 
               {/* Narrative Content */}
-              <div className="flex flex-col gap-4 mt-6 max-w-4xl">
+              <div className="flex flex-col gap-5 mt-6 w-full">
                 <p className="text-base sm:text-lg text-gray-200 font-normal leading-relaxed">
                   Alongside my core Computer Science curriculum, I am pursuing an{" "}
                   <strong className="text-white font-semibold">Open Minor in UI/UX Design</strong> and a{" "}
-                  <strong className="text-white font-semibold">Minor in Full Stack Web Development</strong>.
-                  These learning paths allow me to explore both the design and engineering sides of technology,
-                  strengthening my understanding of user experiences, interface design, and end-to-end web development.
+                  <strong className="text-white font-semibold">Minor in Full Stack Web Development</strong>,
+                  expanding my learning beyond traditional computer science.
                 </p>
 
                 <p className="text-base sm:text-lg text-gray-200 font-normal leading-relaxed">
-                  I aim to bridge creative thinking with technical problem-solving to build meaningful digital experiences.
+                  These complementary areas allow me to explore technology from two perspectives — understanding how
+                  digital experiences should look and feel, while also learning how to engineer the systems that power
+                  them. Through UI/UX, I am developing a deeper understanding of user-centred design, interface principles,
+                  and creating intuitive experiences. My Full Stack Web Development studies further strengthen my knowledge
+                  of building modern web applications, from crafting responsive frontends to understanding backend
+                  architecture and application workflows.
+                </p>
+
+                <p className="text-base sm:text-lg text-gray-200 font-normal leading-relaxed">
+                  Together, these learning paths help me connect design thinking with technical execution, approach
+                  problems from multiple perspectives, and turn ideas into functional, user-focused digital experiences.
+                  I believe that great technology is not just about how well something works, but also about how naturally
+                  people can interact with it.
                 </p>
               </div>
 
