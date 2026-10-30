@@ -171,7 +171,7 @@ export default function StoryPage() {
       </section>
 
       {/* ==================================================================== */}
-      {/* THE STORY SECTION (Full Width Card with Paper Plane Graphic) */}
+      {/* THE JOURNEY SECTION (Full Width Card with Paper Plane Graphic) */}
       {/* ==================================================================== */}
       <section className="w-full max-w-6xl xl:max-w-7xl mt-8 sm:mt-12 md:mt-16 relative flex flex-col items-center py-6 px-3 sm:px-6 lg:px-8">
         
@@ -184,10 +184,10 @@ export default function StoryPage() {
           className="w-full flex flex-col items-center mb-10 sm:mb-12 pointer-events-none text-center"
         >
           <h2 className="text-4xl md:text-5xl font-black tracking-tight text-white mb-3">
-            THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-400">STORY</span>
+            THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-400">JOURNEY</span>
           </h2>
           <p className="text-gray-400 text-[11px] sm:text-xs md:text-sm lg:text-base font-light tracking-[0.14em] sm:tracking-[0.2em] uppercase whitespace-nowrap max-w-full">
-            From curiosity to code · The journey of building with purpose
+            Building, learning, and evolving with purpose
           </p>
         </motion.div>
 
