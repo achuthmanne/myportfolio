@@ -597,7 +597,7 @@ export default function StoryPage() {
                 <div className="flex flex-col sm:items-end gap-1 text-xs sm:text-sm text-gray-400 font-normal shrink-0">
                   <span className="font-medium text-gray-300">Jalandhar, Punjab, India</span>
                   <span>
-                    August 2024 – May 2028 · <strong className="text-white font-semibold">CGPA: 7.25</strong>
+                    August 2024 – May 2028 · <strong className="text-white font-semibold">CGPA: 7.32</strong>
                   </span>
                 </div>
               </div>
