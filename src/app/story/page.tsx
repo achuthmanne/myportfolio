@@ -5,6 +5,32 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import StoryBanner from '@/components/StoryBanner';
 
+// Flight-Colored Tiny Particles (Stardust matching the plane's exact ruby/pink palette)
+const FLIGHT_PARTICLES = [
+  { top: '12%', left: '8%', size: 1.5, color: '#E83D71', opacity: 0.6 },
+  { top: '22%', left: '16%', size: 2, color: '#F4729B', opacity: 0.7 },
+  { top: '35%', left: '11%', size: 1, color: '#9C1941', opacity: 0.5 },
+  { top: '18%', left: '28%', size: 1.5, color: '#C92A3A', opacity: 0.65 },
+  { top: '14%', left: '82%', size: 2, color: '#E83D71', opacity: 0.7 },
+  { top: '24%', left: '92%', size: 1.5, color: '#FFA6BE', opacity: 0.65 },
+  { top: '32%', left: '86%', size: 1, color: '#9C1941', opacity: 0.5 },
+  { top: '18%', left: '72%', size: 2, color: '#F4729B', opacity: 0.7 },
+  { top: '48%', left: '5%', size: 2, color: '#E83D71', opacity: 0.65 },
+  { top: '58%', left: '14%', size: 1.5, color: '#C92A3A', opacity: 0.55 },
+  { top: '46%', left: '95%', size: 1.5, color: '#F4729B', opacity: 0.65 },
+  { top: '56%', left: '88%', size: 2, color: '#E83D71', opacity: 0.7 },
+  { top: '74%', left: '9%', size: 1.5, color: '#F4729B', opacity: 0.6 },
+  { top: '85%', left: '18%', size: 2, color: '#9C1941', opacity: 0.55 },
+  { top: '78%', left: '26%', size: 1, color: '#E83D71', opacity: 0.65 },
+  { top: '72%', left: '80%', size: 1.5, color: '#C92A3A', opacity: 0.7 },
+  { top: '86%', left: '89%', size: 2, color: '#E83D71', opacity: 0.75 },
+  { top: '80%', left: '94%', size: 1, color: '#F4729B', opacity: 0.55 },
+  { top: '91%', left: '42%', size: 1.5, color: '#E83D71', opacity: 0.5 },
+  { top: '93%', left: '58%', size: 1.5, color: '#F4729B', opacity: 0.6 },
+  { top: '8%', left: '48%', size: 1.5, color: '#FFA6BE', opacity: 0.65 },
+  { top: '9%', left: '54%', size: 1, color: '#E83D71', opacity: 0.55 },
+];
+
 export default function StoryPage() {
   return (
     <main className="min-h-screen w-full bg-[#07070a] text-white relative selection:bg-white/20 selection:text-white flex flex-col items-center justify-start pt-8 sm:pt-12 md:pt-14 pb-20 px-3 sm:px-6 lg:px-8">
@@ -128,14 +154,9 @@ export default function StoryPage() {
           </p>
         </div>
 
-        {/* Full-Width Story Card (Subtle Toned-Down Background + Pink Paper Plane Graphic) */}
-        <div
-          style={{
-            background: 'radial-gradient(circle at 50% 50%, rgba(201, 42, 58, 0.07) 0%, transparent 65%), #0d0e12',
-          }}
-          className="w-full relative rounded-2xl border border-white/10 overflow-hidden px-6 py-12 sm:px-12 md:px-16 lg:px-20 flex flex-col items-center text-center"
-        >
-          {/* Background Pink Paper Plane Graphic (Only This Graphic in BG) */}
+        {/* Full-Width Story Card (Zero Glow Flat Dark BG + Pink Paper Plane + Flight-Themed Particles) */}
+        <div className="w-full relative rounded-2xl border border-white/10 bg-[#0d0e12] overflow-hidden px-6 py-12 sm:px-12 md:px-16 lg:px-20 flex flex-col items-center text-center">
+          {/* Background Pink Paper Plane Graphic */}
           <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0 flex items-center justify-center">
             <div className="relative w-64 h-44 sm:w-80 sm:h-56 md:w-[420px] md:h-[290px] opacity-25 sm:opacity-35">
               <Image
@@ -146,6 +167,24 @@ export default function StoryPage() {
                 className="object-contain object-center"
               />
             </div>
+          </div>
+
+          {/* Tiny Flight-Colored Particles (Stardust in exact palette of the plane) */}
+          <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
+            {FLIGHT_PARTICLES.map((p, idx) => (
+              <span
+                key={idx}
+                className="absolute rounded-full block transform -translate-x-1/2 -translate-y-1/2"
+                style={{
+                  top: p.top,
+                  left: p.left,
+                  width: `${p.size}px`,
+                  height: `${p.size}px`,
+                  backgroundColor: p.color,
+                  opacity: p.opacity,
+                }}
+              />
+            ))}
           </div>
 
           {/* Foreground Story Content (Clean & Simple) */}
