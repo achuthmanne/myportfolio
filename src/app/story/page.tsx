@@ -184,7 +184,7 @@ export default function StoryPage() {
           className="w-full flex flex-col items-center mb-10 sm:mb-12 pointer-events-none text-center"
         >
           <h2 className="text-4xl md:text-5xl font-black tracking-tight text-white mb-3">
-            THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-400">JOURNEY</span>
+            THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-[#FFA6BE] to-[#E83D71]">JOURNEY</span>
           </h2>
           <p className="text-gray-400 text-[11px] sm:text-xs md:text-sm lg:text-base font-light tracking-[0.14em] sm:tracking-[0.2em] uppercase whitespace-nowrap max-w-full">
             Building, learning, and evolving with purpose
@@ -201,8 +201,8 @@ export default function StoryPage() {
         >
           
           {/* Subtle Precision Horizon Light Beams (Zero Corner Clutter) */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 max-w-2xl h-[1.5px] bg-gradient-to-r from-transparent via-[#C92A3A]/80 to-transparent pointer-events-none z-20" />
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 max-w-2xl h-[1.5px] bg-gradient-to-r from-transparent via-[#C92A3A]/80 to-transparent pointer-events-none z-20" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 max-w-2xl h-[1.5px] bg-gradient-to-r from-transparent via-[#E83D71]/80 to-transparent pointer-events-none z-20" />
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 max-w-2xl h-[1.5px] bg-gradient-to-r from-transparent via-[#E83D71]/80 to-transparent pointer-events-none z-20" />
 
           {/* Background Pink Paper Plane Graphic */}
           <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0 flex items-center justify-center">
@@ -259,10 +259,12 @@ export default function StoryPage() {
               </p>
             </div>
 
-            {/* Closing Line */}
-            <p className="text-lg sm:text-xl font-semibold text-[#C92A3A] tracking-wide mt-10">
-              I&apos;m still learning, still experimenting, and still discovering what&apos;s possible.
-            </p>
+            {/* Closing Line in Glass Badge (Tech Stack Footer Style) */}
+            <div className="pt-6 border-t border-white/10 w-full flex items-center justify-center mt-10">
+              <span className="text-sm sm:text-base md:text-lg font-medium px-6 py-2.5 rounded-full bg-[#E83D71]/10 border border-[#E83D71]/25 text-[#FF85A1]">
+                I&apos;m still learning, still experimenting, and still discovering what&apos;s possible.
+              </span>
+            </div>
 
           </div>
         </motion.div>
