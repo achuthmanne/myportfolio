@@ -328,7 +328,7 @@ export default function StoryPage() {
 
                 {/* Role & Company */}
                 <div className="flex flex-col">
-                  <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                  <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
                     Founder &amp; Full Stack Developer
                   </h3>
                   
@@ -336,7 +336,7 @@ export default function StoryPage() {
                     href="https://www.kisankhata.co.in/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-base sm:text-lg font-semibold text-[#22C55E] hover:text-[#4ADE80] transition-colors mt-0.5 w-fit cursor-pointer"
+                    className="text-base sm:text-lg font-semibold text-[#22C55E] hover:text-[#4ADE80] transition-colors mt-1 w-fit cursor-pointer"
                   >
                     Kisan Khata
                   </a>
@@ -354,7 +354,7 @@ export default function StoryPage() {
               Building a digital agricultural management platform focused on simplifying farm operations and financial record-keeping for farmers across Andhra Pradesh and Telangana.
             </p>
 
-            {/* Bullet Points / Achievements */}
+            {/* Bullet Points / Achievements (Exact Matching Size as THE STORY: text-base sm:text-lg) */}
             <div className="flex flex-col gap-4 mb-8">
               {[
                 {
@@ -378,10 +378,10 @@ export default function StoryPage() {
                   desc: "Integrated weather updates and agricultural market-price information to make essential farming insights more accessible.",
                 },
               ].map((item, idx) => (
-                <div key={idx} className="flex items-start gap-3">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] mt-2.5 shrink-0" />
-                  <p className="text-sm sm:text-base text-gray-300 leading-relaxed font-normal">
-                    <strong className="font-semibold text-white mr-1.5">
+                <div key={idx} className="flex items-start gap-3.5">
+                  <span className="w-2 h-2 rounded-full bg-[#22C55E] mt-2.5 shrink-0" />
+                  <p className="text-base sm:text-lg text-gray-200 leading-relaxed font-normal">
+                    <strong className="font-semibold text-white mr-2">
                       {item.label}:
                     </strong>
                     {item.desc}
@@ -391,7 +391,7 @@ export default function StoryPage() {
             </div>
 
             {/* Tech Stack Footer Bar */}
-            <div className="pt-6 border-t border-white/10 flex flex-wrap items-center gap-2 sm:gap-2.5">
+            <div className="pt-6 border-t border-white/10 flex flex-wrap items-center gap-2.5">
               <span className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-gray-400 mr-2">
                 Tech Stack:
               </span>
@@ -408,7 +408,7 @@ export default function StoryPage() {
               ].map((tech) => (
                 <span
                   key={tech}
-                  className="text-xs sm:text-sm font-medium px-3 py-1 rounded-full bg-[#22C55E]/10 border border-[#22C55E]/25 text-[#86EFAC]"
+                  className="text-xs sm:text-sm font-medium px-3.5 py-1.5 rounded-full bg-[#22C55E]/10 border border-[#22C55E]/25 text-[#86EFAC]"
                 >
                   {tech}
                 </span>
