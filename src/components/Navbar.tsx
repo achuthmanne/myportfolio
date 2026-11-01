@@ -3,36 +3,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { RefreshCw } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useLenis } from "lenis/react";
 
 export default function Navbar() {
   const pathname = usePathname();
-  const lenis = useLenis();
   const [isLogoHovered, setIsLogoHovered] = useState(false);
   const [showNav, setShowNav] = useState(true);
   const { scrollY } = useScroll();
-
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (href.startsWith("#")) {
-      if (pathname === "/") {
-        e.preventDefault();
-        if (lenis) {
-          lenis.scrollTo(href, { offset: -20, duration: 1.2 });
-        } else {
-          const target = document.querySelector(href);
-          target?.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-      } else {
-        e.preventDefault();
-        window.location.href = `/${href}`;
-      }
-    }
-  };
-
-  // We will hide the navbar for hackathon routes later, after all hooks have run
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     if (pathname !== "/") {
@@ -69,11 +48,6 @@ export default function Navbar() {
     setShowNav(false);
   });
 
-  const navLinks = [
-    { name: "STORY", href: "/story" },
-    { name: "ARENA", href: "#work-section" },
-  ];
-
   // Completely hide the navbar on immersive routes (hackathons and story page)
   if (pathname && (pathname.startsWith("/hackathons") || pathname.startsWith("/story"))) {
     return null;
@@ -83,8 +57,8 @@ export default function Navbar() {
     <motion.nav 
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: showNav ? 0 : -100, opacity: showNav ? 1 : 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-transparent"
+      transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 sm:px-8 py-3 sm:py-4 bg-transparent pointer-events-auto"
     >
       {/* 3D Flipping Logo - Hard Refresh on click */}
       <a 
@@ -93,11 +67,11 @@ export default function Navbar() {
           e.preventDefault();
           window.location.reload();
         }}
-        className="flex items-center gap-2 cursor-pointer"
+        className="flex items-center gap-2 cursor-pointer select-none"
         onMouseEnter={() => setIsLogoHovered(true)}
         onMouseLeave={() => setIsLogoHovered(false)}
       >
-        <div className="relative w-48 h-12 -ml-5 sm:-ml-8" style={{ perspective: 1000 }}>
+        <div className="relative w-36 sm:w-48 h-10 sm:h-12 -ml-3 sm:-ml-8" style={{ perspective: 1000 }}>
           <motion.div 
             className="relative w-full h-full"
             animate={{ rotateX: isLogoHovered ? 180 : 0 }}
@@ -110,19 +84,19 @@ export default function Navbar() {
                 src="/images/logo-transparent.png" 
                 alt="Achuth Manne Logo" 
                 fill 
-                className="object-contain object-left scale-[2.3] sm:scale-[2.5] origin-left"
+                className="object-contain object-left scale-[2.1] sm:scale-[2.5] origin-left"
                 priority
               />
             </div>
 
             {/* BACK FACE (Creative Refresh Text) */}
             <div 
-              className="absolute inset-0 flex items-center justify-start pl-8 sm:pl-10" 
+              className="absolute inset-0 flex items-center justify-start pl-6 sm:pl-10" 
               style={{ backfaceVisibility: "hidden", transform: "rotateX(180deg)" }}
             >
-              <div className="flex items-center gap-2 whitespace-nowrap">
-                <RefreshCw className="w-4 h-4 text-accent-highlight" />
-                <span className="text-xs sm:text-sm font-bold tracking-[0.2em] sm:tracking-[0.25em] uppercase bg-gradient-to-r from-white to-text-secondary text-transparent bg-clip-text">
+              <div className="flex items-center gap-1.5 sm:gap-2 whitespace-nowrap">
+                <RefreshCw className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-accent-highlight" />
+                <span className="text-[10px] sm:text-xs md:text-sm font-bold tracking-[0.18em] sm:tracking-[0.25em] uppercase bg-gradient-to-r from-white to-text-secondary text-transparent bg-clip-text">
                   System Reboot
                 </span>
               </div>
@@ -131,45 +105,16 @@ export default function Navbar() {
         </div>
       </a>
 
-      {/* Desktop Links */}
-      <div className="hidden md:flex items-center gap-2">
-        {navLinks.map((link, index) => (
-          <Link 
-            key={index} 
-            href={link.href}
-            onClick={(e) => handleNavClick(e, link.href)}
-            className="relative px-5 py-2 text-xs sm:text-sm font-semibold tracking-[0.15em] text-text-secondary hover:text-white transition-colors duration-300 group z-10 cursor-pointer"
-          >
-            <span className="relative z-10">{link.name}</span>
-            
-            {/* SVG Drawing Border */}
-            <svg className="absolute inset-0 w-full h-full pointer-events-none -z-10" xmlns="http://www.w3.org/2000/svg">
-              <rect 
-                x="0" y="0" width="100%" height="100%" rx="999" 
-                fill="transparent" 
-                stroke="var(--color-accent-highlight)" 
-                strokeWidth="1.5" 
-                className="nav-border-draw opacity-60 group-hover:opacity-100 transition-opacity duration-500" 
-              />
-            </svg>
-
-            {/* Fading Glass Background */}
-            <span className="absolute inset-0 rounded-full bg-accent-highlight/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out backdrop-blur-md -z-20"></span>
-            
-            {/* Subtle glow */}
-            <span className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 group-hover:shadow-[0_0_15px_rgba(201,42,58,0.2)] transition-opacity duration-500 ease-out -z-30"></span>
-          </Link>
-        ))}
-      </div>
-
-      {/* Mobile Menu Button (Hamburger - hidden on desktop) */}
-      <button className="md:hidden text-text-primary">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <line x1="4" x2="20" y1="12" y2="12"/>
-          <line x1="4" x2="20" y1="6" y2="6"/>
-          <line x1="4" x2="20" y1="18" y2="18"/>
-        </svg>
-      </button>
+      {/* High-Contrast White & Black "About me" CTA Button with Slide-Up Fill Effect */}
+      <Link 
+        href="/story"
+        className="group relative inline-flex items-center justify-center px-4 py-1.5 sm:px-5 sm:py-2 rounded-full border border-white/20 hover:border-white bg-[#07070a]/80 backdrop-blur-md overflow-hidden text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 active:scale-95 cursor-pointer select-none shrink-0"
+      >
+        <span className="relative z-10 text-white group-hover:text-black transition-colors duration-300">
+          About me
+        </span>
+        <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out pointer-events-none" />
+      </Link>
     </motion.nav>
   );
 }

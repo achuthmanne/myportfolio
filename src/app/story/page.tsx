@@ -364,6 +364,31 @@ export default function StoryPage() {
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 max-w-2xl h-[1.5px] bg-gradient-to-r from-transparent via-[#E83D71]/80 to-transparent pointer-events-none z-20" />
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 max-w-2xl h-[1.5px] bg-gradient-to-r from-transparent via-[#E83D71]/80 to-transparent pointer-events-none z-20" />
 
+          {/* Top-Right Origami Paper Plane Graphic (Midway between Center & Edge - Static) */}
+          <div className="absolute top-[14%] sm:top-[16%] md:top-[18%] right-[14%] sm:right-[18%] md:right-[22%] z-0 pointer-events-none select-none w-12 sm:w-16 md:w-20 aspect-[296/227] opacity-35 sm:opacity-50">
+            <div className="relative w-full h-full">
+              <Image
+                src="/images/story/paper-plane.png"
+                alt="Paper Plane Top Right"
+                fill
+                priority
+                className="object-contain"
+              />
+            </div>
+          </div>
+
+          {/* Bottom-Left Origami Paper Plane Graphic (Midway between Center & Edge - Static) */}
+          <div className="absolute bottom-[14%] sm:bottom-[16%] md:bottom-[18%] left-[14%] sm:left-[18%] md:left-[22%] z-0 pointer-events-none select-none w-12 sm:w-16 md:w-20 aspect-[296/227] opacity-35 sm:opacity-50">
+            <div className="relative w-full h-full">
+              <Image
+                src="/images/story/paper-plane.png"
+                alt="Paper Plane Bottom Left"
+                fill
+                className="object-contain"
+              />
+            </div>
+          </div>
+
           {/* Background Pink Paper Plane Graphic (Subtly Scaled Down) */}
           <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0 flex items-center justify-center">
             <div className="relative w-56 h-38 sm:w-72 sm:h-50 md:w-[360px] md:h-[250px] opacity-20 sm:opacity-28">

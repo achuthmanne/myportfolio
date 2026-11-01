@@ -6,10 +6,40 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 
 export default function ConnectSection({ onComplete }: { onComplete?: () => void }) {
+  const [message, setMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const [status, setStatus] = useState<'idle' | 'transmitting' | 'success'>('idle');
 
-  const handleTransmit = () => {
+  const ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || "e153cc8f-b4a1-436b-bf35-58a7d7b94041";
+
+  const handleTransmit = async () => {
+    if (!message.trim()) {
+      setErrorMessage('Please type your message before transmitting.');
+      return;
+    }
+
+    setErrorMessage('');
     setStatus('transmitting');
+
+    // Background delivery to Web3Forms -> achuthchowdary96@gmail.com
+    try {
+      await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: ACCESS_KEY,
+          from_name: "Portfolio Signal Terminal",
+          subject: "🚀 New Anonymous Signal Message from Portfolio",
+          message: message.trim(),
+          email: "visitor@portfolio.signal",
+        }),
+      });
+    } catch (err) {
+      console.error("Signal transmit error:", err);
+    }
   };
 
   return (
@@ -22,7 +52,7 @@ export default function ConnectSection({ onComplete }: { onComplete?: () => void
             SEND A <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-400">SIGNAL.</span>
           </h2>
           <p className="text-gray-400 text-sm md:text-base font-light tracking-[0.2em] uppercase mb-8">
-            Have an idea, a problem worth solving, or something worth building? Let's talk.
+            Have an idea, a problem worth solving, or something worth building? Let&apos;s talk.
           </p>
         </div>
       </div>
@@ -31,7 +61,7 @@ export default function ConnectSection({ onComplete }: { onComplete?: () => void
       <div className="w-full max-w-4xl lg:max-w-5xl mx-auto px-4 z-30 relative min-h-[200px] flex items-center justify-center">
         <AnimatePresence mode="wait">
           
-          {/* STATE 1: IDLE (The Input Box) */}
+          {/* STATE 1: IDLE (Single Frictionless Message Input) */}
           {status === 'idle' && (
             <motion.div 
               key="idle"
@@ -50,15 +80,27 @@ export default function ConnectSection({ onComplete }: { onComplete?: () => void
                 {/* The Textarea */}
                 <textarea 
                   rows={3}
-                  className="w-full bg-transparent border-b border-white/20 text-white font-mono text-lg md:text-xl py-4 pl-8 pr-4 focus:outline-none focus:border-red-500 transition-colors resize-none placeholder-gray-700"
-                  placeholder="type your message..."
+                  value={message}
+                  onChange={(e) => {
+                    setMessage(e.target.value);
+                    if (errorMessage) setErrorMessage('');
+                  }}
+                  className="w-full bg-transparent border-b border-white/20 text-white font-mono text-base sm:text-lg md:text-xl py-4 pl-8 pr-4 focus:outline-none focus:border-red-500 transition-colors resize-none placeholder:text-gray-600 placeholder:text-sm sm:placeholder:text-base md:placeholder:text-lg leading-relaxed"
+                  placeholder="type your message... (include your email or contact info so I can get back to you)"
                 />
               </div>
+
+              {/* Error Warning Notice */}
+              {errorMessage && (
+                <div className="text-red-400 font-mono text-xs sm:text-sm tracking-wider self-start pl-1">
+                  ! {errorMessage}
+                </div>
+              )}
 
               {/* Transmit Button */}
               <button 
                 onClick={handleTransmit}
-                className="flex items-center gap-2 text-white font-mono text-base md:text-lg font-bold tracking-[0.2em] hover:text-red-500 transition-colors"
+                className="flex items-center gap-2 text-white font-mono text-base md:text-lg font-bold tracking-[0.2em] hover:text-red-500 transition-colors active:scale-95 cursor-pointer"
               >
                 [ TRANSMIT <ArrowUpRight className="w-5 h-5 md:w-6 md:h-6 stroke-[3] -mt-1" /> ]
               </button>
@@ -185,8 +227,18 @@ export default function ConnectSection({ onComplete }: { onComplete?: () => void
                 SIGNAL TRANSMITTED ✓
               </div>
               <div className="text-gray-400 font-mono text-sm md:text-base uppercase tracking-widest">
-                I'll get back to you soon.
+                I&apos;ll get back to you soon.
               </div>
+              <button
+                type="button"
+                onClick={() => {
+                  setStatus('idle');
+                  setMessage('');
+                }}
+                className="mt-6 text-xs text-gray-500 hover:text-white font-mono uppercase tracking-widest transition-colors cursor-pointer"
+              >
+                [ TRANSMIT ANOTHER SIGNAL ]
+              </button>
             </motion.div>
           )}
 
