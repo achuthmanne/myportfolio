@@ -347,7 +347,7 @@ export default function StoryPage() {
             THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-[#FFA6BE] to-[#E83D71]">JOURNEY</span>
           </h2>
           <p className="text-gray-400 text-[11px] sm:text-xs md:text-sm lg:text-base font-light tracking-[0.14em] sm:tracking-[0.2em] uppercase max-w-3xl px-2">
-            From curiosity to creation — a journey shaped by learning, experimentation, and building.
+            From visual curiosity to building digital experiences.
           </p>
         </motion.div>
 
@@ -504,8 +504,8 @@ export default function StoryPage() {
           <h2 className="text-4xl md:text-5xl font-black tracking-tight text-white mb-3">
             THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-[#86EFAC] to-[#22C55E]">EXPERIENCE</span>
           </h2>
-          <p className="text-gray-400 text-[11px] sm:text-xs md:text-sm lg:text-base font-light tracking-[0.14em] sm:tracking-[0.2em] uppercase whitespace-nowrap max-w-full">
-            Roles, milestones, and hands-on building
+          <p className="text-gray-400 text-[11px] sm:text-xs md:text-sm lg:text-base font-light tracking-[0.14em] sm:tracking-[0.2em] uppercase max-w-3xl px-2">
+            Turning ideas into products through ownership, engineering, and execution.
           </p>
         </motion.div>
 
