@@ -67,28 +67,47 @@ const FLIGHT_PARTICLES = [
 
 // Kisan Khata Theme Particles (Balanced Mix of Crisp White & Emerald Green Theme Dots)
 const KISAN_PARTICLES = [
-  { top: '10%', left: '7%', size: 1.5, color: '#FFFFFF', opacity: 0.8 },
-  { top: '20%', left: '15%', size: 2, color: '#22C55E', opacity: 0.7 },
-  { top: '32%', left: '10%', size: 1, color: '#FFFFFF', opacity: 0.65 },
-  { top: '16%', left: '26%', size: 1.5, color: '#4ADE80', opacity: 0.7 },
-  { top: '12%', left: '84%', size: 2, color: '#FFFFFF', opacity: 0.85 },
-  { top: '22%', left: '92%', size: 1.5, color: '#22C55E', opacity: 0.7 },
-  { top: '30%', left: '88%', size: 1, color: '#FFFFFF', opacity: 0.6 },
-  { top: '16%', left: '74%', size: 2, color: '#4ADE80', opacity: 0.7 },
-  { top: '48%', left: '5%', size: 1.5, color: '#FFFFFF', opacity: 0.75 },
-  { top: '60%', left: '12%', size: 2, color: '#3E880F', opacity: 0.65 },
-  { top: '46%', left: '95%', size: 1.5, color: '#FFFFFF', opacity: 0.75 },
-  { top: '58%', left: '89%', size: 2, color: '#22C55E', opacity: 0.7 },
-  { top: '75%', left: '8%', size: 1.5, color: '#FFFFFF', opacity: 0.7 },
-  { top: '86%', left: '17%', size: 2, color: '#16A34A', opacity: 0.6 },
-  { top: '80%', left: '25%', size: 1, color: '#FFFFFF', opacity: 0.65 },
-  { top: '74%', left: '82%', size: 1.5, color: '#4ADE80', opacity: 0.7 },
-  { top: '88%', left: '90%', size: 2, color: '#FFFFFF', opacity: 0.85 },
-  { top: '82%', left: '95%', size: 1, color: '#22C55E', opacity: 0.65 },
-  { top: '92%', left: '40%', size: 1.5, color: '#FFFFFF', opacity: 0.7 },
-  { top: '94%', left: '60%', size: 1.5, color: '#22C55E', opacity: 0.6 },
+  // Top Region (5% - 20%)
+  { top: '6%', left: '8%', size: 1.5, color: '#FFFFFF', opacity: 0.8 },
   { top: '7%', left: '46%', size: 1.5, color: '#FFFFFF', opacity: 0.8 },
   { top: '8%', left: '55%', size: 1, color: '#4ADE80', opacity: 0.6 },
+  { top: '10%', left: '7%', size: 1.5, color: '#FFFFFF', opacity: 0.8 },
+  { top: '12%', left: '84%', size: 2, color: '#FFFFFF', opacity: 0.85 },
+  { top: '15%', left: '26%', size: 1.5, color: '#4ADE80', opacity: 0.7 },
+  { top: '18%', left: '74%', size: 2, color: '#22C55E', opacity: 0.7 },
+  { top: '20%', left: '15%', size: 2, color: '#22C55E', opacity: 0.7 },
+
+  // Mid-Upper Region (21% - 45%)
+  { top: '22%', left: '92%', size: 1.5, color: '#22C55E', opacity: 0.7 },
+  { top: '25%', left: '38%', size: 1, color: '#FFFFFF', opacity: 0.6 },
+  { top: '28%', left: '88%', size: 1.5, color: '#4ADE80', opacity: 0.65 },
+  { top: '30%', left: '10%', size: 1.5, color: '#FFFFFF', opacity: 0.75 },
+  { top: '32%', left: '82%', size: 1, color: '#FFFFFF', opacity: 0.65 },
+  { top: '36%', left: '18%', size: 2, color: '#16A34A', opacity: 0.65 },
+  { top: '40%', left: '94%', size: 1.5, color: '#FFFFFF', opacity: 0.75 },
+  { top: '44%', left: '6%', size: 1.5, color: '#FFFFFF', opacity: 0.7 },
+
+  // Mid-Lower Region (46% - 70%)
+  { top: '48%', left: '80%', size: 2, color: '#22C55E', opacity: 0.7 },
+  { top: '51%', left: '14%', size: 1.5, color: '#4ADE80', opacity: 0.7 },
+  { top: '54%', left: '90%', size: 1.5, color: '#FFFFFF', opacity: 0.8 },
+  { top: '57%', left: '25%', size: 1, color: '#FFFFFF', opacity: 0.65 },
+  { top: '60%', left: '85%', size: 2, color: '#16A34A', opacity: 0.65 },
+  { top: '63%', left: '8%', size: 2, color: '#22C55E', opacity: 0.7 },
+  { top: '67%', left: '76%', size: 1.5, color: '#4ADE80', opacity: 0.7 },
+  { top: '70%', left: '20%', size: 1.5, color: '#FFFFFF', opacity: 0.75 },
+
+  // Lower & Bottom Region (71% - 96%)
+  { top: '74%', left: '82%', size: 1.5, color: '#4ADE80', opacity: 0.7 },
+  { top: '77%', left: '12%', size: 1.5, color: '#FFFFFF', opacity: 0.7 },
+  { top: '80%', left: '92%', size: 1, color: '#22C55E', opacity: 0.65 },
+  { top: '83%', left: '28%', size: 1, color: '#FFFFFF', opacity: 0.65 },
+  { top: '86%', left: '17%', size: 2, color: '#16A34A', opacity: 0.6 },
+  { top: '88%', left: '90%', size: 2, color: '#FFFFFF', opacity: 0.85 },
+  { top: '91%', left: '72%', size: 1.5, color: '#22C55E', opacity: 0.7 },
+  { top: '92%', left: '40%', size: 1.5, color: '#FFFFFF', opacity: 0.7 },
+  { top: '94%', left: '60%', size: 1.5, color: '#22C55E', opacity: 0.6 },
+  { top: '96%', left: '84%', size: 1, color: '#FFFFFF', opacity: 0.75 },
 ];
 
 // LPU Theme Particles (Balanced Mix of Crisp White & LPU Theme Orange Dots)
@@ -561,14 +580,19 @@ export default function StoryPage() {
                     Founder &amp; Full Stack Developer
                   </h3>
                   
-                  <a
-                    href="https://www.kisankhata.co.in/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-base sm:text-lg font-semibold text-[#22C55E] hover:text-[#4ADE80] transition-colors mt-1 w-fit cursor-pointer"
-                  >
-                    Kisan Khata
-                  </a>
+                  <div className="flex items-center gap-2 mt-1 flex-wrap">
+                    <a
+                      href="https://www.kisankhata.co.in/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-base sm:text-lg font-semibold text-[#22C55E] hover:text-[#4ADE80] transition-colors w-fit cursor-pointer"
+                    >
+                      Kisan Khata
+                    </a>
+                    <span className="text-gray-400 text-sm sm:text-base font-normal">
+                      · Independent Product
+                    </span>
+                  </div>
                 </div>
               </div>
 
@@ -578,33 +602,37 @@ export default function StoryPage() {
               </div>
             </div>
 
-            {/* Mission Overview */}
-            <p className="text-base sm:text-lg text-gray-200 font-normal leading-relaxed mt-6 mb-8 max-w-4xl">
-              Building a digital agricultural management platform focused on simplifying farm operations and financial record-keeping for farmers across Andhra Pradesh and Telangana.
+            {/* Mission Overview (Full Width) */}
+            <p className="text-base sm:text-lg text-gray-200 font-normal leading-relaxed mt-6 mb-8 w-full">
+              I independently conceptualized, designed, and developed Kisan Khata, an agricultural management platform focused on helping farmers digitize everyday farm operations and financial record-keeping. Taking ownership of the entire product lifecycle, I worked across understanding user needs, planning features, designing interfaces, application architecture, development, testing, and deployment.
             </p>
 
-            {/* Bullet Points / Achievements (Exact Matching Size as THE STORY: text-base sm:text-lg) */}
-            <div className="flex flex-col gap-4 mb-8">
+            {/* Bullet Points / Key Achievements (6 Categories) */}
+            <div className="flex flex-col gap-5 mb-8">
               {[
                 {
-                  label: "Mobile Development",
-                  desc: "Developed an offline-first mobile application using React Native and Expo, enabling farmers to manage daily expenses and worker attendance even with limited internet connectivity.",
+                  label: "End-to-End Product Development",
+                  desc: "Independently managed the complete development lifecycle, transforming an initial idea into a functional mobile application. Worked across product planning, feature development, technical implementation, testing, and deployment while making key product and engineering decisions.",
                 },
                 {
-                  label: "Backend & Cloud",
-                  desc: "Integrated Firebase Firestore, Authentication, Cloud Functions, and FCM for data management, cloud processing, and real-time notifications.",
+                  label: "Mobile Application Engineering",
+                  desc: "Designed and developed an offline-first mobile application using React Native, Expo, and TypeScript, enabling farmers to manage daily expenses and worker attendance even in areas with limited internet connectivity.",
                 },
                 {
-                  label: "AI Integration",
-                  desc: "Built AI-powered workflows using Google Gemini to collect, translate, and categorize government schemes into Telugu, delivering relevant updates to farmers.",
+                  label: "Backend & Cloud Infrastructure",
+                  desc: "Implemented backend services using Firebase Firestore, Authentication, Cloud Functions, and Firebase Cloud Messaging to support data management, cloud-based processing, and real-time notifications.",
                 },
                 {
-                  label: "User Experience",
-                  desc: "Designed a bilingual Telugu-English interface with accessibility-focused features and voice-based input to simplify everyday interactions.",
+                  label: "Multilingual Input & Language Adaptation",
+                  desc: "Implemented language-aware voice input that automatically converts spoken words into text in the corresponding language, supporting both Telugu and English. Also enabled automatic translation between Telugu and English, allowing users to enter information in either language and view it in their preferred language, creating a more accessible experience for bilingual users.",
                 },
                 {
-                  label: "Agricultural Intelligence",
-                  desc: "Integrated weather updates and agricultural market-price information to make essential farming insights more accessible.",
+                  label: "Agricultural Integrations",
+                  desc: "Integrated weather updates and agricultural market-price information to bring useful farming insights into a single application, helping farmers access relevant information alongside their everyday records.",
+                },
+                {
+                  label: "Release & Product Ownership",
+                  desc: "Successfully completed a 14-day closed-testing phase and published Kisan Khata on Google Play. Currently focused on improving the product, understanding farmer needs, building trust, and working towards wider adoption.",
                 },
               ].map((item, idx) => (
                 <motion.div
@@ -612,7 +640,7 @@ export default function StoryPage() {
                   initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.45, delay: 0.15 + (idx * 0.08), ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 0.45, delay: 0.12 + (idx * 0.06), ease: [0.16, 1, 0.3, 1] }}
                   className="flex items-start gap-3.5"
                 >
                   <span className="w-2 h-2 rounded-full bg-[#22C55E] mt-2.5 shrink-0" />
@@ -626,15 +654,15 @@ export default function StoryPage() {
               ))}
             </div>
 
-            {/* Tech Stack Footer Bar - Cascading Entry */}
+            {/* Tech Stack Footer Bar - Single Line */}
             <motion.div
               initial={{ opacity: 0, y: 14 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
-              className="pt-6 border-t border-white/10 flex flex-wrap items-center gap-2.5"
+              transition={{ duration: 0.5, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="pt-6 border-t border-white/10 flex items-center gap-2 overflow-x-auto flex-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             >
-              <span className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-gray-400 mr-2">
+              <span className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-gray-400 mr-2 shrink-0">
                 Tech Stack:
               </span>
               {[
@@ -642,14 +670,13 @@ export default function StoryPage() {
                 "Expo",
                 "TypeScript",
                 "Firebase",
-                "Firestore",
                 "Cloud Functions",
-                "FCM",
+                "Firebase Cloud Messaging",
                 "OpenWeather API",
               ].map((tech) => (
                 <span
                   key={tech}
-                  className="text-xs sm:text-sm font-medium px-3.5 py-1.5 rounded-full bg-[#22C55E]/10 border border-[#22C55E]/25 text-[#86EFAC]"
+                  className="text-xs sm:text-sm font-medium px-3.5 py-1.5 rounded-full bg-[#22C55E]/10 border border-[#22C55E]/25 text-[#86EFAC] shrink-0"
                 >
                   {tech}
                 </span>
