@@ -6,30 +6,63 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import StoryBanner from '@/components/StoryBanner';
 
-// Flight-Themed Particles (Balanced Mix of Crisp White & Ruby/Pink Theme Dots)
+// Flight-Themed Particles (Balanced Mix of Crisp White & Ruby/Pink Theme Dots - Scaled for Long Card)
 const FLIGHT_PARTICLES = [
-  { top: '12%', left: '8%', size: 1.5, color: '#FFFFFF', opacity: 0.8 },
-  { top: '22%', left: '16%', size: 2, color: '#E83D71', opacity: 0.7 },
-  { top: '35%', left: '11%', size: 1, color: '#FFFFFF', opacity: 0.65 },
-  { top: '18%', left: '28%', size: 1.5, color: '#C92A3A', opacity: 0.7 },
-  { top: '14%', left: '82%', size: 2, color: '#FFFFFF', opacity: 0.85 },
-  { top: '24%', left: '92%', size: 1.5, color: '#E83D71', opacity: 0.7 },
-  { top: '32%', left: '86%', size: 1, color: '#FFFFFF', opacity: 0.6 },
-  { top: '18%', left: '72%', size: 2, color: '#F4729B', opacity: 0.7 },
-  { top: '48%', left: '5%', size: 1.5, color: '#FFFFFF', opacity: 0.75 },
-  { top: '58%', left: '14%', size: 2, color: '#C92A3A', opacity: 0.65 },
-  { top: '46%', left: '95%', size: 1.5, color: '#FFFFFF', opacity: 0.75 },
-  { top: '56%', left: '88%', size: 2, color: '#E83D71', opacity: 0.7 },
-  { top: '74%', left: '9%', size: 1.5, color: '#FFFFFF', opacity: 0.7 },
-  { top: '85%', left: '18%', size: 2, color: '#9C1941', opacity: 0.6 },
-  { top: '78%', left: '26%', size: 1, color: '#FFFFFF', opacity: 0.65 },
-  { top: '72%', left: '80%', size: 1.5, color: '#C92A3A', opacity: 0.7 },
-  { top: '86%', left: '89%', size: 2, color: '#FFFFFF', opacity: 0.85 },
-  { top: '80%', left: '94%', size: 1, color: '#F4729B', opacity: 0.65 },
-  { top: '91%', left: '42%', size: 1.5, color: '#FFFFFF', opacity: 0.7 },
-  { top: '93%', left: '58%', size: 1.5, color: '#E83D71', opacity: 0.6 },
-  { top: '8%', left: '48%', size: 1.5, color: '#FFFFFF', opacity: 0.8 },
-  { top: '9%', left: '54%', size: 1, color: '#E83D71', opacity: 0.6 },
+  // Top Region (4% - 15%)
+  { top: '5%', left: '8%', size: 1.5, color: '#FFFFFF', opacity: 0.8 },
+  { top: '7%', left: '48%', size: 1.5, color: '#FFFFFF', opacity: 0.8 },
+  { top: '8%', left: '54%', size: 1, color: '#E83D71', opacity: 0.6 },
+  { top: '10%', left: '92%', size: 1.5, color: '#FFA6BE', opacity: 0.7 },
+  { top: '12%', left: '6%', size: 1.5, color: '#FFFFFF', opacity: 0.8 },
+  { top: '14%', left: '84%', size: 2, color: '#FFFFFF', opacity: 0.85 },
+  { top: '15%', left: '26%', size: 1, color: '#C92A3A', opacity: 0.7 },
+
+  // Upper Mid Region (16% - 32%)
+  { top: '18%', left: '74%', size: 2, color: '#F4729B', opacity: 0.7 },
+  { top: '20%', left: '16%', size: 2, color: '#E83D71', opacity: 0.75 },
+  { top: '22%', left: '94%', size: 1.5, color: '#FFFFFF', opacity: 0.7 },
+  { top: '24%', left: '38%', size: 1, color: '#FFFFFF', opacity: 0.6 },
+  { top: '26%', left: '88%', size: 1.5, color: '#E83D71', opacity: 0.7 },
+  { top: '29%', left: '10%', size: 1.5, color: '#FFFFFF', opacity: 0.75 },
+  { top: '31%', left: '62%', size: 1, color: '#FFA6BE', opacity: 0.65 },
+
+  // Center Upper Region (33% - 48%)
+  { top: '34%', left: '82%', size: 1, color: '#FFFFFF', opacity: 0.65 },
+  { top: '36%', left: '18%', size: 2, color: '#C92A3A', opacity: 0.65 },
+  { top: '38%', left: '95%', size: 1.5, color: '#FFFFFF', opacity: 0.8 },
+  { top: '40%', left: '5%', size: 1.5, color: '#FFFFFF', opacity: 0.7 },
+  { top: '42%', left: '76%', size: 2, color: '#E83D71', opacity: 0.7 },
+  { top: '45%', left: '28%', size: 1, color: '#FFFFFF', opacity: 0.6 },
+  { top: '47%', left: '90%', size: 1.5, color: '#F4729B', opacity: 0.7 },
+
+  // Center Lower Region (49% - 64%)
+  { top: '50%', left: '12%', size: 1.5, color: '#FFFFFF', opacity: 0.75 },
+  { top: '52%', left: '84%', size: 2, color: '#FFFFFF', opacity: 0.8 },
+  { top: '55%', left: '6%', size: 2, color: '#E83D71', opacity: 0.7 },
+  { top: '57%', left: '68%', size: 1, color: '#FFA6BE', opacity: 0.65 },
+  { top: '59%', left: '94%', size: 1.5, color: '#FFFFFF', opacity: 0.75 },
+  { top: '61%', left: '22%', size: 1.5, color: '#C92A3A', opacity: 0.65 },
+  { top: '63%', left: '80%', size: 2, color: '#E83D71', opacity: 0.7 },
+
+  // Lower Mid Region (65% - 80%)
+  { top: '66%', left: '14%', size: 1, color: '#FFFFFF', opacity: 0.65 },
+  { top: '68%', left: '92%', size: 1.5, color: '#FFFFFF', opacity: 0.8 },
+  { top: '71%', left: '8%', size: 2, color: '#F4729B', opacity: 0.7 },
+  { top: '73%', left: '78%', size: 1.5, color: '#C92A3A', opacity: 0.7 },
+  { top: '75%', left: '28%', size: 1, color: '#FFFFFF', opacity: 0.6 },
+  { top: '77%', left: '86%', size: 2, color: '#FFFFFF', opacity: 0.85 },
+  { top: '79%', left: '18%', size: 1.5, color: '#E83D71', opacity: 0.7 },
+
+  // Bottom Region (81% - 96%)
+  { top: '82%', left: '95%', size: 1, color: '#FFA6BE', opacity: 0.65 },
+  { top: '84%', left: '6%', size: 1.5, color: '#FFFFFF', opacity: 0.75 },
+  { top: '86%', left: '88%', size: 2, color: '#9C1941', opacity: 0.65 },
+  { top: '88%', left: '24%', size: 1, color: '#FFFFFF', opacity: 0.65 },
+  { top: '90%', left: '74%', size: 1.5, color: '#E83D71', opacity: 0.7 },
+  { top: '92%', left: '11%', size: 2, color: '#FFFFFF', opacity: 0.8 },
+  { top: '93%', left: '42%', size: 1.5, color: '#FFFFFF', opacity: 0.7 },
+  { top: '95%', left: '58%', size: 1.5, color: '#E83D71', opacity: 0.65 },
+  { top: '96%', left: '86%', size: 1, color: '#FFFFFF', opacity: 0.75 },
 ];
 
 // Kisan Khata Theme Particles (Balanced Mix of Crisp White & Emerald Green Theme Dots)
