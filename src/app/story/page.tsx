@@ -303,9 +303,9 @@ export default function StoryPage() {
         <motion.div
           initial={{ opacity: 0, y: 36, scale: 0.985 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.75, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="w-full relative rounded-2xl border border-white/10 bg-transparent overflow-hidden px-6 py-12 sm:px-12 md:px-16 lg:px-20 flex flex-col items-center text-center"
+          className="w-full relative rounded-2xl border border-white/10 bg-transparent overflow-hidden px-6 py-10 sm:px-10 md:px-14 lg:px-16 flex flex-col text-left"
         >
           
           {/* Subtle Precision Horizon Light Beams (Zero Corner Clutter) */}
@@ -343,34 +343,91 @@ export default function StoryPage() {
             ))}
           </div>
 
-          {/* Foreground Story Content (Clean & Simple - Expanded Width) */}
-          <div className="relative z-10 flex flex-col items-center text-center max-w-4xl lg:max-w-5xl w-full">
+          {/* Foreground Story Content (Clean & Structured Chapters) */}
+          <div className="relative z-10 flex flex-col w-full text-left">
             
-            {/* Heading */}
-            <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight mb-8">
-              Curiosity turned into creation.
-            </h3>
+            {/* Chapters Container */}
+            <div className="flex flex-col gap-10 sm:gap-12 w-full">
+              
+              {/* Chapter 1: Design Roots */}
+              <div className="flex flex-col gap-3.5">
+                <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                  It started with an eye for design.
+                </h3>
+                <p className="text-base sm:text-lg text-gray-200 font-normal leading-relaxed">
+                  Long before I started writing code, I was fascinated by colours, arrangements, and visual details. Growing up in a village, I always found myself drawn to the vibrant decorations at weddings, the colours of traditional celebrations, the intricate arrangements of temple mandaps, and even the way flowers were positioned to create something beautiful. I didn&apos;t know it back then, but I was naturally developing an appreciation for design and visual experiences.
+                </p>
+              </div>
 
-            {/* Narrative Body */}
-            <div className="flex flex-col gap-6 text-base sm:text-lg text-gray-200 font-normal leading-relaxed">
-              <p>
-                I never had a perfect roadmap to becoming a developer. It all began with curiosity — a desire to understand how things work, explore what technology can do, and turn ideas into something meaningful.
-              </p>
-              <p>
-                What started as an interest in coding gradually became a passion for building. I began exploring different technologies, experimenting with ideas, and learning how to transform concepts into real, usable experiences. Along the way, I discovered that development is not just about writing code — it&apos;s about thinking creatively, solving problems, and finding better ways to make things work.
-              </p>
-              <p>
-                As I grew, my interests expanded beyond traditional development into the world of AI. I became fascinated by how intelligent systems could complement software engineering and open up entirely new possibilities.
-              </p>
-              <p>
-                Today, I work across full-stack development and AI, exploring new technologies and building applications that combine functionality, thoughtful design, and meaningful experiences. I believe in learning by building, embracing challenges, and constantly pushing beyond my comfort zone.
-              </p>
+              {/* Chapter 2: The First Connection with Code */}
+              <div className="flex flex-col gap-3.5">
+                <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                  The first connection with code.
+                </h3>
+                <div className="flex flex-col gap-4 text-base sm:text-lg text-gray-200 font-normal leading-relaxed">
+                  <p>
+                    My journey into development began during my first semester at Lovely Professional University. HTML and CSS were part of my coursework, and something about them immediately caught my attention. Writing lines of code and watching them turn into something visible in a browser felt almost magical. I remember being fascinated by the fact that something I typed could actually create a webpage.
+                  </p>
+                  <p>
+                    What started as a classroom subject quickly became a personal interest. I began experimenting with HTML and CSS, exploring layouts, colours, and different ways to bring ideas to life. For the first time, I found a connection between my interest in visual design and the possibilities of technology.
+                  </p>
+                </div>
+              </div>
+
+              {/* Chapter 3: Learning by Experimenting */}
+              <div className="flex flex-col gap-3.5">
+                <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                  Learning by experimenting.
+                </h3>
+                <div className="flex flex-col gap-4 text-base sm:text-lg text-gray-200 font-normal leading-relaxed">
+                  <p>
+                    As my curiosity grew, I wanted to understand how complete websites and applications were built. I started exploring project tutorials on YouTube, studying source code, recreating what I saw, and gradually making those projects my own by changing layouts, names, images, and other elements to match my ideas.
+                  </p>
+                  <p>
+                    I successfully built a few small projects this way. Along the process, I started discovering GitHub, learning how to manage code, and deploying projects so that others could experience what I had created. These early experiments gave me the confidence to move beyond simply watching tutorials and start exploring development independently.
+                  </p>
+                </div>
+              </div>
+
+              {/* Chapter 4: Discovering the Bigger Picture */}
+              <div className="flex flex-col gap-3.5">
+                <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                  Discovering the bigger picture.
+                </h3>
+                <div className="flex flex-col gap-4 text-base sm:text-lg text-gray-200 font-normal leading-relaxed">
+                  <p>
+                    As I explored further, I learned that what fascinated me was part of a much bigger field — Full Stack Development. When the opportunity to choose a minor came up during my second year at LPU, I chose Full Stack Web Development to explore the field more deeply.
+                  </p>
+                  <p>
+                    Around the same time, I began discovering how AI tools were changing the way developers could work. Exploring tools like ChatGPT, Gemini, Claude, and Antigravity introduced me to a different way of building — using AI to explore ideas, generate code, experiment faster, and bring concepts to life. This became the beginning of my experience with AI-assisted development and what many call vibe coding.
+                  </p>
+                  <p>
+                    It opened up new possibilities, but it also made me more curious about what happens behind the code — how things work, how different parts connect, and how to turn generated ideas into functional applications.
+                  </p>
+                </div>
+              </div>
+
+              {/* Chapter 5: Where I Am Today */}
+              <div className="flex flex-col gap-3.5">
+                <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                  Where I am today.
+                </h3>
+                <div className="flex flex-col gap-4 text-base sm:text-lg text-gray-200 font-normal leading-relaxed">
+                  <p>
+                    Today, I see myself as a developer who enjoys combining visual thinking with technical problem-solving. My interests have grown from experimenting with web pages to exploring full-stack engineering, AI-powered development, and user-focused digital experiences.
+                  </p>
+                  <p>
+                    I&apos;m still learning, still experimenting, and still finding better ways to build. Every project teaches me something new, every challenge gives me another perspective, and every idea reminds me why I started.
+                  </p>
+                </div>
+              </div>
+
             </div>
 
-            {/* Closing Line in Glass Badge (Tech Stack Footer Style) */}
-            <div className="pt-6 border-t border-white/10 w-full flex items-center justify-center mt-10">
-              <span className="text-sm sm:text-base md:text-lg font-medium px-6 py-2.5 rounded-full bg-[#E83D71]/10 border border-[#E83D71]/25 text-[#FF85A1]">
-                I&apos;m still learning, still experimenting, and still discovering what&apos;s possible.
+            {/* Closing Line in Glass Badge (Theme Flight Pink Style) */}
+            <div className="pt-8 border-t border-white/10 w-full flex items-center justify-center mt-12">
+              <span className="text-sm sm:text-base md:text-lg font-medium px-6 py-3 rounded-full bg-[#E83D71]/10 border border-[#E83D71]/25 text-[#FF85A1] text-center max-w-4xl">
+                What began as curiosity about colours and designs has grown into a passion for creating with technology.
               </span>
             </div>
 
