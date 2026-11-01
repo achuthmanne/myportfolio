@@ -294,8 +294,8 @@ export default function StoryPage() {
           <h2 className="text-4xl md:text-5xl font-black tracking-tight text-white mb-3">
             THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-[#FFA6BE] to-[#E83D71]">JOURNEY</span>
           </h2>
-          <p className="text-gray-400 text-[11px] sm:text-xs md:text-sm lg:text-base font-light tracking-[0.14em] sm:tracking-[0.2em] uppercase whitespace-nowrap max-w-full">
-            Building, learning, and evolving with purpose
+          <p className="text-gray-400 text-[11px] sm:text-xs md:text-sm lg:text-base font-light tracking-[0.14em] sm:tracking-[0.2em] uppercase max-w-3xl px-2">
+            From curiosity to creation — a journey shaped by learning, experimentation, and building.
           </p>
         </motion.div>
 
