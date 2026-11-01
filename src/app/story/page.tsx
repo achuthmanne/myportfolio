@@ -402,17 +402,29 @@ export default function StoryPage() {
             <div className="flex flex-col gap-10 sm:gap-12 w-full">
               
               {/* Chapter 1: Design Roots */}
-              <div className="flex flex-col gap-3.5">
+              <motion.div
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                className="flex flex-col gap-3.5"
+              >
                 <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
                   It started with an eye for design.
                 </h3>
                 <p className="text-base sm:text-lg text-gray-200 font-normal leading-relaxed">
                   Long before I started writing code, I was fascinated by colours, arrangements, and visual details. Growing up in a village, I always found myself drawn to the vibrant decorations at weddings, the colours of traditional celebrations, the intricate arrangements of temple mandaps, and even the way flowers were positioned to create something beautiful. I didn&apos;t know it back then, but I was naturally developing an appreciation for design and visual experiences.
                 </p>
-              </div>
+              </motion.div>
 
               {/* Chapter 2: The First Connection with Code */}
-              <div className="flex flex-col gap-3.5">
+              <motion.div
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                className="flex flex-col gap-3.5"
+              >
                 <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
                   The first connection with code.
                 </h3>
@@ -424,10 +436,16 @@ export default function StoryPage() {
                     What started as a classroom subject quickly became a personal interest. I began experimenting with HTML and CSS, exploring layouts, colours, and different ways to bring ideas to life. For the first time, I found a connection between my interest in visual design and the possibilities of technology.
                   </p>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Chapter 3: Learning by Experimenting */}
-              <div className="flex flex-col gap-3.5">
+              <motion.div
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                className="flex flex-col gap-3.5"
+              >
                 <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
                   Learning by experimenting.
                 </h3>
@@ -439,10 +457,16 @@ export default function StoryPage() {
                     I successfully built a few small projects this way. Along the process, I started discovering GitHub, learning how to manage code, and deploying projects so that others could experience what I had created. These early experiments gave me the confidence to move beyond simply watching tutorials and start exploring development independently.
                   </p>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Chapter 4: Discovering the Bigger Picture */}
-              <div className="flex flex-col gap-3.5">
+              <motion.div
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                className="flex flex-col gap-3.5"
+              >
                 <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
                   Discovering the bigger picture.
                 </h3>
@@ -457,10 +481,16 @@ export default function StoryPage() {
                     It opened up new possibilities, but it also made me more curious about what happens behind the code — how things work, how different parts connect, and how to turn generated ideas into functional applications.
                   </p>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Chapter 5: Where I Am Today */}
-              <div className="flex flex-col gap-3.5">
+              <motion.div
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                className="flex flex-col gap-3.5"
+              >
                 <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
                   Where I am today.
                 </h3>
@@ -472,16 +502,22 @@ export default function StoryPage() {
                     I&apos;m still learning, still experimenting, and still finding better ways to build. Every project teaches me something new, every challenge gives me another perspective, and every idea reminds me why I started.
                   </p>
                 </div>
-              </div>
+              </motion.div>
 
             </div>
 
             {/* Closing Line in Glass Badge (Theme Flight Pink Style) */}
-            <div className="pt-8 border-t border-white/10 w-full flex items-center justify-center mt-12">
+            <motion.div
+              initial={{ opacity: 0, y: 18, scale: 0.98 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+              className="pt-8 border-t border-white/10 w-full flex items-center justify-center mt-12"
+            >
               <span className="text-sm sm:text-base md:text-lg font-medium px-6 py-3 rounded-full bg-[#E83D71]/10 border border-[#E83D71]/25 text-[#FF85A1] text-center max-w-4xl">
                 What began as curiosity about colours and designs has grown into a passion for creating with technology.
               </span>
-            </div>
+            </motion.div>
 
           </div>
         </motion.div>
