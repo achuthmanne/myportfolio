@@ -195,7 +195,7 @@ export default function LabSection({ onComplete }: LabSectionProps) {
   const currentCategory = categories.find(c => c.id === activeCategory);
 
   return (
-    <section ref={containerRef} id="lab-section" className="relative w-full min-h-screen bg-transparent text-white overflow-hidden z-20">
+    <section ref={containerRef} id="lab-section" className="relative w-full min-h-screen bg-transparent text-white overflow-hidden z-20 md:pb-16">
       
       {/* Sleek, Minimalist Section Heading & Navigation */}
       <div className="absolute top-8 md:top-16 left-0 w-full flex flex-col items-center z-30">
@@ -270,7 +270,7 @@ export default function LabSection({ onComplete }: LabSectionProps) {
                 <motion.div
                   animate={{ y: [0, -15, 0] }}
                   transition={{ duration: 4 + Math.random() * 2, repeat: Infinity, ease: "easeInOut" }}
-                  className="relative cursor-crosshair transition-all duration-500 group-hover:scale-110 group-hover:z-[100]"
+                  className="relative cursor-crosshair transition-all duration-500 group-hover:scale-110 group-hover:z-[100] flex flex-col items-center"
                 >
                   {/* 3D Icon Container (Rotates in 3D, flattens on hover) */}
                   <div 
@@ -292,9 +292,18 @@ export default function LabSection({ onComplete }: LabSectionProps) {
                     )}
                   </div>
 
-                  {/* Smart Tooltip - Flips to the top if the icon is too low on the screen! */}
+                  {/* Direct Visible Name Badge on Mobile */}
+                  <div className="flex md:hidden items-center justify-center mt-2 pointer-events-none">
+                    <div className="bg-[#111]/90 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-white/15 shadow-[0_4px_16px_rgba(0,0,0,0.85)] flex items-center justify-center whitespace-nowrap">
+                      <span className="text-[10px] sm:text-xs font-semibold text-gray-200 tracking-tight">
+                        {skill.name}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Smart Tooltip - Desktop only (flips to the top if the icon is too low on the screen!) */}
                   <div 
-                    className={`absolute left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-300 z-50 ${
+                    className={`hidden md:block absolute left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-300 z-50 ${
                       parseFloat(skill.y) > 55 
                         ? "bottom-full mb-4 translate-y-4 group-hover:translate-y-0" 
                         : "top-full mt-4 -translate-y-4 group-hover:translate-y-0"

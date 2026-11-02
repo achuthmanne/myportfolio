@@ -24,7 +24,11 @@ export default function BattlegroundsSection() {
   const [selectedHackathon, setSelectedHackathon] = useState<string | null>(null);
 
   return (
-    <section id="battlegrounds-section" className="relative w-full min-h-[140vh] md:min-h-[130vh] mt-8 md:mt-48 flex flex-col items-center justify-start bg-transparent text-white pt-4 pb-8 md:py-24 overflow-hidden">
+    <section 
+      id="battlegrounds-section" 
+      className="relative w-full min-h-[140vh] md:min-h-[130vh] mt-8 md:mt-48 flex flex-col items-center justify-start bg-transparent text-white pt-4 pb-8 md:py-24 overflow-hidden"
+      style={{ touchAction: 'pan-y' }}
+    >
       
       {/* The 3D Wire Background */}
       <HackathonWire onCardClick={(id) => setSelectedHackathon(id)} />

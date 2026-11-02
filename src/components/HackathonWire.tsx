@@ -258,6 +258,7 @@ export default function HackathonWire({ onCardClick }: { onCardClick?: (id: stri
       <Canvas 
         camera={{ position: [0, -3, 20], fov: 45 }} 
         className="w-full h-full min-h-[140vh] md:min-h-[120vh] pointer-events-auto"
+        style={{ touchAction: 'pan-y' }}
       >
         {/* Subtle ambient light so it doesn't wash out the emissive glow */}
         <ambientLight intensity={0.5} />

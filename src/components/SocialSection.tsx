@@ -76,7 +76,7 @@ function MinimalSocialIcon({ path, color, transparentColor, label }: { path: str
     >
       {/* SVG Container (Massive icons) */}
       <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 relative flex items-center justify-center">
-        <svg viewBox="0 0 24 24" className="w-full h-full drop-shadow-2xl">
+        <svg viewBox="-1.5 -1.5 27 27" className="w-full h-full drop-shadow-2xl overflow-visible">
           
           {/* Base visible outline (Always permanently set & visible) */}
           <path 

@@ -50,6 +50,18 @@ export default function Home() {
     }
   }, []);
 
+  // When Battlegrounds is unlocked, automatically mount Connect, Social, and Footer sections so scroll flows seamlessly
+  useEffect(() => {
+    if (showBattlegroundsSection) {
+      setShowConnectSection(true);
+      setShowFooterSection(true);
+      const timer = setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 150);
+      return () => clearTimeout(timer);
+    }
+  }, [showBattlegroundsSection]);
+
   useEffect(() => {
     if (!showBattlegroundsSection || typeof window === 'undefined') return;
 
@@ -290,12 +302,19 @@ export default function Home() {
       
       {/* THE WORK SECTION */}
       {showWorkSection && (
-        <WorkSection onFolderComplete={() => setShowBattlegroundsSection(true)} />
+        <WorkSection onFolderComplete={() => {
+          setShowBattlegroundsSection(true);
+          setShowConnectSection(true);
+          setShowFooterSection(true);
+        }} />
       )}
 
       {/* THE BATTLEGROUNDS SECTION (Hackathons) */}
       {showBattlegroundsSection && (
-        <div onMouseEnter={() => setShowConnectSection(true)}>
+        <div 
+          onMouseEnter={() => setShowConnectSection(true)}
+          onTouchStart={() => setShowConnectSection(true)}
+        >
           <BattlegroundsSection />
         </div>
       )}
