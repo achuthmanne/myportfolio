@@ -113,16 +113,16 @@ export default function StorySection({ isCompiled, onCompile }: StorySectionProp
     <section id="story" ref={containerRef} className="relative min-h-screen w-full bg-transparent flex flex-col items-center justify-center py-20 px-4 md:px-10 z-10" style={{ perspective: 2500 }}>
       
       {/* Grid Overlay for Seamless 3D Flip without size constraints */}
-      <div className="w-full grid [grid-template-areas:'stack'] place-items-center mt-12">
-        <AnimatePresence>
+      <div className="w-full grid [grid-template-areas:'stack'] place-items-center mt-8 sm:mt-12" style={{ perspective: 2200 }}>
+        <AnimatePresence mode="wait">
           {!isCompiled ? (
             <motion.div 
               key="vscode-view"
               initial={{ opacity: 1, scale: 1, rotateY: 0 }}
-              exit={{ opacity: 0, scale: 0.9, rotateY: 90, filter: "blur(10px)" }}
-              transition={{ duration: 1.0, ease: [0.65, 0, 0.35, 1] }} // Ultra smooth cubic-bezier ease-in-out
-              className="[grid-area:stack] w-full flex flex-col items-center gap-8 md:gap-12"
-              style={{ perspective: 3000, backfaceVisibility: "hidden" }}
+              exit={{ opacity: 0, scale: 0.94, rotateY: -75 }}
+              transition={{ duration: 0.55, ease: [0.4, 0, 0.2, 1] }}
+              className="[grid-area:stack] w-full flex flex-col items-center gap-6 sm:gap-8 md:gap-12"
+              style={{ transformStyle: "preserve-3d", backfaceVisibility: "hidden" }}
             >
               {/* Container for the VS Code Image and Overlay */}
               <div className="relative w-full max-w-5xl aspect-[16/10] sm:aspect-[16/9] min-h-[220px] rounded-xl sm:rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(201,42,58,0.15)] group bg-black">
@@ -166,25 +166,24 @@ export default function StorySection({ isCompiled, onCompile }: StorySectionProp
                 </div>
               </div>
 
-              {/* The Compile Button (Explodes on click) */}
+              {/* The Compile Button */}
               <AnimatePresence>
                 {!isCompiled && (
                   <motion.div
-                    initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+                    initial={{ opacity: 0, y: 30 }}
                     animate={{ 
                       opacity: isTypingDone ? 1 : 0, 
                       y: isTypingDone ? 0 : 30,
-                      filter: isTypingDone ? "blur(0px)" : "blur(10px)",
                       pointerEvents: isTypingDone ? "auto" : "none" 
                     }}
-                    exit={{ opacity: 0, scale: 3, filter: "blur(20px)", y: -20 }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
                     className={`pointer-events-auto ${!isTypingDone ? 'hidden' : 'block'}`}
                   >
                     <button 
                       ref={buttonRef}
                       onClick={onCompile}
-                      className="relative group px-6 py-3.5 sm:px-10 sm:py-4 rounded-full bg-bg-secondary border border-border hover:border-accent-highlight text-text-primary uppercase tracking-[0.18em] sm:tracking-[0.3em] font-medium text-xs sm:text-sm overflow-hidden transition-all duration-300 active:scale-95 cursor-pointer"
+                      className="relative group px-6 py-3.5 sm:px-10 sm:py-4 rounded-full bg-bg-secondary border border-border hover:border-accent-highlight text-text-primary uppercase tracking-[0.18em] sm:tracking-[0.3em] font-medium text-xs sm:text-sm overflow-hidden transition-all duration-300 active:scale-95 cursor-pointer shadow-lg"
                     >
                       <span className="relative z-10 flex items-center gap-2.5 sm:gap-3">
                         <Play className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-accent-highlight group-hover:text-white transition-colors duration-300" />
@@ -199,11 +198,11 @@ export default function StorySection({ isCompiled, onCompile }: StorySectionProp
           ) : (
             <motion.div 
               key="compiled-view"
-              initial={{ opacity: 0, scale: 0.9, rotateY: -90, filter: "blur(10px)" }}
-              animate={{ opacity: 1, scale: 1, rotateY: 0, filter: "blur(0px)" }}
-              transition={{ duration: 1.0, ease: [0.65, 0, 0.35, 1], delay: 0.1 }}
+              initial={{ opacity: 0, scale: 0.94, rotateY: 75 }}
+              animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+              transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
               className="[grid-area:stack] w-full max-w-6xl mx-auto px-2 sm:px-0"
-              style={{ perspective: 3000, backfaceVisibility: "hidden" }}
+              style={{ transformStyle: "preserve-3d", backfaceVisibility: "hidden" }}
             >
               {/* The Actual UI (Glassmorphism Story Card) */}
               <div className="flex flex-col md:flex-row bg-[#0A0A0A]/60 backdrop-blur-3xl border border-white/10 rounded-2xl sm:rounded-[2rem] overflow-hidden shadow-2xl relative w-full">
