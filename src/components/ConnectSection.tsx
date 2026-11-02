@@ -9,20 +9,6 @@ export default function ConnectSection({ onComplete }: { onComplete?: () => void
   const [message, setMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [status, setStatus] = useState<'idle' | 'transmitting' | 'success'>('idle');
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(typeof window !== 'undefined' && window.innerWidth < 768);
-    };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  const animDuration = isMobile ? 5.2 : 8.5;
-  const particleCount = isMobile ? 22 : 50;
-  const tailSpread = isMobile ? 45 : 150;
 
   const ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || "e153cc8f-b4a1-436b-bf35-58a7d7b94041";
 
@@ -122,77 +108,58 @@ export default function ConnectSection({ onComplete }: { onComplete?: () => void
             </motion.div>
           )}
 
-          {/* STATE 2: TRANSMITTING (The Traveling Message Packet) */}
+          {/* STATE 2: TRANSMITTING (The Traveling Message) */}
           {status === 'transmitting' && (
             <motion.div 
               key="network"
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               exit={{ opacity: 0, filter: "blur(4px)" }}
-              transition={{ duration: 0.35 }}
-              className="w-full flex items-center justify-between font-mono tracking-widest relative px-1 sm:px-4 py-3"
+              transition={{ duration: 0.3 }}
+              className="w-full flex items-center justify-between font-mono tracking-widest relative px-2 sm:px-6"
             >
               {/* Left Endpoint (Client PC) */}
-              <div className="flex flex-col items-center gap-1.5 sm:gap-2 z-20 shrink-0">
-                <div className="relative p-2 sm:p-2.5 rounded-xl bg-white/[0.03] border border-white/10 shadow-md">
-                  <Monitor className="w-5 h-5 sm:w-8 sm:h-8 md:w-10 md:h-10 text-gray-400" strokeWidth={1.5} />
-                  <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-red-500 animate-ping" />
-                  <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-red-500" />
-                </div>
-                <span className="text-gray-400 font-bold text-[10px] sm:text-sm md:text-xl tracking-wider sm:tracking-widest whitespace-nowrap">
+              <div className="flex flex-col items-center gap-2 z-10 shrink-0">
+                <Monitor className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-gray-500" strokeWidth={1.5} />
+                <span className="text-gray-400 font-bold text-xs sm:text-base md:text-2xl lg:text-3xl whitespace-nowrap">
                   [ YOU ]
                 </span>
               </div>
               
               {/* The Track & Message */}
-              <div className="flex-1 mx-2 sm:mx-8 md:mx-16 h-[50px] relative flex items-center justify-center overflow-visible">
+              <div className="flex-1 mx-3 sm:mx-6 md:mx-16 h-[50px] relative flex items-center">
                 
-                {/* Laser Transmission Pathway Line */}
-                <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[1px] bg-gradient-to-r from-red-500/35 via-yellow-400/35 to-green-500/35" />
-                <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[1px] border-t border-dashed border-white/20" />
-
-                {/* Traveling Glow Pulse along the track */}
+                {/* The Traveling Message */}
                 <motion.div 
-                  className="absolute top-1/2 -translate-y-1/2 w-12 sm:w-24 h-6 rounded-full blur-md opacity-45 pointer-events-none -translate-x-1/2"
-                  initial={{ left: "6%", backgroundColor: "#ff1a1a" }}
+                  className="absolute z-20 flex items-center justify-center"
+                  initial={{ left: "0%" }}
                   animate={{ 
-                    left: ["6%", "50%", "94%"], 
-                    backgroundColor: ["#ff1a1a", "#ffcc00", "#16a34a"]
-                  }}
-                  transition={{ duration: animDuration, ease: "easeInOut", times: [0, 0.5, 1] }}
-                />
-
-                {/* The Traveling Message Container */}
-                <motion.div
-                  className="absolute z-10 flex items-center justify-center -translate-x-1/2"
-                  initial={{ left: "6%", color: "#ff1a1a" }} // Start Pure Red
-                  animate={{ 
-                    left: ["6%", "50%", "94%"], 
+                    left: "calc(100% - 60px)",
                     color: ["#ff1a1a", "#ffcc00", "#16a34a"] // Exact Hex match for Red, Yellow, Green renders
                   }}
-                  transition={{ duration: animDuration, ease: "easeInOut", times: [0, 0.5, 1] }}
+                  transition={{ duration: 8.0, ease: "easeInOut", times: [0, 0.5, 1] }}
                   onAnimationComplete={() => {
                     setTimeout(() => setStatus('success'), 400);
                   }}
                 >
                   
                   {/* The Sparkle Particle Tail */}
-                  <div className="absolute top-1/2 -translate-y-1/2 right-[65%] h-[40px] w-[70px] sm:w-[140px] md:w-[200px] pointer-events-none overflow-visible">
-                    {Array.from({ length: particleCount }).map((_, i) => (
+                  <div className="absolute top-1/2 -translate-y-1/2 right-[70%] h-[50px] w-[90px] md:w-[180px] pointer-events-none">
+                    {Array.from({ length: 40 }).map((_, i) => (
                       <motion.div 
                         key={i}
-                        className="absolute right-0 w-1 h-1 md:w-1.5 md:h-1.5 rounded-full bg-current shadow-[0_0_8px_currentColor]"
+                        className="absolute right-0 w-1 h-1 md:w-1.5 md:h-1.5 rounded-full bg-current shadow-[0_0_10px_currentColor]"
                         initial={{ x: 0, y: 0 }}
                         animate={{
-                          x: [-4, -15 - Math.random() * tailSpread], // Drift smoothly backwards within runway
-                          y: [(Math.random() - 0.5) * 8, (Math.random() - 0.5) * 36], // Expand outwards
-                          opacity: [0, 0.9, 0],
-                          scale: [0, Math.random() * 1.2 + 0.4, 0] // Soft glowing orb sizes
+                          x: [-5, -20 - Math.random() * 90], // Drift smoothly backwards
+                          y: [(Math.random() - 0.5) * 10, (Math.random() - 0.5) * 45], // Expand outwards
+                          opacity: [0, 1, 0],
+                          scale: [0, Math.random() * 1.2 + 0.5, 0] // Soft glowing orb sizes
                         }}
                         transition={{
-                          duration: 0.8 + Math.random() * 1.0,
+                          duration: 1 + Math.random() * 1.5,
                           repeat: Infinity,
-                          delay: Math.random() * 1.5,
+                          delay: Math.random() * 2,
                           ease: "easeOut"
                         }}
                       />
@@ -200,13 +167,13 @@ export default function ConnectSection({ onComplete }: { onComplete?: () => void
                   </div>
 
                   {/* The 3D Envelopes Crossfade Stack */}
-                  <div className="mix-blend-screen relative w-10 h-7 sm:w-14 sm:h-10 md:w-20 md:h-14 drop-shadow-[0_0_10px_currentColor]">
+                  <div className="mix-blend-screen relative w-12 h-8 sm:w-16 sm:h-10 md:w-20 md:h-14">
                      
                      {/* RED ENVELOPE */}
                      <motion.div
                        className="absolute inset-0"
                        animate={{ opacity: [1, 0, 0] }}
-                       transition={{ duration: animDuration, ease: "easeInOut", times: [0, 0.5, 1] }}
+                       transition={{ duration: 8.0, ease: "easeInOut", times: [0, 0.5, 1] }}
                      >
                        <Image src="/images/env-red.png" alt="Packet Red" fill className="object-contain" priority />
                      </motion.div>
@@ -215,7 +182,7 @@ export default function ConnectSection({ onComplete }: { onComplete?: () => void
                      <motion.div
                        className="absolute inset-0"
                        animate={{ opacity: [0, 1, 0] }}
-                       transition={{ duration: animDuration, ease: "easeInOut", times: [0, 0.5, 1] }}
+                       transition={{ duration: 8.0, ease: "easeInOut", times: [0, 0.5, 1] }}
                      >
                        <Image src="/images/env-yellow.png" alt="Packet Yellow" fill className="object-contain" priority />
                      </motion.div>
@@ -224,7 +191,7 @@ export default function ConnectSection({ onComplete }: { onComplete?: () => void
                      <motion.div
                        className="absolute inset-0"
                        animate={{ opacity: [0, 0, 1] }}
-                       transition={{ duration: animDuration, ease: "easeInOut", times: [0, 0.5, 1] }}
+                       transition={{ duration: 8.0, ease: "easeInOut", times: [0, 0.5, 1] }}
                      >
                        <Image src="/images/env-green.png" alt="Packet Green" fill className="object-contain" priority />
                      </motion.div>
@@ -236,12 +203,9 @@ export default function ConnectSection({ onComplete }: { onComplete?: () => void
               </div>
 
               {/* Right Endpoint (Host Server) */}
-              <div className="flex flex-col items-center gap-1.5 sm:gap-2 z-20 shrink-0">
-                <div className="relative p-2 sm:p-2.5 rounded-xl bg-white/[0.03] border border-white/10 shadow-md">
-                  <Server className="w-5 h-5 sm:w-8 sm:h-8 md:w-10 md:h-10 text-gray-400" strokeWidth={1.5} />
-                  <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                </div>
-                <span className="text-gray-400 font-bold text-[10px] sm:text-sm md:text-xl tracking-wider sm:tracking-widest whitespace-nowrap">
+              <div className="flex flex-col items-center gap-2 z-10 shrink-0">
+                <Server className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-gray-500" strokeWidth={1.5} />
+                <span className="text-gray-400 font-bold text-xs sm:text-base md:text-2xl lg:text-3xl whitespace-nowrap">
                   [ ACHUTH ]
                 </span>
               </div>
@@ -272,7 +236,7 @@ export default function ConnectSection({ onComplete }: { onComplete?: () => void
                   setStatus('idle');
                   setMessage('');
                 }}
-                className="mt-6 text-xs text-gray-400 hover:text-white font-mono uppercase tracking-widest transition-all cursor-pointer border border-white/10 hover:border-white/30 px-4 py-2.5 rounded-xl bg-white/[0.02] hover:bg-white/[0.05] active:scale-95"
+                className="mt-6 text-xs text-gray-500 hover:text-white font-mono uppercase tracking-widest transition-colors cursor-pointer"
               >
                 [ TRANSMIT ANOTHER SIGNAL ]
               </button>
