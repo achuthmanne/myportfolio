@@ -81,9 +81,9 @@ export default function FooterSection() {
           style={{ y: curtainY }}
         >
           {/* The Final Quote with scroll-tied typing animation using a sliding mask */}
-          <div className="relative inline-block mb-24">
+          <div className="relative inline-block mb-16 sm:mb-24 max-w-4xl px-4">
             <motion.h2 
-              className="text-2xl md:text-4xl lg:text-5xl font-black tracking-tight text-white px-4 text-center uppercase whitespace-nowrap"
+              className="text-lg sm:text-2xl md:text-4xl lg:text-5xl font-black tracking-tight text-white px-2 sm:px-4 text-center uppercase leading-tight sm:leading-snug"
               style={{ opacity: textOpacity }}
             >
               THERE&apos;S ALWAYS SOMETHING NEW TO <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-400">BUILD.</span>
@@ -97,7 +97,7 @@ export default function FooterSection() {
 
           {/* The Minimal Footer Elements */}
           <motion.div 
-            className="absolute bottom-24 flex flex-col items-center gap-3 w-full"
+            className="absolute bottom-10 sm:bottom-24 flex flex-col items-center gap-2 sm:gap-3 w-full px-4"
             style={{ opacity: copyrightOpacity }}
           >
             <span className="text-gray-400 text-sm md:text-base font-light tracking-[0.2em] uppercase">© 2026 MANNE ACHUTH</span>

@@ -31,11 +31,11 @@ export default function BattlegroundsSection() {
 
       {/* Sleek, Minimalist Section Heading */}
       <div className="w-full flex flex-col items-center z-30 mb-8 md:mb-16 relative">
-        <div className="text-center pointer-events-none">
-          <h2 className="text-4xl md:text-5xl font-black tracking-tight text-white mb-3">
+        <div className="text-center pointer-events-none px-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white mb-2 sm:mb-3">
             THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-400">BATTLEGROUNDS</span>
           </h2>
-          <p className="text-gray-400 text-sm md:text-base font-light tracking-[0.2em] uppercase mb-8">
+          <p className="text-gray-400 text-xs sm:text-sm md:text-base font-light tracking-[0.15em] sm:tracking-[0.2em] uppercase mb-6 sm:mb-8">
             Sleepless nights, crazy deadlines, and rapid innovation
           </p>
         </div>
@@ -60,10 +60,10 @@ export default function BattlegroundsSection() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative w-full max-w-[95vw] lg:max-w-7xl h-[95vh] bg-[#0a0a0a] rounded-2xl md:rounded-3xl border border-white/10 overflow-hidden flex flex-col md:flex-row shadow-2xl z-10"
+              className="relative w-full max-w-[95vw] lg:max-w-7xl h-[92vh] sm:h-[95vh] bg-[#0a0a0a] rounded-2xl md:rounded-3xl border border-white/10 overflow-y-auto md:overflow-hidden flex flex-col md:flex-row shadow-2xl z-10"
             >
               {/* Left Side: Image display */}
-              <div className="w-full md:w-1/2 h-[45%] md:h-full bg-black/50 flex items-center justify-center p-8 relative">
+              <div className="w-full md:w-1/2 min-h-[220px] h-[35%] md:h-full bg-black/50 flex items-center justify-center p-4 sm:p-8 relative shrink-0">
                 <motion.img 
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
@@ -75,7 +75,7 @@ export default function BattlegroundsSection() {
               </div>
 
               {/* Right Side: Details */}
-              <div className="w-full md:w-1/2 h-[55%] md:h-full flex flex-col justify-center items-start text-left p-6 md:p-16 relative">
+              <div className="w-full md:w-1/2 flex-1 md:h-full flex flex-col justify-center items-start text-left p-5 sm:p-8 md:p-16 relative">
                  <motion.h2 
                    initial={{ x: 20, opacity: 0 }}
                    animate={{ x: 0, opacity: 1 }}

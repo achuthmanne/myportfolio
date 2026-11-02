@@ -125,7 +125,7 @@ export default function StorySection({ isCompiled, onCompile }: StorySectionProp
               style={{ perspective: 3000, backfaceVisibility: "hidden" }}
             >
               {/* Container for the VS Code Image and Overlay */}
-              <div className="relative w-full max-w-5xl aspect-[16/9] rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(201,42,58,0.15)] group bg-black">
+              <div className="relative w-full max-w-5xl aspect-[16/10] sm:aspect-[16/9] min-h-[220px] rounded-xl sm:rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(201,42,58,0.15)] group bg-black">
                 
                 <Image 
                   src="/images/vscode-bg-v3.png" 
@@ -140,7 +140,7 @@ export default function StorySection({ isCompiled, onCompile }: StorySectionProp
                 <div 
                   ref={scrollContainerRef}
                   data-lenis-prevent
-                  className="vscode-scrollbar absolute top-[12%] left-[22%] right-[2%] bottom-[4%] p-2 md:p-6 font-mono text-[8px] sm:text-[10px] md:text-xs lg:text-sm xl:text-sm leading-relaxed md:leading-loose overflow-y-auto overscroll-auto"
+                  className="vscode-scrollbar absolute top-[12%] left-[22%] right-[2%] bottom-[4%] p-2 sm:p-4 md:p-6 font-mono text-[8px] sm:text-[10px] md:text-xs lg:text-sm xl:text-sm leading-relaxed md:leading-loose overflow-y-auto overscroll-auto"
                 >
                   {codeLines.slice(0, displayedLines).map((line, index) => {
                     const isLastLine = index === displayedLines - 1 && !isTypingDone;
@@ -184,10 +184,10 @@ export default function StorySection({ isCompiled, onCompile }: StorySectionProp
                     <button 
                       ref={buttonRef}
                       onClick={onCompile}
-                      className="relative group px-10 py-4 rounded-full bg-bg-secondary border border-border hover:border-accent-highlight text-text-primary uppercase tracking-[0.3em] font-medium text-sm overflow-hidden transition-all duration-300"
+                      className="relative group px-6 py-3.5 sm:px-10 sm:py-4 rounded-full bg-bg-secondary border border-border hover:border-accent-highlight text-text-primary uppercase tracking-[0.18em] sm:tracking-[0.3em] font-medium text-xs sm:text-sm overflow-hidden transition-all duration-300 active:scale-95 cursor-pointer"
                     >
-                      <span className="relative z-10 flex items-center gap-3">
-                        <Play className="w-4 h-4 text-accent-highlight group-hover:text-white transition-colors duration-300" />
+                      <span className="relative z-10 flex items-center gap-2.5 sm:gap-3">
+                        <Play className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-accent-highlight group-hover:text-white transition-colors duration-300" />
                         <span className="group-hover:text-white transition-colors duration-300">Compile Sequence</span>
                       </span>
                       <div className="absolute inset-0 bg-accent-highlight translate-y-[100%] group-hover:translate-y-0 transition-transform duration-300 ease-out" />
@@ -202,14 +202,14 @@ export default function StorySection({ isCompiled, onCompile }: StorySectionProp
               initial={{ opacity: 0, scale: 0.9, rotateY: -90, filter: "blur(10px)" }}
               animate={{ opacity: 1, scale: 1, rotateY: 0, filter: "blur(0px)" }}
               transition={{ duration: 1.0, ease: [0.65, 0, 0.35, 1], delay: 0.1 }}
-              className="[grid-area:stack] w-full max-w-6xl mx-auto"
+              className="[grid-area:stack] w-full max-w-6xl mx-auto px-2 sm:px-0"
               style={{ perspective: 3000, backfaceVisibility: "hidden" }}
             >
               {/* The Actual UI (Glassmorphism Story Card) */}
-              <div className="flex flex-col md:flex-row bg-[#0A0A0A]/60 backdrop-blur-3xl border border-white/10 rounded-[2rem] overflow-hidden shadow-2xl relative w-full">
+              <div className="flex flex-col md:flex-row bg-[#0A0A0A]/60 backdrop-blur-3xl border border-white/10 rounded-2xl sm:rounded-[2rem] overflow-hidden shadow-2xl relative w-full">
                 
                 {/* Left Side: Portrait Image */}
-                <div className="w-full md:w-2/5 relative aspect-square md:aspect-auto min-h-[400px] [mask-image:linear-gradient(to_bottom,black_60%,transparent_100%)] md:[mask-image:linear-gradient(to_right,black_60%,transparent_100%)]">
+                <div className="w-full md:w-2/5 relative aspect-square md:aspect-auto min-h-[260px] sm:min-h-[340px] md:min-h-[400px] [mask-image:linear-gradient(to_bottom,black_60%,transparent_100%)] md:[mask-image:linear-gradient(to_right,black_60%,transparent_100%)]">
                    <Image 
                      src="/images/achuth-profile.jpg" 
                      alt="Achuth Manne" 
@@ -220,13 +220,13 @@ export default function StorySection({ isCompiled, onCompile }: StorySectionProp
                 </div>
 
                 {/* Right Side: The Story Content */}
-                <div className="w-full md:w-3/5 p-8 md:p-16 flex flex-col justify-center relative z-10">
+                <div className="w-full md:w-3/5 p-6 sm:p-10 md:p-16 flex flex-col justify-center relative z-10 text-left">
                    
-                   <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-8 tracking-tight">
+                   <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 sm:mb-8 tracking-tight">
                      Curiosity <br className="hidden md:block"/> meets <span className="text-accent-highlight">AI.</span>
                    </h2>
                    
-                   <div className="space-y-6 text-text-secondary text-base lg:text-lg leading-relaxed font-light">
+                   <div className="space-y-4 sm:space-y-6 text-text-secondary text-sm sm:text-base lg:text-lg leading-relaxed font-light">
                       <p>
                         I didn’t start with a clear plan to become a developer. I started with curiosity. I was always interested in understanding how things work — what happens behind a screen, and how an idea turns into something real.
                       </p>
@@ -236,10 +236,16 @@ export default function StorySection({ isCompiled, onCompile }: StorySectionProp
                       <p>
                         Learning AI changed the way I think about development. Today, I turn ideas into creative web experiences — interfaces that feel intentional, interactive, and alive.
                       </p>
-                      <div className="pt-4 border-t border-white/10 mt-6">
-                        <p className="text-white font-bold uppercase tracking-widest text-sm">
+                      <div className="pt-4 border-t border-white/10 mt-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <p className="text-white font-bold uppercase tracking-widest text-xs sm:text-sm">
                           There’s always something new to build.
                         </p>
+                        <a 
+                          href="/story"
+                          className="text-xs sm:text-sm text-[#FF85A1] hover:underline font-medium cursor-pointer"
+                        >
+                          Read full journey &rarr;
+                        </a>
                       </div>
                    </div>
                 </div>

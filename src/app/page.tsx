@@ -179,91 +179,91 @@ export default function Home() {
         >
           
           {/* INTRO PANEL */}
-          <section className="panel w-[100vw] h-full flex flex-col items-center justify-center text-center px-6 relative">
+          <section className="panel w-[100vw] h-full flex flex-col items-center justify-center text-center px-4 sm:px-6 relative">
             
             {/* Folder Shape Border */}
-            <div className="folder-border absolute inset-0 mx-6 my-24 sm:mx-10 sm:my-28 pointer-events-none flex flex-col">
+            <div className="folder-border absolute inset-0 mx-3 my-16 sm:mx-8 sm:my-20 md:mx-10 md:my-28 pointer-events-none flex flex-col">
               {/* Top Row: Tab (Left) + Top Border Line (Right) */}
-              <div className="flex h-10 sm:h-12 w-full">
+              <div className="flex h-8 sm:h-10 md:h-12 w-full">
                 {/* Folder Tab */}
-                <div className="w-32 sm:w-64 h-full border-t-[8px] border-l-[8px] border-r-[8px] sm:border-t-[12px] sm:border-l-[12px] sm:border-r-[12px] border-border/30 rounded-t-2xl"></div>
+                <div className="w-28 sm:w-44 md:w-64 h-full border-t-[6px] border-l-[6px] border-r-[6px] sm:border-t-[8px] sm:border-l-[8px] sm:border-r-[8px] md:border-t-[12px] md:border-l-[12px] md:border-r-[12px] border-border/30 rounded-t-xl sm:rounded-t-2xl"></div>
                 {/* Right side top border */}
-                <div className="flex-1 border-b-[8px] sm:border-b-[12px] border-border/30 rounded-tr-2xl relative">
+                <div className="flex-1 border-b-[6px] sm:border-b-[8px] md:border-b-[12px] border-border/30 rounded-tr-xl sm:rounded-tr-2xl relative">
                   {/* Path text on the right */}
-                  <div className="absolute bottom-3 right-4 sm:right-8 overflow-hidden">
-                    <div className="folder-path text-text-secondary/70 font-bold tracking-wider uppercase text-[10px] sm:text-sm whitespace-nowrap">
+                  <div className="absolute bottom-2 sm:bottom-3 right-2 sm:right-4 md:right-8 overflow-hidden">
+                    <div className="folder-path text-text-secondary/70 font-bold tracking-wider uppercase text-[8px] sm:text-[10px] md:text-sm whitespace-nowrap">
                       /Root/Workspace/Pipeline
                     </div>
                   </div>
                 </div>
               </div>
               {/* Main Body */}
-              <div className="flex-1 border-b-[8px] border-l-[8px] border-r-[8px] sm:border-b-[12px] sm:border-l-[12px] sm:border-r-[12px] border-border/30 rounded-b-3xl"></div>
+              <div className="flex-1 border-b-[6px] border-l-[6px] border-r-[6px] sm:border-b-[8px] border-l-[8px] border-r-[8px] md:border-b-[12px] sm:border-l-[12px] sm:border-r-[12px] border-border/30 rounded-b-2xl sm:rounded-b-3xl"></div>
             </div>
             
-            <div className="hero-element mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-bg-secondary px-4 py-2">
-              <Code2 className="h-4 w-4 text-accent-highlight" />
-              <span className="text-sm font-medium tracking-widest text-text-secondary uppercase">
+            <div className="hero-element mb-4 sm:mb-6 inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-border bg-bg-secondary px-3 py-1.5 sm:px-4 sm:py-2">
+              <Code2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-accent-highlight" />
+              <span className="text-xs sm:text-sm font-medium tracking-widest text-text-secondary uppercase">
                 Interactive Folder
               </span>
             </div>
 
-            <h1 className="hero-element text-5xl font-bold tracking-tight sm:text-7xl lg:text-8xl mb-6">
+            <h1 className="hero-element text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-4 sm:mb-6 leading-tight">
               Development <br />
               <span className="text-accent-highlight">
                 pipeline.
               </span>
             </h1>
-            <p className="hero-element max-w-xl text-lg text-text-secondary">
+            <p className="hero-element max-w-xl text-sm sm:text-base md:text-lg text-text-secondary px-4 leading-relaxed">
               Scroll down to pan horizontally through the workspace folder.
             </p>
           </section>
 
           {/* THE 5 PIPELINE PANELS */}
           {pipelineSteps.map((step, i) => (
-            <section key={step.id} className="panel w-[100vw] h-full flex items-center justify-center relative px-10 sm:px-20">
+            <section key={step.id} className="panel w-[100vw] h-full flex items-center justify-center relative px-6 sm:px-12 md:px-20">
               
               {/* Folder Shape Border */}
-              <div className="folder-border absolute inset-0 mx-6 my-24 sm:mx-10 sm:my-28 pointer-events-none flex flex-col">
+              <div className="folder-border absolute inset-0 mx-3 my-16 sm:mx-8 sm:my-20 md:mx-10 md:my-28 pointer-events-none flex flex-col">
                 {/* Top Row: Tab (Left) + Top Border Line (Right) */}
-                <div className="flex h-10 sm:h-12 w-full">
+                <div className="flex h-8 sm:h-10 md:h-12 w-full">
                   {/* Folder Tab */}
-                  <div className="w-32 sm:w-64 h-full border-t-[8px] border-l-[8px] border-r-[8px] sm:border-t-[12px] sm:border-l-[12px] sm:border-r-[12px] border-border/30 rounded-t-2xl"></div>
+                  <div className="w-28 sm:w-44 md:w-64 h-full border-t-[6px] border-l-[6px] border-r-[6px] sm:border-t-[8px] sm:border-l-[8px] sm:border-r-[8px] md:border-t-[12px] md:border-l-[12px] md:border-r-[12px] border-border/30 rounded-t-xl sm:rounded-t-2xl"></div>
                   {/* Right side top border */}
-                  <div className="flex-1 border-b-[8px] sm:border-b-[12px] border-border/30 rounded-tr-2xl relative">
+                  <div className="flex-1 border-b-[6px] sm:border-b-[8px] md:border-b-[12px] border-border/30 rounded-tr-xl sm:rounded-tr-2xl relative">
                     {/* Path text on the right */}
-                    <div className="absolute bottom-3 right-4 sm:right-8 overflow-hidden">
-                      <div className="folder-path text-text-secondary/70 font-bold tracking-wider uppercase text-[10px] sm:text-sm whitespace-nowrap">
+                    <div className="absolute bottom-2 sm:bottom-3 right-2 sm:right-4 md:right-8 overflow-hidden">
+                      <div className="folder-path text-text-secondary/70 font-bold tracking-wider uppercase text-[8px] sm:text-[10px] md:text-sm whitespace-nowrap">
                         /Root/Workspace/{step.id}.exe
                       </div>
                     </div>
                   </div>
                 </div>
                 {/* Main Body */}
-                <div className="flex-1 border-b-[8px] border-l-[8px] border-r-[8px] sm:border-b-[12px] sm:border-l-[12px] sm:border-r-[12px] border-border/30 rounded-b-3xl"></div>
+                <div className="flex-1 border-b-[6px] border-l-[6px] border-r-[6px] sm:border-b-[8px] border-l-[8px] border-r-[8px] md:border-b-[12px] sm:border-l-[12px] sm:border-r-[12px] border-border/30 rounded-b-2xl sm:rounded-b-3xl"></div>
               </div>
 
-              <div className="flex flex-col md:flex-row items-center gap-16 w-full max-w-7xl">
+              <div className="flex flex-col md:flex-row items-center gap-4 sm:gap-8 md:gap-16 w-full max-w-7xl pt-4 sm:pt-0">
                 
-                {/* Massive Image Container (No Background) */}
-                <div className="w-full md:w-3/5">
-                  <div className="relative w-full aspect-[16/10] overflow-hidden group">
+                {/* Image Container (Scaled smoothly for mobile viewports) */}
+                <div className="w-full md:w-3/5 flex justify-center">
+                  <div className="relative w-full max-w-[280px] sm:max-w-[460px] md:max-w-none aspect-[16/10] max-h-[28vh] sm:max-h-[36vh] md:max-h-none overflow-hidden group">
                     <Image 
                       src={step.src} 
                       alt={step.title} 
                       fill 
-                      className="object-contain p-4 mix-blend-screen transition-transform duration-700 ease-out cursor-crosshair"
+                      className="object-contain p-2 sm:p-4 mix-blend-screen transition-transform duration-700 ease-out cursor-crosshair"
                     />
                   </div>
                 </div>
 
                 {/* Text Context */}
-                <div className="w-full md:w-2/5 flex flex-col items-start text-left z-20">
-                  <div className="text-6xl font-black text-border mb-4 opacity-50">{String(i + 1).padStart(2, '0')}</div>
-                  <h2 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight text-white drop-shadow-md whitespace-nowrap">
+                <div className="w-full md:w-2/5 flex flex-col items-start text-left z-20 px-2 sm:px-0">
+                  <div className="text-3xl sm:text-5xl md:text-6xl font-black text-border mb-1 sm:mb-2 md:mb-4 opacity-50">{String(i + 1).padStart(2, '0')}</div>
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 tracking-tight text-white drop-shadow-md">
                     {step.title}
                   </h2>
-                  <p className="text-text-secondary text-lg md:text-xl border-l-2 border-accent-highlight pl-4">
+                  <p className="text-text-secondary text-xs sm:text-base md:text-xl border-l-2 border-accent-highlight pl-3 sm:pl-4 leading-relaxed">
                     {step.desc}
                   </p>
                 </div>
