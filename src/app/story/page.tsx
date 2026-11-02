@@ -208,7 +208,7 @@ export default function StoryPage() {
   }, [isProfileOpen]);
 
   return (
-    <main className="min-h-screen w-full bg-[#07070a] text-white relative selection:bg-white/20 selection:text-white flex flex-col items-center justify-start pb-24 px-3 sm:px-6 lg:px-8">
+    <main className="min-h-screen w-full overflow-x-hidden bg-[#07070a] text-white relative selection:bg-white/20 selection:text-white flex flex-col items-center justify-start pb-24 px-3 sm:px-6 lg:px-8">
       {/* ==================================================================== */}
       {/* HERO SECTION: Strictly ONLY the Profile Board in the Initial Viewport */}
       {/* ==================================================================== */}
@@ -333,7 +333,7 @@ export default function StoryPage() {
       {/* ==================================================================== */}
       {/* THE JOURNEY SECTION (Full Width Card with Paper Plane Graphic) */}
       {/* ==================================================================== */}
-      <section className="w-full max-w-6xl xl:max-w-7xl mt-8 sm:mt-12 md:mt-16 relative flex flex-col items-center py-6 px-3 sm:px-6 lg:px-8">
+      <section className="w-full max-w-6xl xl:max-w-7xl mt-8 sm:mt-12 md:mt-16 relative flex flex-col items-center py-6">
         
         {/* Main Page Signature Heading Style - Scroll Reveal */}
         <motion.div
@@ -552,7 +552,7 @@ export default function StoryPage() {
       {/* ==================================================================== */}
       {/* THE EXPERIENCE SECTION */}
       {/* ==================================================================== */}
-      <section className="w-full max-w-6xl xl:max-w-7xl mt-16 sm:mt-20 md:mt-28 relative flex flex-col items-center py-6 px-3 sm:px-6 lg:px-8">
+      <section className="w-full max-w-6xl xl:max-w-7xl mt-16 sm:mt-20 md:mt-28 relative flex flex-col items-center py-6">
         
         {/* Main Page Signature Heading Style - Scroll Reveal */}
         <motion.div
@@ -615,7 +615,7 @@ export default function StoryPage() {
           </div>
 
           {/* Foreground Experience Content */}
-          <div className="relative z-10 flex flex-col w-full">
+          <div className="relative z-10 flex flex-col w-full min-w-0">
             
             {/* Header: Logo + Role + Company + Badge */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/10">
@@ -721,7 +721,7 @@ export default function StoryPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="pt-6 border-t border-white/10 flex items-center gap-2 overflow-x-auto flex-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              className="pt-6 border-t border-white/10 flex items-center gap-2 overflow-x-auto flex-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden w-full max-w-full min-w-0"
             >
               <span className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-gray-400 mr-2 shrink-0">
                 Tech Stack:
@@ -752,7 +752,7 @@ export default function StoryPage() {
       {/* ==================================================================== */}
       {/* THE FOUNDATION SECTION */}
       {/* ==================================================================== */}
-      <section className="w-full max-w-6xl xl:max-w-7xl mt-16 sm:mt-20 md:mt-28 relative flex flex-col items-center py-6 px-3 sm:px-6 lg:px-8">
+      <section className="w-full max-w-6xl xl:max-w-7xl mt-16 sm:mt-20 md:mt-28 relative flex flex-col items-center py-6">
         
         {/* Main Page Signature Heading Style - Scroll Reveal */}
         <motion.div
@@ -765,7 +765,7 @@ export default function StoryPage() {
           <h2 className="text-4xl md:text-5xl font-black tracking-tight text-white mb-3">
             THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-[#FDBA74] to-[#F97316]">FOUNDATION</span>
           </h2>
-          <p className="text-gray-400 text-[11px] sm:text-xs md:text-sm lg:text-base font-light tracking-[0.14em] sm:tracking-[0.2em] uppercase whitespace-nowrap max-w-full">
+          <p className="text-gray-400 text-[11px] sm:text-xs md:text-sm lg:text-base font-light tracking-[0.14em] sm:tracking-[0.2em] uppercase max-w-3xl px-2">
             The knowledge and experiences shaping my path forward
           </p>
         </motion.div>
@@ -816,7 +816,7 @@ export default function StoryPage() {
             </div>
 
             {/* Foreground Foundation Content */}
-            <div className="relative z-10 flex flex-col w-full">
+            <div className="relative z-10 flex flex-col w-full min-w-0">
               
               {/* Header: Logo + Degree + Institution + Timeline & Location */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/10">
@@ -894,7 +894,7 @@ export default function StoryPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                className="pt-6 border-t border-white/10 flex items-center gap-2 overflow-x-auto flex-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden mt-8"
+                className="pt-6 border-t border-white/10 flex items-center gap-2 overflow-x-auto flex-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden mt-8 w-full max-w-full min-w-0"
               >
                 <span className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-gray-400 mr-2 shrink-0">
                   Academic Focus:
@@ -960,7 +960,7 @@ export default function StoryPage() {
             </div>
 
             {/* Foreground Foundation Content */}
-            <div className="relative z-10 flex flex-col w-full">
+            <div className="relative z-10 flex flex-col w-full min-w-0">
               
               {/* Header: Logo + Degree + Institution + Timeline & Location */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/10">
@@ -1039,7 +1039,7 @@ export default function StoryPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                className="pt-6 border-t border-white/10 flex items-center gap-2 overflow-x-auto flex-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden mt-8"
+                className="pt-6 border-t border-white/10 flex items-center gap-2 overflow-x-auto flex-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden mt-8 w-full max-w-full min-w-0"
               >
                 <span className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-gray-400 mr-2 shrink-0">
                   Academic Focus:
@@ -1105,7 +1105,7 @@ export default function StoryPage() {
             </div>
 
             {/* Foreground Foundation Content */}
-            <div className="relative z-10 flex flex-col w-full">
+            <div className="relative z-10 flex flex-col w-full min-w-0">
               
               {/* Header: Logo + Degree + Institution + Timeline & Location */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/10">
@@ -1168,7 +1168,7 @@ export default function StoryPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                className="pt-6 border-t border-white/10 flex items-center gap-2 overflow-x-auto flex-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden mt-8"
+                className="pt-6 border-t border-white/10 flex items-center gap-2 overflow-x-auto flex-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden mt-8 w-full max-w-full min-w-0"
               >
                 <span className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-gray-400 mr-2 shrink-0">
                   Academic Focus:

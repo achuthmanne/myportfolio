@@ -227,7 +227,7 @@ export default function StoryBanner() {
         <div className="pointer-events-auto flex flex-col items-center justify-center">
           
           {/* Main Title: Syne Font, Reduced Balanced Size, Crisp Flat - ZERO GLOW */}
-          <h2 className={`${syne.className} text-xl sm:text-2xl md:text-3xl lg:text-[32px] font-bold tracking-tight text-white whitespace-nowrap leading-tight`}>
+          <h2 className={`${syne.className} text-lg sm:text-2xl md:text-3xl lg:text-[32px] font-bold tracking-tight text-white whitespace-normal sm:whitespace-nowrap leading-tight px-2`}>
             Full Stack Developer &amp;{" "}
             <span className="text-[#C92A3A] font-bold">
               AI Builder
@@ -235,7 +235,7 @@ export default function StoryBanner() {
           </h2>
 
           {/* Subtitle: Space Grotesk, Balanced Size, Crisp Flat - ZERO GLOW */}
-          <p className={`${spaceGrotesk.className} text-[11px] sm:text-xs md:text-sm font-normal text-gray-300 tracking-[0.12em] uppercase mt-2`}>
+          <p className={`${spaceGrotesk.className} text-[10px] sm:text-xs md:text-sm font-normal text-gray-300 tracking-[0.08em] sm:tracking-[0.12em] uppercase mt-2 max-w-[95%]`}>
             Building Scalable Web Experiences <span className="text-[#C92A3A] mx-1">·</span> Intelligent Systems
           </p>
 
