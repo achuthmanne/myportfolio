@@ -894,9 +894,9 @@ export default function StoryPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                className="pt-6 border-t border-white/10 flex flex-wrap items-center gap-2.5 mt-8"
+                className="pt-6 border-t border-white/10 flex items-center gap-2 overflow-x-auto flex-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden mt-8"
               >
-                <span className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-gray-400 mr-2">
+                <span className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-gray-400 mr-2 shrink-0">
                   Academic Focus:
                 </span>
                 {[
@@ -906,7 +906,7 @@ export default function StoryPage() {
                 ].map((track) => (
                   <span
                     key={track}
-                    className="text-xs sm:text-sm font-medium px-3.5 py-1.5 rounded-full bg-[#F97316]/10 border border-[#F97316]/25 text-[#FDBA74]"
+                    className="text-xs sm:text-sm font-medium px-3.5 py-1.5 rounded-full bg-[#F97316]/10 border border-[#F97316]/25 text-[#FDBA74] shrink-0 whitespace-nowrap"
                   >
                     {track}
                   </span>
@@ -1039,9 +1039,9 @@ export default function StoryPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                className="pt-6 border-t border-white/10 flex flex-wrap items-center gap-2.5 mt-8"
+                className="pt-6 border-t border-white/10 flex items-center gap-2 overflow-x-auto flex-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden mt-8"
               >
-                <span className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-gray-400 mr-2">
+                <span className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-gray-400 mr-2 shrink-0">
                   Academic Focus:
                 </span>
                 {[
@@ -1051,7 +1051,7 @@ export default function StoryPage() {
                 ].map((track) => (
                   <span
                     key={track}
-                    className="text-xs sm:text-sm font-medium px-3.5 py-1.5 rounded-full bg-[#3B82F6]/10 border border-[#3B82F6]/25 text-[#93C5FD]"
+                    className="text-xs sm:text-sm font-medium px-3.5 py-1.5 rounded-full bg-[#3B82F6]/10 border border-[#3B82F6]/25 text-[#93C5FD] shrink-0 whitespace-nowrap"
                   >
                     {track}
                   </span>
@@ -1168,9 +1168,9 @@ export default function StoryPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                className="pt-6 border-t border-white/10 flex flex-wrap items-center gap-2.5 mt-8"
+                className="pt-6 border-t border-white/10 flex items-center gap-2 overflow-x-auto flex-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden mt-8"
               >
-                <span className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-gray-400 mr-2">
+                <span className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-gray-400 mr-2 shrink-0">
                   Academic Focus:
                 </span>
                 {[
@@ -1180,7 +1180,7 @@ export default function StoryPage() {
                 ].map((track) => (
                   <span
                     key={track}
-                    className="text-xs sm:text-sm font-medium px-3.5 py-1.5 rounded-full bg-[#78350F]/20 border border-[#8B4513]/40 text-[#E8C4A2]"
+                    className="text-xs sm:text-sm font-medium px-3.5 py-1.5 rounded-full bg-[#78350F]/20 border border-[#8B4513]/40 text-[#E8C4A2] shrink-0 whitespace-nowrap"
                   >
                     {track}
                   </span>

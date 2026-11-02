@@ -208,7 +208,7 @@ function LEDAnimationBoard() {
 
 export default function StoryBanner() {
   return (
-    <div className="relative w-full h-48 sm:h-56 md:h-64 lg:h-72 bg-[#050508] overflow-hidden select-none border-b border-white/10 flex items-center justify-center">
+    <div className="relative w-full h-[260px] sm:h-56 md:h-64 lg:h-72 bg-[#050508] overflow-hidden select-none border-b border-white/10 flex items-center justify-center">
       
       {/* 3D WebGL Canvas Layer: High-Radiance Animated LED Matrix */}
       <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
@@ -223,7 +223,7 @@ export default function StoryBanner() {
       </div>
 
       {/* Foreground Content: 100% Dead-Center In The Banner (Zero Glow, Clean Reduced Size) */}
-      <div className="absolute inset-0 z-10 w-full h-full flex flex-col items-center justify-center text-center px-4 pointer-events-none">
+      <div className="absolute inset-0 z-10 w-full h-full flex flex-col items-center justify-center text-center px-4 pointer-events-none pb-8 sm:pb-0">
         <div className="pointer-events-auto flex flex-col items-center justify-center">
           
           {/* Main Title: Syne Font, Reduced Balanced Size, Crisp Flat - ZERO GLOW */}
