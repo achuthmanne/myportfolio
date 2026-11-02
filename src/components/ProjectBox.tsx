@@ -244,7 +244,7 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               className="bg-[#050505] flex flex-col md:flex-row overflow-y-auto md:overflow-hidden shadow-2xl relative h-full w-full"
             >
-               {/* LEFT SIDE: The exact Image Clone. */}
+               {/* LEFT SIDE: The exact Image Clone (Hidden on mobile view as requested, shown on desktop). */}
                <motion.div 
                  initial={{ width: "100%", height: "100%", padding: "0px" }}
                  animate={{ 
@@ -254,7 +254,7 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
                  }}
                  exit={{ width: "100%", height: "280px", padding: "0px" }}
                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                 className="relative border-b md:border-b-0 md:border-r border-white/10 bg-black z-20 flex-shrink-0 flex items-center justify-center overflow-hidden"
+                 className="hidden md:flex relative border-b md:border-b-0 md:border-r border-white/10 bg-black z-20 flex-shrink-0 items-center justify-center overflow-hidden"
                >
                   <motion.img 
                     src={selectedProject.src} 
@@ -267,17 +267,17 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
                   />
                </motion.div>
                
-               {/* RIGHT SIDE: The Content. */}
+               {/* RIGHT SIDE: The Content (Matter + Web Preview). */}
                <motion.div 
                  initial={{ opacity: 0 }}
                  animate={{ opacity: 1, transition: { delay: 0.3, duration: 0.3 } }}
                  exit={{ opacity: 0, transition: { duration: 0 } }}
-                 className="relative md:absolute md:right-0 md:top-0 w-full md:w-[calc(100vw-400px)] min-h-[74vh] md:h-full flex flex-col bg-[#0a0a0a] z-10"
+                 className="relative md:absolute md:right-0 md:top-0 w-full md:w-[calc(100vw-400px)] min-h-screen md:min-h-0 md:h-full flex flex-col bg-[#0a0a0a] z-10"
                >
                   
-                  {/* Top Header: Title, Details, Buttons */}
-                  <div className="w-full p-4 sm:p-6 md:p-8 flex flex-col lg:flex-row gap-4 sm:gap-6 items-start lg:items-end justify-between border-b border-white/10 bg-black/50">
-                     <div className="flex-1">
+                  {/* Top Header: Title, Details, Buttons ("Matter") */}
+                  <div className="w-full p-5 pt-14 sm:p-6 sm:pt-6 md:p-8 flex flex-col lg:flex-row gap-4 sm:gap-6 items-start lg:items-end justify-between border-b border-white/10 bg-black/50">
+                     <div className="flex-1 pr-8 sm:pr-0">
                         <h2 className="text-2xl sm:text-3xl md:text-5xl font-black uppercase tracking-tight" style={{ color: selectedProject.colors[0] }}>
                            {selectedProject.alt}
                         </h2>
@@ -309,17 +309,17 @@ export default function ProjectFolder({ onSequenceComplete }: ProjectFolderProps
                      </div>
                   </div>
                   
-                  {/* Bottom Section: The Live Project Preview / Iframe */}
+                  {/* Bottom Section: The Live Project Preview / Iframe ("Kinda Web") */}
                   <motion.div 
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ delay: 0.6 }}
-                    className="w-full min-h-[350px] md:min-h-0 md:flex-1 relative flex items-center justify-center bg-[#050505]"
+                    transition={{ delay: 0.4 }}
+                    className="w-full min-h-[500px] sm:min-h-[550px] md:min-h-0 md:flex-1 relative flex items-center justify-center bg-[#050505]"
                   >
                      {selectedProject.liveLink ? (
                         <iframe 
                            src={selectedProject.liveLink} 
-                           className="w-full h-full border-none"
+                           className="w-full h-full min-h-[500px] md:min-h-0 border-none"
                            title={`${selectedProject.alt} Live Preview`}
                         />
                      ) : (

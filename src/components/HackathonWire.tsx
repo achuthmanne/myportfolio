@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useMemo, useRef, useState, useEffect } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { Float } from '@react-three/drei';
 
@@ -119,6 +119,34 @@ function HangingCard({
 }
 
 function SparkleWire({ onCardClick }: { onCardClick?: (id: string) => void }) {
+  const { size } = useThree();
+  const isMobile = size.width < 768;
+
+  if (isMobile) {
+    // VERTICAL STACK ON MOBILE VIEW: Top card directly beneath title, generous gap before bottom card
+    return (
+      <group position={[0, 3.8, 0]} scale={1.1}>
+        {/* Top Hackathon Card (Trinetra) */}
+        <HangingCard 
+          position={new THREE.Vector3(0, 1.2, 0)} 
+          imageSrc="/images/trinetra-card-transparent.png" 
+          wireBaseColor="#450a0a" // Very dark red base
+          wireEmissiveColor="#dc2626" // Intense neon red
+          sparkleColor="#fca5a5" // Light red sparkles
+          onClick={() => onCardClick && onCardClick('trinetra')}
+        />
+
+        {/* Bottom Hackathon Card (Gear Up) with clear comfortable gap below top card */}
+        <HangingCard 
+          position={new THREE.Vector3(0, -4.8, 0)} 
+          imageSrc="/images/gear-up-card-transparent.png" 
+          onClick={() => onCardClick && onCardClick('gear-up')}
+        />
+      </group>
+    );
+  }
+
+  // DESKTOP VIEW: Side by side
   return (
     <group position={[0, 3.0, 0]} scale={1.85}>
       {/* Left side hackathon card (Trinetra) */}
@@ -229,7 +257,7 @@ export default function HackathonWire({ onCardClick }: { onCardClick?: (id: stri
       {/* Moved the camera significantly down and back to completely guarantee no cutoffs */}
       <Canvas 
         camera={{ position: [0, -3, 20], fov: 45 }} 
-        style={{ width: '100%', height: '100%', minHeight: '120vh', pointerEvents: 'auto' }}
+        className="w-full h-full min-h-[140vh] md:min-h-[120vh] pointer-events-auto"
       >
         {/* Subtle ambient light so it doesn't wash out the emissive glow */}
         <ambientLight intensity={0.5} />

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useMemo, useEffect } from "react";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -9,6 +9,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function MorphingParticles({ isCompiled = false }: { isCompiled?: boolean }) {
+  const { size } = useThree();
   const bgPointsRef = useRef<THREE.Points>(null);
   const shapePointsRef = useRef<THREE.Points>(null);
   const bgCount = 5000;
@@ -287,11 +288,12 @@ export default function MorphingParticles({ isCompiled = false }: { isCompiled?:
     const timer = setTimeout(() => {
       const triggerEl = document.getElementById("tools-section");
       if (triggerEl) {
+        const isMobile = window.innerWidth < 768;
         ScrollTrigger.create({
           trigger: triggerEl,
           start: "top top", 
           end: "bottom bottom",     
-          scrub: 1.5, // Perfectly balanced inertia (Not too laggy, not too instant)
+          scrub: isMobile ? 0.6 : 1.5, // Snappy on mobile touch, cinematic momentum on desktop wheel
           onUpdate: (self) => {
             progressRef.current.value = self.progress;
           }
@@ -333,6 +335,17 @@ export default function MorphingParticles({ isCompiled = false }: { isCompiled?:
       
       const p = progressRef.current.value;
 
+      // Compute responsive scale factors so all 3 designs fit comfortably within mobile viewports
+      const widthRatio = Math.max(0, Math.min(1, (size.width - 360) / (1200 - 360)));
+      // Shape 1 (Code </ >): natural width ~22 -> scales down to ~9.6 on mobile (fits fully with < and >)
+      const codeScale = THREE.MathUtils.lerp(0.44, 1.0, widthRatio);
+      // Shape 2 (Git Branch): natural width ~10.4 -> slightly scaled to ~9.0 on mobile for comfortable breathing room
+      const gitScale = THREE.MathUtils.lerp(0.85, 1.0, widthRatio);
+      // Shape 3 (Infinity ∞): natural width ~28 -> scales down to ~9.8 on mobile (both loops fully visible)
+      const infinityScaleX = THREE.MathUtils.lerp(0.35, 1.0, widthRatio);
+      const infinityScaleY = THREE.MathUtils.lerp(0.50, 1.0, widthRatio);
+      const floatScale = THREE.MathUtils.lerp(0.65, 1.0, widthRatio);
+
       for (let i = 0; i < shapeCount; i++) {
         const idx = i * 3;
         
@@ -344,6 +357,19 @@ export default function MorphingParticles({ isCompiled = false }: { isCompiled?:
         const centerX = 0;
         const centerY = 0;
         const centerZ = -15;
+
+        // Scaled coordinates for current responsive viewport
+        const codeX = shapeCodePositions[idx] * codeScale;
+        const codeY = shapeCodePositions[idx + 1] * codeScale;
+        const codeZ = shapeCodePositions[idx + 2];
+
+        const gitX = gitPositions[idx] * gitScale;
+        const gitY = gitPositions[idx + 1] * gitScale;
+        const gitZ = gitPositions[idx + 2];
+
+        const infX = infinityPositions[idx] * infinityScaleX;
+        const infY = infinityPositions[idx + 1] * infinityScaleY;
+        const infZ = infinityPositions[idx + 2];
 
         // --- THE 3-SHAPE TIMELINE ---
         
@@ -369,17 +395,17 @@ export default function MorphingParticles({ isCompiled = false }: { isCompiled?:
           // Stage 3: Center -> Explode to </ >
           const phase = (staggeredP - 0.10) / 0.05; 
           const easeOut = phase * (2 - phase); 
-          targetX = THREE.MathUtils.lerp(centerX, shapeCodePositions[idx], easeOut);
-          targetY = THREE.MathUtils.lerp(centerY, shapeCodePositions[idx + 1], easeOut);
-          targetZ = THREE.MathUtils.lerp(centerZ, shapeCodePositions[idx + 2], easeOut);
+          targetX = THREE.MathUtils.lerp(centerX, codeX, easeOut);
+          targetY = THREE.MathUtils.lerp(centerY, codeY, easeOut);
+          targetZ = THREE.MathUtils.lerp(centerZ, codeZ, easeOut);
           colorR = THREE.MathUtils.lerp(shapeStartColors[idx], shapeEndColors[idx], easeOut);
           colorG = THREE.MathUtils.lerp(shapeStartColors[idx + 1], shapeEndColors[idx + 1], easeOut);
           colorB = THREE.MathUtils.lerp(shapeStartColors[idx + 2], shapeEndColors[idx + 2], easeOut);
         } else if (staggeredP < 0.35) {
           // Stage 4: HOLD </ > SHAPE
-          targetX = shapeCodePositions[idx];
-          targetY = shapeCodePositions[idx + 1];
-          targetZ = shapeCodePositions[idx + 2];
+          targetX = codeX;
+          targetY = codeY;
+          targetZ = codeZ;
           colorR = shapeEndColors[idx];
           colorG = shapeEndColors[idx + 1];
           colorB = shapeEndColors[idx + 2];
@@ -387,9 +413,9 @@ export default function MorphingParticles({ isCompiled = false }: { isCompiled?:
           // Stage 5: </ > -> Implode to Center
           const phase = (staggeredP - 0.35) / 0.05; 
           const easeIn = phase * phase; 
-          targetX = THREE.MathUtils.lerp(shapeCodePositions[idx], centerX, easeIn);
-          targetY = THREE.MathUtils.lerp(shapeCodePositions[idx + 1], centerY, easeIn);
-          targetZ = THREE.MathUtils.lerp(shapeCodePositions[idx + 2], centerZ, easeIn);
+          targetX = THREE.MathUtils.lerp(codeX, centerX, easeIn);
+          targetY = THREE.MathUtils.lerp(codeY, centerY, easeIn);
+          targetZ = THREE.MathUtils.lerp(codeZ, centerZ, easeIn);
           colorR = THREE.MathUtils.lerp(shapeEndColors[idx], shapeStartColors[idx], easeIn); 
           colorG = THREE.MathUtils.lerp(shapeEndColors[idx + 1], shapeStartColors[idx + 1], easeIn);
           colorB = THREE.MathUtils.lerp(shapeEndColors[idx + 2], shapeStartColors[idx + 2], easeIn);
@@ -405,17 +431,17 @@ export default function MorphingParticles({ isCompiled = false }: { isCompiled?:
           // Stage 7: Center -> Explode to Git Branch
           const phase = (staggeredP - 0.45) / 0.05; 
           const easeOut = phase * (2 - phase); 
-          targetX = THREE.MathUtils.lerp(centerX, gitPositions[idx], easeOut);
-          targetY = THREE.MathUtils.lerp(centerY, gitPositions[idx + 1], easeOut);
-          targetZ = THREE.MathUtils.lerp(centerZ, gitPositions[idx + 2], easeOut);
+          targetX = THREE.MathUtils.lerp(centerX, gitX, easeOut);
+          targetY = THREE.MathUtils.lerp(centerY, gitY, easeOut);
+          targetZ = THREE.MathUtils.lerp(centerZ, gitZ, easeOut);
           colorR = THREE.MathUtils.lerp(shapeStartColors[idx], gitEndColors[idx], easeOut);
           colorG = THREE.MathUtils.lerp(shapeStartColors[idx + 1], gitEndColors[idx + 1], easeOut);
           colorB = THREE.MathUtils.lerp(shapeStartColors[idx + 2], gitEndColors[idx + 2], easeOut);
         } else if (staggeredP < 0.70) {
           // Stage 8: HOLD GIT BRANCH
-          targetX = gitPositions[idx];
-          targetY = gitPositions[idx + 1];
-          targetZ = gitPositions[idx + 2];
+          targetX = gitX;
+          targetY = gitY;
+          targetZ = gitZ;
           colorR = gitEndColors[idx];
           colorG = gitEndColors[idx + 1];
           colorB = gitEndColors[idx + 2];
@@ -423,9 +449,9 @@ export default function MorphingParticles({ isCompiled = false }: { isCompiled?:
           // Stage 9: Git Branch -> Implode to Center
           const phase = (staggeredP - 0.70) / 0.05; 
           const easeIn = phase * phase; 
-          targetX = THREE.MathUtils.lerp(gitPositions[idx], centerX, easeIn);
-          targetY = THREE.MathUtils.lerp(gitPositions[idx + 1], centerY, easeIn);
-          targetZ = THREE.MathUtils.lerp(gitPositions[idx + 2], centerZ, easeIn);
+          targetX = THREE.MathUtils.lerp(gitX, centerX, easeIn);
+          targetY = THREE.MathUtils.lerp(gitY, centerY, easeIn);
+          targetZ = THREE.MathUtils.lerp(gitZ, centerZ, easeIn);
           colorR = THREE.MathUtils.lerp(gitEndColors[idx], shapeStartColors[idx], easeIn); 
           colorG = THREE.MathUtils.lerp(gitEndColors[idx + 1], shapeStartColors[idx + 1], easeIn);
           colorB = THREE.MathUtils.lerp(gitEndColors[idx + 2], shapeStartColors[idx + 2], easeIn);
@@ -441,17 +467,17 @@ export default function MorphingParticles({ isCompiled = false }: { isCompiled?:
           // Stage 11: Center -> Explode to Infinity!
           const phase = (staggeredP - 0.80) / 0.05; 
           const easeOut = phase * (2 - phase); 
-          targetX = THREE.MathUtils.lerp(centerX, infinityPositions[idx], easeOut);
-          targetY = THREE.MathUtils.lerp(centerY, infinityPositions[idx + 1], easeOut);
-          targetZ = THREE.MathUtils.lerp(centerZ, infinityPositions[idx + 2], easeOut);
+          targetX = THREE.MathUtils.lerp(centerX, infX, easeOut);
+          targetY = THREE.MathUtils.lerp(centerY, infY, easeOut);
+          targetZ = THREE.MathUtils.lerp(centerZ, infZ, easeOut);
           colorR = THREE.MathUtils.lerp(shapeStartColors[idx], infinityEndColors[idx], easeOut);
           colorG = THREE.MathUtils.lerp(shapeStartColors[idx + 1], infinityEndColors[idx + 1], easeOut);
           colorB = THREE.MathUtils.lerp(shapeStartColors[idx + 2], infinityEndColors[idx + 2], easeOut);
         } else if (staggeredP < 0.90) {
           // Stage 12: HOLD INFINITY
-          targetX = infinityPositions[idx];
-          targetY = infinityPositions[idx + 1];
-          targetZ = infinityPositions[idx + 2];
+          targetX = infX;
+          targetY = infY;
+          targetZ = infZ;
           colorR = infinityEndColors[idx];
           colorG = infinityEndColors[idx + 1];
           colorB = infinityEndColors[idx + 2];
@@ -461,9 +487,9 @@ export default function MorphingParticles({ isCompiled = false }: { isCompiled?:
           const easeIn = phase * phase * phase; // Violent acceleration
           
           // Scatter far outwards and fly directly past the camera (Z + 30)
-          targetX = THREE.MathUtils.lerp(infinityPositions[idx], shapeRandomPositions[idx] * 4, easeIn);
-          targetY = THREE.MathUtils.lerp(infinityPositions[idx + 1], shapeRandomPositions[idx + 1] * 4, easeIn);
-          targetZ = THREE.MathUtils.lerp(infinityPositions[idx + 2], shapeRandomPositions[idx + 2] * 2 + 30, easeIn);
+          targetX = THREE.MathUtils.lerp(infX, shapeRandomPositions[idx] * 4, easeIn);
+          targetY = THREE.MathUtils.lerp(infY, shapeRandomPositions[idx + 1] * 4, easeIn);
+          targetZ = THREE.MathUtils.lerp(infZ, shapeRandomPositions[idx + 2] * 2 + 30, easeIn);
           
           // Fade to black as they fly past
           colorR = THREE.MathUtils.lerp(infinityEndColors[idx], 0, easeIn);
@@ -489,9 +515,9 @@ export default function MorphingParticles({ isCompiled = false }: { isCompiled?:
         else if (staggeredP > 0.85 && staggeredP <= 0.90) floatMultiplier = 1;
         else if (staggeredP > 0.90) floatMultiplier = Math.max(0, 1 - ((staggeredP - 0.90) / 0.10));
 
-        const floatX = Math.sin(time * 1.2 + i) * 0.4 * floatMultiplier;
-        const floatY = Math.cos(time * 1.5 + i * 0.5) * 0.4 * floatMultiplier;
-        const floatZ = Math.sin(time * 1.1 + i * 0.2) * 0.4 * floatMultiplier;
+        const floatX = Math.sin(time * 1.2 + i) * 0.4 * floatMultiplier * floatScale;
+        const floatY = Math.cos(time * 1.5 + i * 0.5) * 0.4 * floatMultiplier * floatScale;
+        const floatZ = Math.sin(time * 1.1 + i * 0.2) * 0.4 * floatMultiplier * floatScale;
 
         let finalX = targetX;
         let finalY = targetY;

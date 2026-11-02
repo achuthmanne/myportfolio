@@ -43,16 +43,17 @@ export default function ConnectSection({ onComplete }: { onComplete?: () => void
   };
 
   return (
-    <section id="connect-section" className="relative w-full min-h-[70vh] bg-transparent text-white overflow-hidden z-20 pt-56 pb-48 flex flex-col items-center justify-center">
+    <section id="connect-section" className="relative w-full min-h-[50vh] md:min-h-[70vh] bg-transparent text-white overflow-hidden z-20 pt-16 pb-24 md:pt-56 md:pb-48 flex flex-col items-center justify-center">
       
       {/* 1. The Headings (Exact same style as prev sections) */}
-      <div className="w-full flex flex-col items-center z-30 mb-16 relative">
+      <div className="w-full flex flex-col items-center z-30 mb-6 md:mb-16 relative">
         <div className="text-center pointer-events-none px-4">
-          <h2 className="text-4xl md:text-5xl font-black tracking-tight text-white mb-3">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white mb-2 md:mb-3">
             SEND A <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-400">SIGNAL.</span>
           </h2>
-          <p className="text-gray-400 text-sm md:text-base font-light tracking-[0.2em] uppercase mb-8">
-            Have an idea, a problem worth solving, or something worth building? Let&apos;s talk.
+          <p className="text-gray-400 text-[11px] sm:text-sm md:text-base font-light tracking-[0.12em] sm:tracking-[0.2em] uppercase max-w-xs sm:max-w-xl mx-auto leading-relaxed mb-4 md:mb-8">
+            <span className="sm:hidden">Have an idea or something to build? Let&apos;s talk.</span>
+            <span className="hidden sm:inline">Have an idea, a problem worth solving, or something worth building? Let&apos;s talk.</span>
           </p>
         </div>
       </div>

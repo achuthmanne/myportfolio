@@ -118,16 +118,16 @@ export default function HackathonCaseStudy({ params }: { params: Promise<{ id: s
         {/* 1. HERO COVER BACKGROUND IMAGE */}
         <div className="absolute inset-0 z-0 overflow-hidden">
           <motion.div 
-            initial={{ scale: 1.08, opacity: 0, filter: "blur(8px)" }}
+            initial={{ scale: 1.06, opacity: 0, filter: "blur(8px)" }}
             animate={{ 
-              scale: [1.08, 1.0, 1.035, 1.0],
+              scale: [1.06, 1.12, 1.08, 1.06],
               opacity: 1, 
               filter: "blur(0px)" 
             }}
             transition={{ 
               scale: {
-                times: [0, 0.08, 0.55, 1],
-                duration: 22,
+                times: [0, 0.5, 0.8, 1],
+                duration: 24,
                 repeat: Infinity,
                 ease: "easeInOut"
               },
@@ -142,18 +142,22 @@ export default function HackathonCaseStudy({ params }: { params: Promise<{ id: s
               fill
               priority
               quality={95}
-              className={`object-cover ${isGearUp ? 'object-[center_28%] filter brightness-[0.46] contrast-[1.1] saturate-[1.12]' : 'object-center filter brightness-[0.42] contrast-[1.12] saturate-[1.15]'}`}
+              className={`object-cover ${
+                isGearUp 
+                  ? 'object-[38%_38%] sm:object-[center_36%] filter brightness-[0.56] contrast-[1.08] saturate-[1.12]' 
+                  : 'object-[45%_35%] sm:object-[center_42%] filter brightness-[0.52] contrast-[1.10] saturate-[1.15]'
+              }`}
             />
           </motion.div>
 
           {/* Cinematic Gradient Overlays */}
-          <div className="absolute inset-0 bg-black/35" />
+          <div className="absolute inset-0 bg-black/25 sm:bg-black/30" />
           
           {/* Top smooth dark fade */}
-          <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#07070a]/90 to-transparent pointer-events-none" />
+          <div className="absolute top-0 left-0 right-0 h-28 sm:h-36 bg-gradient-to-b from-[#07070a]/90 to-transparent pointer-events-none" />
 
           {/* Gentle, Natural Bottom Fade (Only softens the bottom edge without eating into the photo) */}
-          <div className="absolute bottom-0 left-0 right-0 h-28 sm:h-40 bg-gradient-to-t from-[#07070a] via-[#07070a]/70 to-transparent pointer-events-none z-10" />
+          <div className="absolute bottom-0 left-0 right-0 h-28 sm:h-44 bg-gradient-to-t from-[#07070a] via-[#07070a]/75 to-transparent pointer-events-none z-10" />
         </div>
 
         {/* 2. TOP FLOATING NAVIGATION BAR */}
@@ -161,11 +165,11 @@ export default function HackathonCaseStudy({ params }: { params: Promise<{ id: s
           initial={{ opacity: 0, y: -20, filter: "blur(8px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ duration: 0.8, ease: luxuryEase }}
-          className="relative z-20 w-full px-6 py-6 sm:px-10 sm:py-8 flex items-center justify-end"
+          className="relative z-20 w-full px-4 py-5 sm:px-10 sm:py-8 flex items-center justify-center sm:justify-end"
         >
           {/* Organization / Location Badge */}
           <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-black/50 hover:bg-black/80 backdrop-blur-xl border border-white/10 hover:border-white/25 text-xs sm:text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 shadow-lg cursor-default">
-            <MapPin className={`w-4 h-4 ${isGearUp ? 'text-blue-500' : 'text-red-500'}`} />
+            <MapPin className={`w-4 h-4 shrink-0 ${isGearUp ? 'text-blue-500' : 'text-red-500'}`} />
             <span>{isGearUp ? 'Block 25 • School of CSE, LPU' : 'Block 14 • Mittal School of Business, LPU'}</span>
           </div>
         </motion.header>
@@ -308,9 +312,9 @@ export default function HackathonCaseStudy({ params }: { params: Promise<{ id: s
           {/* Masked Container: Automatically slides out from inside the bar */}
           <div className="overflow-hidden py-1">
             <motion.h2
-              initial={{ x: -160, opacity: 0 }}
+              initial={{ x: -120, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
-              viewport={{ once: true, amount: 0.6 }}
+              viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.85, ease: luxuryEase }}
               className="text-3xl sm:text-5xl md:text-6xl font-black text-white tracking-tight uppercase"
             >
@@ -479,9 +483,9 @@ export default function HackathonCaseStudy({ params }: { params: Promise<{ id: s
             {/* Masked Container: Automatically slides out from inside the bar from Right to Left */}
             <div className="overflow-hidden py-1">
               <motion.h2
-                initial={{ x: 160, opacity: 0 }}
+                initial={{ x: 120, opacity: 0 }}
                 whileInView={{ x: 0, opacity: 1 }}
-                viewport={{ once: true, amount: 0.6 }}
+                viewport={{ once: true, amount: 0.15 }}
                 transition={{ duration: 0.85, ease: luxuryEase }}
                 className="text-3xl sm:text-5xl md:text-6xl font-black text-white tracking-tight uppercase text-right"
               >
@@ -652,9 +656,9 @@ export default function HackathonCaseStudy({ params }: { params: Promise<{ id: s
           {/* Masked Container: Slides out from inside the bar from Left to Right */}
           <div className="overflow-hidden py-1">
             <motion.h2
-              initial={{ x: -160, opacity: 0 }}
+              initial={{ x: -120, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
-              viewport={{ once: true, amount: 0.6 }}
+              viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.85, ease: luxuryEase }}
               className="text-3xl sm:text-5xl md:text-6xl font-black text-white tracking-tight uppercase"
             >
@@ -933,9 +937,9 @@ export default function HackathonCaseStudy({ params }: { params: Promise<{ id: s
             {/* Masked Container: Slides out from inside the bar from Right to Left */}
             <div className="overflow-hidden py-1">
               <motion.h2
-                initial={{ x: 160, opacity: 0 }}
+                initial={{ x: 120, opacity: 0 }}
                 whileInView={{ x: 0, opacity: 1 }}
-                viewport={{ once: true, amount: 0.6 }}
+                viewport={{ once: true, amount: 0.15 }}
                 transition={{ duration: 0.85, ease: luxuryEase }}
                 className="text-3xl sm:text-5xl md:text-6xl font-black text-white tracking-tight uppercase text-right"
               >
@@ -1296,9 +1300,9 @@ export default function HackathonCaseStudy({ params }: { params: Promise<{ id: s
           {/* Masked Container: Slides out from inside the bar from Left to Right */}
           <div className="overflow-hidden py-1">
             <motion.h2
-              initial={{ x: -160, opacity: 0 }}
+              initial={{ x: -120, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
-              viewport={{ once: true, amount: 0.6 }}
+              viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.85, ease: luxuryEase }}
               className="text-3xl sm:text-5xl md:text-6xl font-black text-white tracking-tight uppercase"
             >

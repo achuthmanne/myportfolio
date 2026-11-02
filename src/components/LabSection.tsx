@@ -85,51 +85,51 @@ const categories = [
     id: "web",
     label: "WEB",
     skills: [
-      { id: "react", name: "React + Vite", img: "/skills/vite.jpg", color: "#646cff", x: "8%", y: "10%", rotateX: 10, rotateY: -15, rotateZ: -5 },
-      { id: "next", name: "Next.js", img: "/skills/next.png", color: "#ffffff", x: "45%", y: "25%", rotateX: -10, rotateY: 20, rotateZ: 5 },
-      { id: "tailwind", name: "Tailwind CSS", img: "/skills/tailwind.png", color: "#38bdf8", x: "85%", y: "15%", rotateX: 15, rotateY: 10, rotateZ: -10 },
-      { id: "node", name: "Node.js", img: "/skills/node.png", color: "#22c55e", x: "22%", y: "65%", rotateX: -5, rotateY: -20, rotateZ: 8 },
-      { id: "express", name: "Express.js", img: "/skills/express.png", color: "#9ca3af", x: "70%", y: "75%", rotateX: 20, rotateY: -5, rotateZ: -12 },
+      { id: "react", name: "React + Vite", img: "/skills/vite.jpg", color: "#646cff", x: "8%", y: "10%", mobileX: "6%", mobileY: "8%", rotateX: 10, rotateY: -15, rotateZ: -5 },
+      { id: "next", name: "Next.js", img: "/skills/next.png", color: "#ffffff", x: "45%", y: "25%", mobileX: "36%", mobileY: "24%", rotateX: -10, rotateY: 20, rotateZ: 5 },
+      { id: "tailwind", name: "Tailwind CSS", img: "/skills/tailwind.png", color: "#38bdf8", x: "85%", y: "15%", mobileX: "66%", mobileY: "12%", rotateX: 15, rotateY: 10, rotateZ: -10 },
+      { id: "node", name: "Node.js", img: "/skills/node.png", color: "#22c55e", x: "22%", y: "65%", mobileX: "14%", mobileY: "62%", rotateX: -5, rotateY: -20, rotateZ: 8 },
+      { id: "express", name: "Express.js", img: "/skills/express.png", color: "#9ca3af", x: "70%", y: "75%", mobileX: "64%", mobileY: "66%", rotateX: 20, rotateY: -5, rotateZ: -12 },
     ]
   },
   {
     id: "mobile",
     label: "MOBILE",
     skills: [
-      { id: "rn", name: "React Native", img: "/skills/rn.jpg", color: "#00d8ff", x: "15%", y: "25%", rotateX: 10, rotateY: -15, rotateZ: -5 },
-      { id: "expo", name: "Expo", img: "/skills/expo.jpg", color: "#ffffff", x: "40%", y: "65%", rotateX: -10, rotateY: 10, rotateZ: 5 },
-      { id: "ts", name: "TypeScript", img: "/skills/ts.jpg", color: "#3178c6", x: "65%", y: "25%", rotateX: 15, rotateY: -10, rotateZ: -10 },
-      { id: "firebase", name: "Firebase", img: "/skills/firebase.jpg", color: "#ffca28", x: "85%", y: "65%", rotateX: -15, rotateY: -20, rotateZ: 10 },
+      { id: "rn", name: "React Native", img: "/skills/rn.jpg", color: "#00d8ff", x: "15%", y: "25%", mobileX: "10%", mobileY: "20%", rotateX: 10, rotateY: -15, rotateZ: -5 },
+      { id: "expo", name: "Expo", img: "/skills/expo.jpg", color: "#ffffff", x: "40%", y: "65%", mobileX: "26%", mobileY: "60%", rotateX: -10, rotateY: 10, rotateZ: 5 },
+      { id: "ts", name: "TypeScript", img: "/skills/ts.jpg", color: "#3178c6", x: "65%", y: "25%", mobileX: "60%", mobileY: "22%", rotateX: 15, rotateY: -10, rotateZ: -10 },
+      { id: "firebase", name: "Firebase", img: "/skills/firebase.jpg", color: "#ffca28", x: "85%", y: "65%", mobileX: "66%", mobileY: "58%", rotateX: -15, rotateY: -20, rotateZ: 10 },
     ]
   },
   {
     id: "ai",
     label: "AI & DATA",
     skills: [
-      { id: "gemini", name: "Google Gemini", img: "/skills/gemini.jpg", color: "#8b5cf6", x: "8%", y: "20%", rotateX: 15, rotateY: -15, rotateZ: 5 },
-      { id: "python", name: "Python", img: "/skills/python.jpg", color: "#facc15", x: "25%", y: "65%", rotateX: -10, rotateY: -10, rotateZ: -10 },
-      { id: "groq", name: "Groq", img: "/skills/groq.jpg", color: "#ef4444", x: "42%", y: "25%", rotateX: 20, rotateY: 10, rotateZ: -5 },
-      { id: "claude", name: "Claude", img: "/skills/claude.jpg", color: "#d97757", x: "58%", y: "70%", rotateX: -15, rotateY: 20, rotateZ: 5 },
-      { id: "postgres", name: "PostgreSQL", img: "/skills/postgres.jpg", color: "#3b82f6", x: "75%", y: "20%", rotateX: 5, rotateY: 25, rotateZ: 0 },
-      { id: "mongodb", name: "MongoDB", img: "/skills/mongodb.jpg", color: "#10b981", x: "90%", y: "60%", rotateX: -15, rotateY: -20, rotateZ: 10 },
+      { id: "gemini", name: "Google Gemini", img: "/skills/gemini.jpg", color: "#8b5cf6", x: "8%", y: "20%", mobileX: "6%", mobileY: "14%", rotateX: 15, rotateY: -15, rotateZ: 5 },
+      { id: "python", name: "Python", img: "/skills/python.jpg", color: "#facc15", x: "25%", y: "65%", mobileX: "14%", mobileY: "64%", rotateX: -10, rotateY: -10, rotateZ: -10 },
+      { id: "groq", name: "Groq", img: "/skills/groq.jpg", color: "#ef4444", x: "42%", y: "25%", mobileX: "38%", mobileY: "22%", rotateX: 20, rotateY: 10, rotateZ: -5 },
+      { id: "claude", name: "Claude", img: "/skills/claude.jpg", color: "#d97757", x: "58%", y: "70%", mobileX: "46%", mobileY: "66%", rotateX: -15, rotateY: 20, rotateZ: 5 },
+      { id: "postgres", name: "PostgreSQL", img: "/skills/postgres.jpg", color: "#3b82f6", x: "75%", y: "20%", mobileX: "64%", mobileY: "16%", rotateX: 5, rotateY: 25, rotateZ: 0 },
+      { id: "mongodb", name: "MongoDB", img: "/skills/mongodb.jpg", color: "#10b981", x: "90%", y: "60%", mobileX: "66%", mobileY: "44%", rotateX: -15, rotateY: -20, rotateZ: 10 },
     ]
   },
   {
     id: "cloud",
     label: "CLOUD / DEVOPS",
     skills: [
-      { id: "vercel", name: "Vercel", img: "/skills/vercel.jpg", color: "#ffffff", x: "15%", y: "25%", rotateX: -20, rotateY: 10, rotateZ: 15 },
-      { id: "render", name: "Render", img: "/skills/render.jpg", color: "#a8b1ff", x: "40%", y: "65%", rotateX: 15, rotateY: -10, rotateZ: 10 },
-      { id: "github", name: "GitHub", img: "/skills/github.jpg", color: "#a1a1aa", x: "65%", y: "25%", rotateX: -15, rotateY: 20, rotateZ: -5 },
-      { id: "aws", name: "AWS", img: "/skills/aws.jpg", color: "#f97316", x: "85%", y: "65%", rotateX: 10, rotateY: -20, rotateZ: 5 },
+      { id: "vercel", name: "Vercel", img: "/skills/vercel.jpg", color: "#ffffff", x: "15%", y: "25%", mobileX: "10%", mobileY: "20%", rotateX: -20, rotateY: 10, rotateZ: 15 },
+      { id: "render", name: "Render", img: "/skills/render.jpg", color: "#a8b1ff", x: "40%", y: "65%", mobileX: "26%", mobileY: "60%", rotateX: 15, rotateY: -10, rotateZ: 10 },
+      { id: "github", name: "GitHub", img: "/skills/github.jpg", color: "#a1a1aa", x: "65%", y: "25%", mobileX: "58%", mobileY: "22%", rotateX: -15, rotateY: 20, rotateZ: -5 },
+      { id: "aws", name: "AWS", img: "/skills/aws.jpg", color: "#f97316", x: "85%", y: "65%", mobileX: "66%", mobileY: "58%", rotateX: 10, rotateY: -20, rotateZ: 5 },
     ]
   },
   {
     id: "design",
     label: "DESIGN & TOOLS",
     skills: [
-      { id: "figma", name: "Figma", img: "/skills/figma.jpg", color: "#f24e1e", x: "30%", y: "50%", rotateX: -10, rotateY: 15, rotateZ: -5 },
-      { id: "vscode", name: "VS Code", img: "/skills/vscode.jpg", color: "#007acc", x: "60%", y: "30%", rotateX: 20, rotateY: -10, rotateZ: 10 },
+      { id: "figma", name: "Figma", img: "/skills/figma.jpg", color: "#f24e1e", x: "30%", y: "50%", mobileX: "18%", mobileY: "42%", rotateX: -10, rotateY: 15, rotateZ: -5 },
+      { id: "vscode", name: "VS Code", img: "/skills/vscode.jpg", color: "#007acc", x: "60%", y: "30%", mobileX: "56%", mobileY: "28%", rotateX: 20, rotateY: -10, rotateZ: 10 },
     ]
   }
 ];
@@ -141,7 +141,17 @@ interface LabSectionProps {
 export default function LabSection({ onComplete }: LabSectionProps) {
   const [activeCategory, setActiveCategory] = useState(categories[0].id);
   const [bursts, setBursts] = useState<any[]>([]);
+  const [isMobile, setIsMobile] = useState(false);
   
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   // Track which categories the user has clicked
   const [viewedCategories, setViewedCategories] = useState<Set<string>>(new Set([categories[0].id]));
   const containerRef = useRef<HTMLElement>(null);
@@ -168,8 +178,8 @@ export default function LabSection({ onComplete }: LabSectionProps) {
     if (oldCat) {
       const newBursts = oldCat.skills.map(s => ({
         id: s.id + "-" + Date.now(),
-        x: s.x,
-        y: s.y,
+        x: isMobile && s.mobileX ? s.mobileX : s.x,
+        y: isMobile && s.mobileY ? s.mobileY : s.y,
         color: s.color
       }));
       setBursts(prev => [...prev, ...newBursts]);
@@ -188,19 +198,19 @@ export default function LabSection({ onComplete }: LabSectionProps) {
     <section ref={containerRef} id="lab-section" className="relative w-full min-h-screen bg-transparent text-white overflow-hidden z-20">
       
       {/* Sleek, Minimalist Section Heading & Navigation */}
-      <div className="absolute top-16 left-0 w-full flex flex-col items-center z-30">
+      <div className="absolute top-8 md:top-16 left-0 w-full flex flex-col items-center z-30">
         <div className="text-center pointer-events-none">
-          <h2 className="text-4xl md:text-5xl font-black tracking-tight text-white mb-3">
+          <h2 className="text-4xl md:text-5xl font-black tracking-tight text-white mb-2 md:mb-3">
             THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-400">LAB</span>
           </h2>
-          <p className="text-gray-400 text-sm md:text-base font-light tracking-[0.2em] uppercase mb-8">
+          <p className="text-gray-400 text-xs sm:text-sm md:text-base font-light tracking-[0.15em] sm:tracking-[0.2em] uppercase mb-4 md:mb-8">
             Tools I use to engineer digital experiences
           </p>
         </div>
 
         {/* Pure Black & White Category Navigation */}
         <div className="w-full max-w-4xl px-4">
-          <div className="flex items-center justify-start md:justify-center gap-2 overflow-x-auto no-scrollbar pb-4">
+          <div className="flex items-center justify-start md:justify-center gap-2 overflow-x-auto no-scrollbar pb-3 md:pb-4">
             <div className="flex items-center gap-2 p-1.5 bg-[#111] border border-white/10 rounded-full shadow-2xl">
               {categories.map((cat) => {
                 const isViewed = viewedCategories.has(cat.id);
@@ -225,7 +235,7 @@ export default function LabSection({ onComplete }: LabSectionProps) {
       </div>
 
       {/* Scattered Floating Nodes Container */}
-      <div className="relative w-full h-[calc(100vh-250px)] max-w-[1200px] mx-auto z-10 mt-[220px]">
+      <div className="relative w-full h-[calc(100vh-250px)] max-w-[1200px] mx-auto z-10 mt-[180px] md:mt-[220px]">
         {/* Magic 3D Canvas Background */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           <Canvas orthographic camera={{ position: [0, 0, 100], zoom: 1 }}>
@@ -252,8 +262,8 @@ export default function LabSection({ onComplete }: LabSectionProps) {
                 transition={{ delay: index * 0.1, type: "spring", stiffness: 80 }}
                 className="absolute group z-10 hover:z-[100]"
                 style={{
-                  left: skill.x,
-                  top: skill.y,
+                  left: isMobile && skill.mobileX ? skill.mobileX : skill.x,
+                  top: isMobile && skill.mobileY ? skill.mobileY : skill.y,
                 }}
               >
                 {/* Floating Animation (Always floating) */}
@@ -264,7 +274,7 @@ export default function LabSection({ onComplete }: LabSectionProps) {
                 >
                   {/* 3D Icon Container (Rotates in 3D, flattens on hover) */}
                   <div 
-                    className="relative w-24 h-24 md:w-36 md:h-36 bg-[#0a0a0a]/80 backdrop-blur-sm rounded-[32px] flex items-center justify-center border border-white/5 shadow-2xl overflow-hidden transition-all duration-300 group-hover:border-white/20 group-hover:!transform-none"
+                    className="relative w-[68px] h-[86px] sm:w-[84px] sm:h-[102px] md:w-36 md:h-36 bg-[#0a0a0a]/80 backdrop-blur-sm rounded-2xl md:rounded-[32px] flex items-center justify-center border border-white/5 shadow-2xl overflow-hidden transition-all duration-300 group-hover:border-white/20 group-hover:!transform-none"
                     style={{
                       perspective: "1000px",
                       transformStyle: "preserve-3d",

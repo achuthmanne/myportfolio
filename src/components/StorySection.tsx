@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Play } from "lucide-react";
@@ -110,10 +111,10 @@ export default function StorySection({ isCompiled, onCompile }: StorySectionProp
   }, [isTypingDone]);
 
   return (
-    <section id="story" ref={containerRef} className="relative min-h-screen w-full bg-transparent flex flex-col items-center justify-center py-20 px-4 md:px-10 z-10" style={{ perspective: 2500 }}>
+    <section id="story" ref={containerRef} className="relative min-h-screen w-full bg-transparent flex flex-col items-center justify-center py-10 md:py-20 px-4 md:px-10 z-10" style={{ perspective: 2500 }}>
       
       {/* Grid Overlay for Seamless 3D Flip without size constraints */}
-      <div className="w-full grid [grid-template-areas:'stack'] place-items-center mt-8 sm:mt-12" style={{ perspective: 2200 }}>
+      <div className="w-full grid [grid-template-areas:'stack'] place-items-center mt-4 sm:mt-12" style={{ perspective: 2200 }}>
         <AnimatePresence mode="wait">
           {!isCompiled ? (
             <motion.div 
@@ -235,16 +236,33 @@ export default function StorySection({ isCompiled, onCompile }: StorySectionProp
                       <p>
                         Learning AI changed the way I think about development. Today, I turn ideas into creative web experiences — interfaces that feel intentional, interactive, and alive.
                       </p>
-                      <div className="pt-4 border-t border-white/10 mt-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                      <div className="pt-5 border-t border-white/10 mt-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <p className="text-white font-bold uppercase tracking-widest text-xs sm:text-sm">
                           There’s always something new to build.
                         </p>
-                        <a 
+                        <Link 
                           href="/story"
-                          className="text-xs sm:text-sm text-[#FF85A1] hover:underline font-medium cursor-pointer"
+                          className="group relative inline-flex items-center justify-center gap-2.5 px-5 py-3 sm:py-2.5 rounded-none border border-white/40 hover:border-white bg-[#0A0A0A] overflow-hidden text-xs sm:text-sm font-medium transition-all duration-300 active:scale-95 cursor-pointer w-full sm:w-fit select-none shrink-0"
                         >
-                          Read full journey &rarr;
-                        </a>
+                          <span className="relative z-10 text-white group-hover:text-black transition-colors duration-300 flex items-center justify-center gap-2.5 w-full">
+                            <span>Read my journey</span>
+                            <svg 
+                              className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" 
+                              viewBox="0 0 16 16" 
+                              fill="none" 
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path 
+                                d="M2 8H13.5M13.5 8L8.5 3M13.5 8L8.5 13" 
+                                stroke="currentColor" 
+                                strokeWidth="1.75" 
+                                strokeLinecap="square" 
+                                strokeLinejoin="miter"
+                              />
+                            </svg>
+                          </span>
+                          <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out pointer-events-none" />
+                        </Link>
                       </div>
                    </div>
                 </div>

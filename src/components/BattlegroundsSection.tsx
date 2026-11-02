@@ -24,18 +24,18 @@ export default function BattlegroundsSection() {
   const [selectedHackathon, setSelectedHackathon] = useState<string | null>(null);
 
   return (
-    <section id="battlegrounds-section" className="relative w-full min-h-[130vh] mt-32 md:mt-48 flex flex-col items-center justify-start bg-transparent text-white py-24 overflow-hidden">
+    <section id="battlegrounds-section" className="relative w-full min-h-[140vh] md:min-h-[130vh] mt-8 md:mt-48 flex flex-col items-center justify-start bg-transparent text-white pt-4 pb-8 md:py-24 overflow-hidden">
       
       {/* The 3D Wire Background */}
       <HackathonWire onCardClick={(id) => setSelectedHackathon(id)} />
 
       {/* Sleek, Minimalist Section Heading */}
-      <div className="w-full flex flex-col items-center z-30 mb-8 md:mb-16 relative">
+      <div className="w-full flex flex-col items-center z-30 mb-0 md:mb-16 relative">
         <div className="text-center pointer-events-none px-4">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white mb-2 sm:mb-3">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white mb-1 sm:mb-3">
             THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-400">BATTLEGROUNDS</span>
           </h2>
-          <p className="text-gray-400 text-xs sm:text-sm md:text-base font-light tracking-[0.15em] sm:tracking-[0.2em] uppercase mb-6 sm:mb-8">
+          <p className="text-gray-400 text-xs sm:text-sm md:text-base font-light tracking-[0.15em] sm:tracking-[0.2em] uppercase mb-0 md:mb-8">
             Sleepless nights, crazy deadlines, and rapid innovation
           </p>
         </div>

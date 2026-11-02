@@ -278,9 +278,9 @@ export default function Home() {
       <StorySection isCompiled={isCompiled} onCompile={() => setIsCompiled(true)} />
 
       {/* TOOLS SECTION (Morphing Particles Scroll Trigger Area) */}
-      {/* Scroll is completely locked until isCompiled is true, because this section doesn't exist in the DOM until then! */}
+      {/* Optimized scroll height: fast & snappy on mobile (460vh), cinematic on desktop (1600vh) */}
       {isCompiled && (
-        <section id="tools-section" className="relative h-[1800vh] w-full flex flex-col items-center justify-start pointer-events-none z-10" />
+        <section id="tools-section" className="relative h-[460vh] md:h-[1600vh] w-full flex flex-col items-center justify-start pointer-events-none z-10" />
       )}
 
       {/* LAB SECTION (Technical Playground) */}
