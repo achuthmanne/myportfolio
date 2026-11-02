@@ -182,7 +182,7 @@ export default function Home() {
           <section className="panel w-[100vw] h-full flex flex-col items-center justify-center text-center px-4 sm:px-6 relative">
             
             {/* Folder Shape Border */}
-            <div className="folder-border absolute inset-0 mx-3 my-16 sm:mx-8 sm:my-20 md:mx-10 md:my-28 pointer-events-none flex flex-col">
+            <div className="folder-border absolute inset-0 mx-5 mt-24 mb-14 sm:mx-8 sm:mt-26 sm:mb-18 md:mx-10 md:my-28 pointer-events-none flex flex-col">
               {/* Top Row: Tab (Left) + Top Border Line (Right) */}
               <div className="flex h-8 sm:h-10 md:h-12 w-full">
                 {/* Folder Tab */}
@@ -224,7 +224,7 @@ export default function Home() {
             <section key={step.id} className="panel w-[100vw] h-full flex items-center justify-center relative px-6 sm:px-12 md:px-20">
               
               {/* Folder Shape Border */}
-              <div className="folder-border absolute inset-0 mx-3 my-16 sm:mx-8 sm:my-20 md:mx-10 md:my-28 pointer-events-none flex flex-col">
+              <div className="folder-border absolute inset-0 mx-5 mt-24 mb-14 sm:mx-8 sm:mt-26 sm:mb-18 md:mx-10 md:my-28 pointer-events-none flex flex-col">
                 {/* Top Row: Tab (Left) + Top Border Line (Right) */}
                 <div className="flex h-8 sm:h-10 md:h-12 w-full">
                   {/* Folder Tab */}
@@ -258,7 +258,7 @@ export default function Home() {
                 </div>
 
                 {/* Text Context */}
-                <div className="w-full md:w-2/5 flex flex-col items-start text-left z-20 px-2 sm:px-0">
+                <div className="w-full md:w-2/5 flex flex-col items-start text-left z-20 px-8 sm:px-10 md:px-0">
                   <div className="text-3xl sm:text-5xl md:text-6xl font-black text-border mb-1 sm:mb-2 md:mb-4 opacity-50">{String(i + 1).padStart(2, '0')}</div>
                   <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 tracking-tight text-white drop-shadow-md">
                     {step.title}
